@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <Navbar />
       <IsAnon> <Signup /> </IsAnon>
-      <IsAnon> <Login/> </IsAnon>
+      {/* <IsAnon> <Login/> </IsAnon> */}
 
       <Routes>      
         
