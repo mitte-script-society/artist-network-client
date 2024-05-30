@@ -32,7 +32,10 @@ function Signup(props) {
         // console.log("response is: ", response);
         // response carries "fileUrl" which we can use to update the state
         // setImageUrl(response.fileUrl); **** This is the original code because the funciton is in the same file as the form
-        setPicture( response.fileUrl)
+        
+        const newObject = {... newUser};
+        newObject.picture = response.fileUrl;
+        setNewUser(newObject)
         return 
     })
     .catch(err => console.log("Error while uploading the file: ", err));    
@@ -45,8 +48,6 @@ function Signup(props) {
     const newObject = { ...newUser };
     newObject.isArtist = isArtistChecked
     setNewUser(newObject)
-    console.log(newUser)
-
   }
 
   // new change handler
@@ -62,10 +63,10 @@ function Signup(props) {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
+    console.log("Objeto enviado:", newUser)
 
     // Create an object representing the request body
     // const requestBody = { email, password, name };
-    console.log(newUser)
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
@@ -146,7 +147,7 @@ function Signup(props) {
                   <button type="button" className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button>
                 </div>
               </div>
-              {/* <input type="file" onChange={handleImage} /> */}
+              <input type="file" onChange={handleImage} />
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
