@@ -11,7 +11,6 @@ function Signup(props) {
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
-
   
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -28,7 +27,8 @@ function Signup(props) {
     // If the request resolves with an error, set the error message in the state
     axios.post(`${API_URL}/auth/signup`, requestBody)
       .then((response) => {
-       // navigate("/login");
+       navigate("/login");
+
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -60,6 +60,7 @@ function Signup(props) {
     //   <Link to={"/login"}> Login</Link>
     // </div>
 
+<>
 <form className="max-w-3xl m-auto p-2" onSubmit={handleSignupSubmit}t>
   <div className="space-y-12">
     <div className="border-b border-gray-900/10 pb-12">
@@ -71,7 +72,7 @@ function Signup(props) {
           <div className="mt-2">
             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-              <input type="text" name="username" id="username" autocomplete="username" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
+              <input type="text" name="name" id="name" autocomplete="name" value={name} onChange={handleName} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
             </div>
           </div>
         </div>
@@ -81,14 +82,14 @@ function Signup(props) {
         <div className="sm:col-span-4">
           <label for="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div className="mt-2">
-            <input id="email" name="email" type="email" autocomplete="email" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
+            <input id="email" name="email" type="email" value={email} onChange={handleEmail} autocomplete="email" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
           </div>
         </div>
 
         <div className="sm:col-span-4">
           <label for="email" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
           <div className="mt-2">
-            <input id="password" name="password" type="password" autocomplete="password" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
+            <input id="password" name="password" type="password" value={password} onChange={handlePassword} autocomplete="password" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
           </div>
         </div>
 
@@ -280,6 +281,10 @@ function Signup(props) {
     <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
   </div>
 </form>
+{ errorMessage && <p className="error-message">{errorMessage}</p> }
+</>
+
+
 
 
 
