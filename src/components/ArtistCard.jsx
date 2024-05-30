@@ -1,9 +1,13 @@
 import "../styles/ArtistCard.css"
 import image from "../assets/artist2.jpg"
+import { AuthContext } from "../context/auth.context";
+import { useContext } from "react";
 
-export default function ArtistCard() {
 
-  //Required elements: isLogged. 
+export default function ArtistCard({setShowLogIn}) {
+  const { isLoggedIn, user } = useContext(AuthContext);
+
+  //Required elements: isLogged.  
 
   let object = {
   city: "Dresden",
@@ -22,17 +26,19 @@ export default function ArtistCard() {
   _id: "alfaksfadfdkasl"
   }
 
-  function handleBook () {
-    console.log("Logic for booking")
-    //if logged in => sendRequets? 
-    //if not logged in => Activate SignUp Window 
+  function handleBook () {  
+    if (isLoggedIn) {
+      console.log("Logic to book the artist, using the info stored in user:", user)
+      console.log("Maybe here we can call the logic to Create a Concert")
+    } else {
+    setShowLogIn(true)
+    }
   }
   
   function handleDetails() {
     window.open(`/see-artist/${object._id}`, '_blank');
   }
   
-
   return(
     <div className="concert-card">
       <img src={image}/>
