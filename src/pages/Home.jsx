@@ -1,3 +1,4 @@
+import DisplayConcerts from "../components/DiplayConcerts"
 import Login from "./Login"
 import Signup from "./Signup"
 
@@ -8,6 +9,7 @@ export default function Home() {
     <h1>Home Page</h1>
     {/* <Login/> */}
     {/* <Signup/> */}
+    <DisplayConcerts/>
   
     </>
 

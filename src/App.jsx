@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import BookConcert from "./pages/BookConcert";
+import SeeArtists from "./pages/SeeArtists";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
     
       <Routes>      
         <Route path="/" element={<Home/>} />
+        <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/concerts/book" element={<BookConcert/>} />

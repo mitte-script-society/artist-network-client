@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import '../styles/DisplayElements.css'
+import '../styles/DisplayArtists.css'
+import ArtistCard from './ArtistCard';
 
-
-export default function DisplayConcerts() {
+export default function DisplayArtists() {
   
-  const arrayToShow = new Array(50).fill(undefined);
-
+  const arrayToShow = new Array(30).fill(undefined);
+  
   return (
     <div id='display-elements'>
      
@@ -19,7 +18,7 @@ export default function DisplayConcerts() {
 
           return (
             <div className='item-list' key={index}> 
-              {element}
+              <ArtistCard/>
             </div>
           )
         } ) }

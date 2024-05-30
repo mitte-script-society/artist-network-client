@@ -1,0 +1,27 @@
+
+.concert-card {
+  
+
+}
+
+.concert-card img {
+  height: 50%;
+  border-radius: 10px;
+}
+
+#card-concert-buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+.concert-card button {
+  width: 100px;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: rgb(116, 41, 255);
+  color: white;
+
+
+
+}
