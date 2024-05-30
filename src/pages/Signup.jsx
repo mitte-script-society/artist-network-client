@@ -8,24 +8,43 @@ function Signup(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isGroupChecked, setIsGroupChecked] = useState(false)
+  const [isArtistChecked, setIsArtistChecked] = useState(true)
   const [errorMessage, setErrorMessage] = useState(undefined);
+
 
   const navigate = useNavigate();
   
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
-  const handleName = (e) => setName(e.target.value);
+  // const handleEmail = (e) => setEmail(e.target.value);
+  // const handlePassword = (e) => setPassword(e.target.value);
+  // const handleName = (e) => setName(e.target.value);
 
+
+  const handleIsGroup = (e) => setIsGroupChecked(!isGroupChecked)
+  const handleIsArtist = (e) => setIsArtistChecked(!isArtistChecked)
+
+  // new change handler
+
+  const [newUser, setNewUser] = useState({});
+
+  const handleChange = (e) => {
+      const newObject = {...newUser}; 
+      newObject[e.target.name] = e.target.value;
+      newObject.isArtist = isArtistChecked
+      newObject.moreThanOne = isGroupChecked
+      setNewUser(newObject)
+      console.log(newUser)
+  }
   
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     // Create an object representing the request body
-    const requestBody = { email, password, name };
+    // const requestBody = { email, password, name };
 
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
-    axios.post(`${API_URL}/auth/signup`, requestBody)
+    axios.post(`${API_URL}/auth/signup`, newUser)
       .then((response) => {
        navigate("/login");
 
@@ -72,7 +91,7 @@ function Signup(props) {
           <div className="mt-2">
             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-              <input type="text" name="name" id="name" autocomplete="name" value={name} onChange={handleName} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
+              <input type="text" name="name" id="name" autocomplete="name" onChange={handleChange} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
             </div>
           </div>
         </div>
@@ -82,14 +101,14 @@ function Signup(props) {
         <div className="sm:col-span-4">
           <label for="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div className="mt-2">
-            <input id="email" name="email" type="email" value={email} onChange={handleEmail} autocomplete="email" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
+            <input id="email" name="email" type="email" onChange={handleChange} autocomplete="email" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
           </div>
         </div>
 
         <div className="sm:col-span-4">
           <label for="email" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
           <div className="mt-2">
-            <input id="password" name="password" type="password" value={password} onChange={handlePassword} autocomplete="password" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
+            <input id="password" name="password" type="password" onChange={handleChange} autocomplete="password" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
           </div>
         </div>
 
@@ -106,7 +125,7 @@ function Signup(props) {
         <div className="sm:col-span-2 sm:col-start-1">
           <label for="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
           <div className="mt-2">
-            <input type="text" name="city" id="city" autocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+            <input type="text" name="city" id="city" onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
           </div>
         </div>
   
@@ -115,10 +134,10 @@ function Signup(props) {
           <div className="mt-6 space-y-6">
             <div className="relative flex gap-x-3">
               <div className="flex h-6 items-center">
-                <input id="comments" name="comments" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                <input id="isArtist" name="isArtist" type="checkbox" value={isArtistChecked} onChange={handleIsArtist} className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
               </div>
               <div className="text-sm leading-6">
-                <label for="comments" className="font-medium text-gray-900">Register as Artist</label>
+                <label for="isArtist" className="font-medium text-gray-900">Register as Artist</label>
                 <p className="text-gray-500">Note: You will need provide additional information to be listed as artist</p>
               </div>
             </div>
@@ -162,11 +181,11 @@ function Signup(props) {
         <fieldset>
           <div className="mt-6 space-y-6">
             <div className="flex items-center gap-x-3">
-              <input id="push-everything" name="push-notifications" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+              <input id="push-everything" name="isGroup" type="radio" onChange={handleIsGroup} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
               <label for="push-everything" className="block text-sm font-medium leading-6 text-gray-900">I am a solo artist</label>
             </div>
             <div className="flex items-center gap-x-3">
-              <input id="push-email" name="push-notifications" type="radio" className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+              <input id="push-email" name="isGroup" type="radio" onChange={handleIsGroup} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
               <label for="push-email" className="block text-sm font-medium leading-6 text-gray-900">We are a group</label>
             </div>
           </div>
@@ -174,11 +193,11 @@ function Signup(props) {
       </div>
 
       <div className="sm:col-span-4">
-          <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">Group Name</label>
+          <label for="groupName" className="block text-sm font-medium leading-6 text-gray-900">Group Name</label>
           <div className="mt-2">
             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-              <input type="text" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Berlin Rockstars"/>
+              <input type="text" name="groupName" id="groupName" onChange={handleChange} autocomplete="groupName" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Berlin Rockstars"/>
             </div>
           </div>
         </div>
@@ -188,16 +207,16 @@ function Signup(props) {
         <div className="mt-2">
           <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
             {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-            <input type="text" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Mary, John, Otto, ..."/>
+            <input type="text" name="artistMembers" id="artistMembers" onChange={handleChange} autocomplete="artistMembers" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Mary, John, Otto, ..."/>
           </div>
         </div>
       </div>
 
 
         <div className="col-span-full">
-          <label for="about" className="block text-sm font-medium leading-6 text-gray-900">Description / Bio</label>
+          <label for="artistDescription" className="block text-sm font-medium leading-6 text-gray-900">Description / Bio</label>
           <div className="mt-2">
-            <textarea id="about" name="about" rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+            <textarea id="artistDescription" name="artistDescription" onChange={handleChange} rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
           </div>
           <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
         </div>
@@ -207,7 +226,7 @@ function Signup(props) {
         <div className="mt-2">
           <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
             {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-            <input type="number" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"/>
+            <input type="number" name="artistFee" id="artistFee" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"/>
           </div>
         </div>
       </div>
@@ -232,21 +251,21 @@ function Signup(props) {
         </div>
 
         <div className="sm:col-span-4">
-        <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">YouTube Video Link</label>
+        <label for="artistVideos" className="block text-sm font-medium leading-6 text-gray-900">YouTube Video Link</label>
         <div className="mt-2">
           <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
             {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-            <input type="url" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="https://www.youtube.com/watch?v=pcVRrlmpcWk"/>
+            <input type="url" name="artistVideos" id="artistVideos" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="https://www.youtube.com/watch?v=pcVRrlmpcWk"/>
           </div>
         </div>
       </div>
 
       <div className="sm:col-span-4">
-        <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">Spotify Track Link</label>
+        <label for="artistAudio" className="block text-sm font-medium leading-6 text-gray-900">Spotify Track Link</label>
         <div className="mt-2">
           <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
             {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-            <input type="url" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="https://open.spotify.com/track/5jTnYArqmGHFXpi7v4bjoa"/>
+            <input type="url" name="artistAudio" id="artistAudio" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="https://open.spotify.com/track/5jTnYArqmGHFXpi7v4bjoa"/>
           </div>
         </div>
       </div>
@@ -256,7 +275,7 @@ function Signup(props) {
         <div className="mt-2">
           <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
             {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-            <input type="url" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="www.berlin-rockstars.com"/>
+            <input type="url" name="artistWebsite" id="artistWebsite" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="www.berlin-rockstars.com"/>
           </div>
         </div>
       </div>
@@ -267,7 +286,7 @@ function Signup(props) {
         <div className="mt-2">
           <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
             {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-            <input type="text" name="groupname" id="groupname" autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Rock, Pop, Indie, ..."/>
+            <input type="text" name="artistGenres" id="artistGenres" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Rock, Pop, Indie, ..."/>
           </div>
         </div>
       </div>
