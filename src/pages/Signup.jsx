@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import uploadImage from "../services/file-upload.service";
 
 const API_URL = "http://localhost:5005";
 
@@ -8,6 +9,7 @@ function Signup(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [picture, setPicture] = useState(undefined)
   const [isArtistChecked, setIsArtistChecked] = useState(false)
   const [isGroupChecked, setIsGroupChecked] = useState(false)
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -19,6 +21,22 @@ function Signup(props) {
   // const handlePassword = (e) => setPassword(e.target.value);
   // const handleName = (e) => setName(e.target.value);
 
+  const handleImage = (e) => {
+    const uploadData = new FormData();
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new movie in '/api/movies' POST route
+    uploadData.append("imageUrl", e.target.files[0]);
+    
+    uploadImage(uploadData)
+      .then(response => {
+        // console.log("response is: ", response);
+        // response carries "fileUrl" which we can use to update the state
+        // setImageUrl(response.fileUrl); **** This is the original code because the funciton is in the same file as the form
+        setPicture( response.fileUrl)
+        return 
+    })
+    .catch(err => console.log("Error while uploading the file: ", err));    
+  }
 
   const handleIsGroup = (e) => setIsGroupChecked(!isGroupChecked)
   const handleIsArtist = (e) => {
@@ -128,6 +146,7 @@ function Signup(props) {
                   <button type="button" className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button>
                 </div>
               </div>
+              {/* <input type="file" onChange={handleImage} /> */}
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
