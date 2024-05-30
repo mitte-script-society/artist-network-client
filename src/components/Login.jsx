@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
-function LoginPage(props) {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -24,13 +24,11 @@ function LoginPage(props) {
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        console.log("JWT token", response.data.authToken);
-
         storeToken(response.data.authToken);
         authenticateUser();
-        //navigate("/");
+        
       })
-      .catch((error) => {
+     .catch((error) => {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
@@ -62,4 +60,4 @@ function LoginPage(props) {
   );
 }
 
-export default LoginPage;
+export default Login;
