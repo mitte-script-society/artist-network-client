@@ -4,8 +4,8 @@ import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 
 
-export default function ArtistCard({setShowLogIn}) {
-  const { isLoggedIn, user } = useContext(AuthContext);
+export default function ArtistCard() {
+  const { isLoggedIn, user, setIsLogInWindow } = useContext(AuthContext);
 
   //Required elements: isLogged.  
 
@@ -31,7 +31,7 @@ export default function ArtistCard({setShowLogIn}) {
       console.log("Logic to book the artist, using the info stored in user:", user)
       console.log("Maybe here we can call the logic to Create a Concert")
     } else {
-    setShowLogIn(true)
+      setIsLogInWindow(true)
     }
   }
   

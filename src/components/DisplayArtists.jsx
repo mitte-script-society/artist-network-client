@@ -1,7 +1,7 @@
 import '../styles/DisplayArtists.css'
 import ArtistCard from './ArtistCard';
 
-export default function DisplayArtists({setShowLogIn}) {
+export default function DisplayArtists() {
   
   const arrayToShow = new Array(30).fill(undefined);
   
@@ -18,7 +18,7 @@ export default function DisplayArtists({setShowLogIn}) {
 
           return (
             <div className='item-list' key={index}> 
-              <ArtistCard setShowLogIn={setShowLogIn}/>
+              <ArtistCard />
             </div>
           )
         } ) }

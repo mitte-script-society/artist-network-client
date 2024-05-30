@@ -10,11 +10,11 @@ function Login( {turnOff}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const navigate = useNavigate();
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+
+  const { storeToken, authenticateUser, setIsLogInWindow } = useContext(AuthContext);
 
   const handleClose = () => {
-    turnOff(false)
+    setIsLogInWindow(false)
   }
   
   const handleEmail = (e) => setEmail(e.target.value);
@@ -29,6 +29,7 @@ function Login( {turnOff}) {
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
+        setIsLogInWindow(false)
         
       })
      .catch((error) => {
