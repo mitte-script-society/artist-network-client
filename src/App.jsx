@@ -10,6 +10,7 @@ import BookConcert from "./pages/BookConcert";
 import SeeArtists from "./pages/SeeArtists";
 import { useContext } from "react";
 import { AuthContext } from "./context/auth.context";
+import EditUser from "./pages/EditUser";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
+        <Route path="/edit-user/" element={<IsPrivate> <EditUser/> </IsPrivate>} />
         <Route path="/concerts/book" element={<BookConcert/>} />
         <Route path="/user" element={<IsPrivate> <User/> </IsPrivate>} />
       </Routes>
