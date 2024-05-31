@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link} from "react-router-dom";
 import axios from "axios";
 import uploadImage from "../services/file-upload.service";
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
@@ -11,8 +12,7 @@ function Signup(props) {
   const [showGroupFields, setShowGroupFields] = useState(false) // this is set to false on first render by UseEffect
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [newUser, setNewUser] = useState({});
-
-  const navigate = useNavigate();
+  const { storeToken, authenticateUser} = useContext(AuthContext)
 
   // const handleEmail = (e) => setEmail(e.target.value);
   // const handlePassword = (e) => setPassword(e.target.value);
@@ -53,7 +53,6 @@ function Signup(props) {
   }
 
 useEffect(() => {
-
   const newObject = { ...newUser };
   newObject.isArtist = isArtistChecked
   setNewUser(newObject)
@@ -72,7 +71,6 @@ useEffect(() => {
     setNewUser(newObject)
     if(isGroupChecked == 1) setShowGroupFields(true)
     if(isGroupChecked == 0) setShowGroupFields(false)
-
   }, [isGroupChecked])
 
   // new change handler
@@ -87,8 +85,6 @@ useEffect(() => {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    console.log("Objeto enviado:", newUser)
-
     // Create an object representing the request body
     // const requestBody = { email, password, name };
     // Make an axios request to the API
@@ -96,8 +92,12 @@ useEffect(() => {
     // If the request resolves with an error, set the error message in the state
     axios.post(`${API_URL}/auth/signup`, newUser)
       .then((response) => {
-        navigate("/login");
-
+        console.log(response.data)
+        return axios.post(`${API_URL}/auth/login`, response.data)
+      })
+      .then((response) => {
+        storeToken(response.data.authToken);
+        authenticateUser();
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -107,26 +107,6 @@ useEffect(() => {
 
 
   return (
-    // <div className="SignupPage">
-    //   <h1>Sign Up</h1>
-
-    //   <form onSubmit={handleSignupSubmit}>
-    //     <label>Email:</label>
-    //     <input type="email" name="email" value={email} onChange={handleEmail} />
-
-    //     <label>Password:</label>
-    //     <input type="password" name="password" value={password} onChange={handlePassword} />
-
-    //     <label>Name:</label>
-    //     <input type="text" name="name" value={name} onChange={handleName} />
-
-    //     <button type="submit">Sign Up</button>
-    //   </form>
-
-    //   { errorMessage && <p className="error-message">{errorMessage}</p> }
-
-    // </div>
-
     <>
       <form className="max-w-3xl m-auto p-2" onSubmit={handleSignupSubmit} t>
         <div className="space-y-12">
