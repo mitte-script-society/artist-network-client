@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import uploadImage from "../services/file-upload.service";
 
 const API_URL = "http://localhost:5005";
 
 function BookConcert(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
   const [isPublic, setIsPublic] = useState(false)
   const [city, setCity] = useState("");
   const [date, setDate] = useState("");
@@ -15,6 +16,7 @@ function BookConcert(props) {
   // get artist from params and host/user from context
   const artist = "123"
   const host = "456"
+  const image = "https://wwww.123.com/abc.png"
 
   const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -23,6 +25,26 @@ function BookConcert(props) {
   // const handleEmail = (e) => setEmail(e.target.value);
   // const handlePassword = (e) => setPassword(e.target.value);
   // const handleName = (e) => setName(e.target.value);
+
+  const handleImage = (e) => {
+    const uploadData = new FormData();
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new movie in '/api/movies' POST route
+    uploadData.append("imageUrl", e.target.files[0]);
+    
+    uploadImage(uploadData)
+      .then(response => {
+        // console.log("response is: ", response);
+        // response carries "fileUrl" which we can use to update the state
+        // setImageUrl(response.fileUrl); **** This is the original code because the funciton is in the same file as the form
+        setPicture( response.fileUrl)
+        const newObject = { ...newUser };
+        newObject.picture = picture
+        setNewUser(newObject)
+        return 
+    })
+    .catch(err => console.log("Error while uploading the file: ", err));    
+  }
 
   const handleIsPublic = (e) => {
     setIsPublic(!isPublic)
@@ -39,7 +61,7 @@ function BookConcert(props) {
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
-    axios.post(`${API_URL}/concert/`, requestBody)
+    axios.post(`${API_URL}/concert`, requestBody)
       .then((response) => {
         navigate("/login");
 
