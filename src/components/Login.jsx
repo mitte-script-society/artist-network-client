@@ -6,7 +6,7 @@ import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
-function Login( {turnOff}) {
+function Login( ) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -40,6 +40,7 @@ function Login( {turnOff}) {
 
   return (
     <div className="fixed-background-windows">
+     
       <div className="LoginPage">
         <button onClick={handleClose}>Close</button>
 
@@ -64,6 +65,7 @@ function Login( {turnOff}) {
         <p>Don't have an account yet?</p>
         <Link to={"/signup"}> Sign Up</Link>
       </div>
+      
     </div>
   );
 }

@@ -91,9 +91,12 @@ useEffect(() => {
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     axios.post(`${API_URL}/auth/signup`, newUser)
-      .then((response) => {
-        console.log(response.data)
-        return axios.post(`${API_URL}/auth/login`, response.data)
+      .then(() => {
+        const body = {
+          email: newUser.email,
+          password: newUser.password
+        }
+        return axios.post(`${API_URL}/auth/login`, body)
       })
       .then((response) => {
         storeToken(response.data.authToken);
