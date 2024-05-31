@@ -27,7 +27,7 @@ function App() {
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
-        <Route path="/concerts/book" element={<BookConcert/>} />
+        <Route path="/concerts/book/:artistId" element={<IsPrivate><BookConcert/></IsPrivate>} />
         <Route path="/user" element={<IsPrivate> <User/> </IsPrivate>} />
       </Routes>
 
