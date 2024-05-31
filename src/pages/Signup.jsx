@@ -9,7 +9,7 @@ const API_URL = "http://localhost:5005";
 function Signup(props) {
   const [isArtistChecked, setIsArtistChecked] = useState(false)
   const [isGroupChecked, setIsGroupChecked] = useState(0)
-  const [showGroupFields, setShowGroupFields] = useState(false) // this is set to false on first render by UseEffect
+  const [showGroupFields, setShowGroupFields] = useState(false)
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [newUser, setNewUser] = useState({});
   const { storeToken, authenticateUser} = useContext(AuthContext)
