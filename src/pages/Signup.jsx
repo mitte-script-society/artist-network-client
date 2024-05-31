@@ -7,8 +7,8 @@ const API_URL = "http://localhost:5005";
 
 function Signup(props) {
   const [isArtistChecked, setIsArtistChecked] = useState(false)
-  const [isGroupChecked, setIsGroupChecked] = useState(false)
-  const [showGroupFields, setShowGroupFields] = useState(true) // this is set to false on first render by UseEffect
+  const [isGroupChecked, setIsGroupChecked] = useState(0)
+  const [showGroupFields, setShowGroupFields] = useState(false) // this is set to false on first render by UseEffect
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [newUser, setNewUser] = useState({});
 
@@ -70,7 +70,9 @@ useEffect(() => {
     const newObject = { ...newUser };
     newObject.isArtist = isGroupChecked
     setNewUser(newObject)
-    setShowGroupFields(!showGroupFields)
+    if(isGroupChecked == 1) setShowGroupFields(true)
+    if(isGroupChecked == 0) setShowGroupFields(false)
+
   }, [isGroupChecked])
 
   // new change handler
@@ -202,11 +204,11 @@ useEffect(() => {
                   <fieldset>
                     <div className="mt-6 space-y-6" onChange={handleIsGroup} >
                       <div className="flex items-center gap-x-3">
-                        <input id="push-everything" name="isGroup" type="radio" defaultChecked value={false} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                        <input id="push-everything" name="isGroup" type="radio" value={0} defaultChecked={!showGroupFields} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                         <label for="push-everything" className="block text-sm font-medium leading-6 text-gray-900">I am a solo artist</label>
                       </div>
                       <div className="flex items-center gap-x-3">
-                        <input id="push-email" name="isGroup" type="radio" value={true} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                        <input id="push-email" name="isGroup" type="radio" value={1} defaultChecked={showGroupFields} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                         <label for="push-email" className="block text-sm font-medium leading-6 text-gray-900">We are a group</label>
                       </div>
                     </div>
