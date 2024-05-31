@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Login from "./components/Login";
 import Signup from "./pages/Signup";
 import BookConcert from "./pages/BookConcert";
+import EditConcert from "./pages/EditConcert";
 import SeeArtists from "./pages/SeeArtists";
 import { useContext } from "react";
 import { AuthContext } from "./context/auth.context";
@@ -29,7 +30,8 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/edit-user/" element={<IsPrivate> <EditUser/> </IsPrivate>} />
-        <Route path="/concerts/book" element={<BookConcert/>} />
+        <Route path="/concerts/book/:artistId" element={<IsPrivate><BookConcert/></IsPrivate>} />
+        <Route path="/concerts/edit/:concertId" element={<IsPrivate><EditConcert/></IsPrivate>} />
         <Route path="/user" element={<IsPrivate> <User/> </IsPrivate>} />
       </Routes>
 
