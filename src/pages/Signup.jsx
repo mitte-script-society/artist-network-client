@@ -148,7 +148,6 @@ function Signup(props) {
                   <input type="file" onChange={handleImage} />
                 </div>
               </div>
-              <input type="file" onChange={handleImage} />
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
