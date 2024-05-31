@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import uploadImage from "../services/file-upload.service";
@@ -9,9 +9,9 @@ function Signup(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [picture, setPicture] = useState(undefined)
   const [isArtistChecked, setIsArtistChecked] = useState(false)
   const [isGroupChecked, setIsGroupChecked] = useState(false)
+  const [showGroupFields, setShowGroupFields] = useState(true) // this is set to false on first render by UseEffect
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [newUser, setNewUser] = useState({});
 
@@ -23,16 +23,11 @@ function Signup(props) {
 
   const handleImage = (e) => {
     const uploadData = new FormData();
-    // imageUrl => this name has to be the same as in the model since we pass
-    // req.body to .create() method when creating a new movie in '/api/movies' POST route
     uploadData.append("imageUrl", e.target.files[0]);
     
     uploadImage(uploadData)
       .then(response => {
-        // console.log("response is: ", response);
-        // response carries "fileUrl" which we can use to update the state
-        // setImageUrl(response.fileUrl); **** This is the original code because the funciton is in the same file as the form
-        
+
         const newObject = {... newUser};
         newObject.picture = response.fileUrl;
         setNewUser(newObject)
@@ -41,14 +36,30 @@ function Signup(props) {
     .catch(err => console.log("Error while uploading the file: ", err));    
   }
 
-  const handleIsGroup = (e) => setIsGroupChecked(!isGroupChecked)
   const handleIsArtist = (e) => {
     setIsArtistChecked(!isArtistChecked)
-
-    const newObject = { ...newUser };
-    newObject.isArtist = isArtistChecked
-    setNewUser(newObject)
   }
+
+useEffect(() => {
+
+  const newObject = { ...newUser };
+  newObject.isArtist = isArtistChecked
+  setNewUser(newObject)
+  console.log(isArtistChecked)
+
+}, [isArtistChecked])
+
+  const handleIsGroup = (e) => {
+    setIsGroupChecked(e.target.value)
+  }
+
+  useEffect(() => {
+    console.log(isGroupChecked)
+    const newObject = { ...newUser };
+    newObject.isArtist = isGroupChecked
+    setNewUser(newObject)
+    setShowGroupFields(!showGroupFields)
+  }, [isGroupChecked])
 
   // new change handler
 
@@ -58,7 +69,6 @@ function Signup(props) {
     newObject.isArtist = isArtistChecked
     newObject.moreThanOne = isGroupChecked
     setNewUser(newObject)
-    console.log(newUser)
   }
 
   const handleSignupSubmit = (e) => {
@@ -180,19 +190,22 @@ function Signup(props) {
 
                 <div className="col-span-full">
                   <fieldset>
-                    <div className="mt-6 space-y-6">
+                    <div className="mt-6 space-y-6" onChange={handleIsGroup} >
                       <div className="flex items-center gap-x-3">
-                        <input id="push-everything" name="isGroup" type="radio" onChange={handleIsGroup} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                        <input id="push-everything" name="isGroup" type="radio" defaultChecked value={false} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                         <label for="push-everything" className="block text-sm font-medium leading-6 text-gray-900">I am a solo artist</label>
                       </div>
                       <div className="flex items-center gap-x-3">
-                        <input id="push-email" name="isGroup" type="radio" onChange={handleIsGroup} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                        <input id="push-email" name="isGroup" type="radio" value={true} className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                         <label for="push-email" className="block text-sm font-medium leading-6 text-gray-900">We are a group</label>
                       </div>
                     </div>
                   </fieldset>
                 </div>
 
+        {showGroupFields && 
+
+            <>
                 <div className="sm:col-span-4">
                   <label for="groupName" className="block text-sm font-medium leading-6 text-gray-900">Group Name</label>
                   <div className="mt-2">
@@ -208,16 +221,20 @@ function Signup(props) {
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                       {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-                      <input type="text" name="artistMembers" id="artistMembers" onChange={handleChange} autocomplete="artistMembers" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Mary, John, Otto, ..." />
+                      <input type="text" name="artistMembers" id="artistMembers" onChange={handleChange} autocomplete="artistMembers" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Mary, John, Otto, ..." required/>
                     </div>
                   </div>
                 </div>
+            
+            </>
+                    }
+
 
 
                 <div className="col-span-full">
                   <label for="artistDescription" className="block text-sm font-medium leading-6 text-gray-900">Description / Bio</label>
                   <div className="mt-2">
-                    <textarea id="artistDescription" name="artistDescription" onChange={handleChange} rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                    <textarea id="artistDescription" name="artistDescription" onChange={handleChange} rows="3" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required/>
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
                 </div>
@@ -227,7 +244,7 @@ function Signup(props) {
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                       {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-                      <input type="number" name="artistFee" id="artistFee" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" />
+                      <input type="number" name="artistFee" id="artistFee" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
                     </div>
                   </div>
                 </div>
@@ -287,7 +304,7 @@ function Signup(props) {
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                       {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-                      <input type="text" name="artistGenres" id="artistGenres" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Rock, Pop, Indie, ..." />
+                      <input type="text" name="artistGenre" id="artistGenres" onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Rock, Pop, Indie, ..." />
                     </div>
                   </div>
                 </div>
