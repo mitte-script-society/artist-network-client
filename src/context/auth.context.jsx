@@ -10,16 +10,17 @@ function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate()
+  const [isLogInWindow, setIsLogInWindow] = useState(false);
 
-  const [isLogInWindow, setIsLogInWindow] = useState(false)
+  const [routePostLogin, setRoutePostLogin] = useState("")
   
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
   }  
     
   const authenticateUser = () => { 
-    console.log("authenticateUser requested")
+    console.log("AuthenticateUser requested")
+
     // Get the stored token from the localStorage
     const storedToken = localStorage.getItem("authToken");
     
@@ -33,7 +34,7 @@ function AuthProviderWrapper(props) {
       .then((response) => {
         // If the server verifies that JWT token is valid  ✅
         const user = response.data;
-        console.log(response.data)
+        console.log("User desde verify",user)
        // Update state variables        
         setIsLoggedIn(true);
         setIsLoading(false);
@@ -76,7 +77,9 @@ function AuthProviderWrapper(props) {
     <AuthContext.Provider
       value={{ isLoggedIn, isLoading, user,
               storeToken, authenticateUser, logOutUser, 
-              isLogInWindow, setIsLogInWindow}}
+              isLogInWindow, setIsLogInWindow,
+              routePostLogin, setRoutePostLogin,
+            }}
     >
       {props.children}
     </AuthContext.Provider>

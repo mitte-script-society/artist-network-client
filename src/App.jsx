@@ -12,11 +12,14 @@ import SeeArtists from "./pages/SeeArtists";
 import { useContext } from "react";
 import { AuthContext } from "./context/auth.context";
 import EditUser from "./pages/EditUser";
+import NotFound from "./pages/NotFound";
+import ArtistDetail from "./pages/ArtistDetail";
+import About from "./pages/About";
 
 
 function App() {
   //Aquí llamo a LogIn
-  const { isLogInWindow, setIsLogInWindow } = useContext(AuthContext);
+  const { isLogInWindow} = useContext(AuthContext);
 
   return (
     <div className="App">
@@ -26,13 +29,16 @@ function App() {
 
       <Routes>      
         <Route path="/" element={<Home/>} />
+        <Route path="/about" element={<About/>} />
         <Route path="/see-artists" element={<SeeArtists/>} />
+        <Route path="/see-artists/:artistId" element={<ArtistDetail/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/edit-user/" element={<IsPrivate> <EditUser/> </IsPrivate>} />
         <Route path="/concerts/book/:artistId" element={<IsPrivate><BookConcert/></IsPrivate>} />
         <Route path="/concerts/edit/:concertId" element={<IsPrivate><EditConcert/></IsPrivate>} />
         <Route path="/user" element={<IsPrivate> <User/> </IsPrivate>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
 
     </div>

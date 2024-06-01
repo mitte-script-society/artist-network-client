@@ -1,59 +1,38 @@
 import "../styles/ArtistCard.css"
-import image from "../assets/artist2.jpg"
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-
-export default function ArtistCard() {
-  const { isLoggedIn, user, setIsLogInWindow } = useContext(AuthContext);
-
-  //Required elements: isLogged.  
-
-  let object = {
-  city: "Dresden",
-  moreThanOne: false,
-  groupName: "The Mega Band",
-  artistMembers: "Juan, Luis, Pedro",
-  artistDescription: "Too good to be true. They are not true.",
-  artistFee: 300,
-  artistPictures: [], 
-  artistVideos: [],
-  artistAudio: [],
-  artistWebsite: "",
-  artistGenre: "Hevy Metal Cumbia",
-  artistConcert: [], 
-  artistReferences: [],
-  _id: "alfaksfadfdkasl"
-  }
-
-  function handleBook () {  
+export default function ArtistCard({artistInfo}) {
+  const { isLoggedIn, setIsLogInWindow, setRoutePostLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+ 
+  function handleBook () {
     if (isLoggedIn) {
-      console.log("Logic to book the artist, using the info stored in user:", user)
-      console.log("Maybe here we can call the logic to Create a Concert")
+      navigate(`/concerts/book/${artistInfo._id}`);
     } else {
-      setIsLogInWindow(true)
+      setRoutePostLogin(`/concerts/book/${artistInfo._id}`);
+      setIsLogInWindow(true);
     }
   }
   
   function handleDetails() {
-    window.open(`/see-artist/${object._id}`, '_blank');
+    window.open(`/see-artists/${artistInfo._id}`, '_blank');
   }
   
   return(
+
     <div className="concert-card">
-      <img src={image}/>
-      <div>{object.groupName}</div>
-      <div>{object.artistDescription}</div>
-      <div>{object.artistGenre}</div>
-      <div>Based in: {object.city}</div>
-      <div>Price: {object.artistFee}</div>
+      <img src={artistInfo.picture}/>
+      <div>{artistInfo.name}</div>
+      <div>{artistInfo.artistGenre}</div>
+      <div>{artistInfo.city}</div>
+      <div>Hourly rate: {artistInfo.artistFee} €</div>
       <div id="card-concert-buttons-container">
         <button onClick={handleDetails}>Details</button>
         <button onClick={handleBook}>Book</button>
       </div>
-      
     </div>
-
   )
 
 }

@@ -131,7 +131,7 @@ function EditConcert(props) {
 
   return (
     <>
-      <form className="max-w-3xl m-auto p-2" onSubmit={handleSignupSubmit} t>
+      <form className="max-w-3xl m-auto p-2" onSubmit={handleSignupSubmit}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">Edit Details of Concert with {artist.name}</h2>

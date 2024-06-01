@@ -10,8 +10,9 @@ function Login( ) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-
-  const { storeToken, authenticateUser, setIsLogInWindow } = useContext(AuthContext);
+  const { storeToken, authenticateUser, setIsLogInWindow, routePostLogin, setRoutePostLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  console.log("aquí se irá tras login", routePostLogin)
 
   const handleClose = () => {
     setIsLogInWindow(false)
@@ -24,13 +25,16 @@ function Login( ) {
     e.preventDefault();
     const requestBody = { email, password };
 
-    axios
-      .post(`${API_URL}/auth/login`, requestBody)
+    axios.post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
         setIsLogInWindow(false)
-        
+        if (routePostLogin !== "") {
+          navigate(routePostLogin)
+          setRoutePostLogin("");
+          return
+        }
       })
      .catch((error) => {
         const errorDescription = error.response.data.message;

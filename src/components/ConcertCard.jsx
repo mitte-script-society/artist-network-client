@@ -29,8 +29,6 @@ export default function ConcertCard() {
     window.open(`/concerts/${object._id}`, '_blank');
   }
   
-
-
   return(
     <div className="concert-card">
       <img src={image}/>
