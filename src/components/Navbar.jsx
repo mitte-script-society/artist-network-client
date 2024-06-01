@@ -6,9 +6,9 @@ function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider `value` prop
   const { isLoggedIn, user, logOutUser, setIsLogInWindow, setRoutePostLogin } = useContext(AuthContext);
-  console.log(user)
+
   const handleCallLogin = () => {
-    setRoutePostLogin("")
+    setRoutePostLogin("/user")
     setIsLogInWindow(true);
   }
 
@@ -59,35 +59,37 @@ function Navbar() {
       >
         Find Concerts
       </NavLink>
-      <NavLink
-        to="/see-artists"
-        className={({ isActive }) =>
-          isActive
-            ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-            : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-        }
-      >
-        Find Artists
-      </NavLink>
-      <NavLink to="/about" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">About</NavLink>
+
+      <NavLink to="/see-artists" className={({ isActive }) =>
+          isActive ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+        }>Find Artists </NavLink>
+
       
-      {!isLoggedIn && 
+      {!isLoggedIn ? //Display either About-Log in-Sign Up or My Dashboard  
         <>
-          <NavLink onClick={handleCallLogin}
+          <NavLink to="/about" className={({ isActive }) =>
+          isActive ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+          } >About</NavLink>
+
+          <NavLink onClick={handleCallLogin} 
             className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
             Log In
           </NavLink>
-          <NavLink
-            to="/signup"
-            className={({ isActive }) =>
-              isActive
-                ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-            }
-          >
-            Sign Up
-          </NavLink>
+
+          <NavLink to="/signup" className={({ isActive }) =>
+              isActive ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+          }> Sign Up </NavLink>
+ 
         </>
+        :
+        <NavLink to="/user" className={({ isActive }) =>
+          isActive ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+        }>My Dashboard</NavLink>
+
       }
               </div>
             </div>
