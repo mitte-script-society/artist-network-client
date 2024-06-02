@@ -1,78 +1,67 @@
-import "../styles/ConcertCard.css"
+import { AuthContext } from "../context/auth.context";
+import { useContext, useState } from "react";
+import { bookmarkUser } from "../services/user-services";
 
-export default function ConcertCard() {
+export default function ConcertCard({concertInfo, setYPos }) {
+  const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
+  const property = "bookmarkedEvents";
 
-  //Required elements: isLogged, activation of log in window
+  const [isBookmarked, setIsBookmarked] = useState( () => {
+    if (!isLoggedIn) { //if nog logged in, return false
+    return false
+    }
+    return userInformation.bookmarkedEvents.some( element => element === concertInfo._id);
+  })
 
-  const object = {
-    title: "Magic Jazz evening",
-    description: "",
-    image: "url",
-    isPublic: true,
-    city: "Berlin",
-    date: "2024-07-20T19:30:00.000+00:00",
-    prices: 20, 
-    artist: "reference", 
-    host: "reference",
-    _id: "adfladkaldfkads"
-  }
-
-  function handleJoin () {
-    console.log("Logic for joining")
-    //if logged in => sendRequets? 
-
-    //if not logged in => Activate SignUp Window 
+  function handleBookmark() {
+    if (!isLoggedIn) {  
+      setRoutePostLogin("");
+      setIsLogInWindow(true);
+    }
+    else {
+    let action = isBookmarked? "$pull" : "$push"
+    bookmarkUser( action, userInformation._id, property , concertInfo._id)
+        .then( response => {
+          setYPos(window.scrollY)
+          resetUserInformation(userInformation._id);
+        })
+        .catch( error => {
+          alert("Unable to update data. Server error", error)
+        })    
+    }
   }
   
   function handleDetails() {
-    window.open(`/concerts/${object._id}`, '_blank');
+    window.open(`/concerts/${concertInfo._id}`, '_blank');
   }
-  
-  return(
-    <div className="concert-card">
-      <img src="https://res.cloudinary.com/deckhnump/image/upload/v1717240360/artist2_gerp3h.jpg"/>
-      <div>Get name of the artist</div>
-      <div>{object.title}</div>
-      <div>{object.description}</div>
-      <div>{object.date}</div>
-      <div>Adress</div>
-      <div>{object.city}</div>
-      <div>Price: {object.prices}</div>
-      <div id="card-concert-buttons-container">
-        <button onClick={handleDetails}>Details</button>
-        <button onClick={handleJoin}>Join</button>
+
+  return (
+    <div className="artist-card">
+      <div className="fav-icon">Date</div>
+
+      <div className="artist-card-photo-space">      
+        <img className="artist-photo-card" src={concertInfo.image}/>
       </div>
+
+      <div className="artist-card-info-space">
+
+        <div style={{height:"70%"}}>
+          <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.artist}</div>
+          <div className="text-lg text-gray-700 mb-1">{concertInfo.title}</div>
+          <div className="text-lg text-gray-700 mb-1">{concertInfo.description}</div>
+          <div className="text-md text-gray-600 mb-1">{concertInfo.city}</div>
+          <div className="text-md text-gray-800 mt-2 font-semibold">{concertInfo.prices} €</div>
+        </div>
+
+        <div id="card-concert-buttons-container" style={{height:"30%"}}>
+          <button onClick={handleDetails}>Details</button>
+          <button onClick={handleBookmark}>{isBookmarked? "Unfollow" : "Join"}</button>
+        </div>
       
+      </div>
+
     </div>
+    
 
   )
-
 }
-
-  /*
-_id
-title
-description
-image
-isPublic
-city
-date
-prices
-artist
-host
-
-*/
-
-
-/* moreThanOne
-groupName
-artistMembers
-artistDescription
-artistFee
-artistPictures
-artistVideos
-artistAudio
-artistWebsite
-artistGenre
-artistConcert
-artistReferences */

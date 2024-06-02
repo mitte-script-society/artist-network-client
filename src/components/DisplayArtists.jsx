@@ -1,27 +1,28 @@
 import '../styles/DisplayArtists.css'
 import ArtistCard from './ArtistCard';
 import { useEffect, useState } from 'react';
-import photo from "../assets/7.png"
-
 
 export default function DisplayArtists({artistsArray, userInformation}) {
   const [arrayToShow, setArrayToShow] = useState(artistsArray);
-  const [isLoading, setIsLoading] = useState(false)
-  const [yPos, setYPos] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
+  const [triggerScroll, setTriggerScroll] = useState(false)
+  const [yPos, setYPos] = useState(0);
   
-  useEffect( () => {
-    setIsLoading(true);
-    setTimeout( () => {
+  useEffect(() => {
+    console.log("UseEffect requested, going to:", yPos);
+      setIsLoading(true);
+      setTimeout(() => {
       setIsLoading(false);
-      console.log(yPos)
-      window.scrollTo({ top: yPos, behavior: 'smooth' });      
-    } , 1)
-  } , [userInformation]
-  )
+      setTriggerScroll( prev => !prev)
+      }, 1);
+  }, [userInformation]);
+
+  useEffect ( () => {
+    window.scrollTo({ top: yPos });
+  }, [triggerScroll])
 
   return (
     <div id='display-elements'>
-
       <div id="search-bar-container">
         <input id="search-bar" type='text' placeholder='Search'/>
         <div id="search-filters">Filters</div>
@@ -32,16 +33,14 @@ export default function DisplayArtists({artistsArray, userInformation}) {
         {!isLoading?
         arrayToShow.map( (element, index) => {
           return (
-            <div className='item-list' key={index} id={`artist_${index}`}> 
+            <div className='item-list' key={index} > 
               <ArtistCard artistInfo={element} setYPos={setYPos} />
             </div>
           )
         })
         :
-        <div>isLoading</div>
+        <div>Loading</div>
         }
-
-
       </div>
     </div>
   )

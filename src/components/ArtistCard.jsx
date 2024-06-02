@@ -1,6 +1,6 @@
 import "../styles/ArtistCard.css"
 import { AuthContext } from "../context/auth.context";
-import { useContext, useEffect, useId, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bookmarkedimage from "../assets/1.png";
 import notbookmarkedimage from "../assets/2.png";
@@ -10,34 +10,30 @@ export default function ArtistCard({artistInfo, setYPos }) {
   const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
   const navigate = useNavigate();
   const property = "followedArtists";
- 
+  
   const [isBookmarked, setIsBookmarked] = useState( () => {
     if (!isLoggedIn) { //if nog logged in, return false
-    return -1
+    return false
     }
-    return userInformation.followedArtists.findIndex(followedArtist => followedArtist === artistInfo._id);
+    return userInformation.followedArtists.some(followedArtist => followedArtist === artistInfo._id);
   })
 
-
-  async function handleBookmark(e) {
+ function handleBookmark() {
     if (!isLoggedIn) {  
       setRoutePostLogin("");
       setIsLogInWindow(true);
     }
     else {
-    let action = isBookmarked === -1 ? "$push" : "$pull"
+    let action = isBookmarked? "$pull" : "$push"
     bookmarkUser( action, userInformation._id, property , artistInfo._id)
         .then( response => {
           setYPos(window.scrollY)
-          console.log("Data updated in Server", response)
-          resetUserInformation(userInformation._id)
-          
-          
+          resetUserInformation(userInformation._id);
+          /*console.log("Data updated in Server", response)*/
         })
         .catch( error => {
           alert("Unable to update data. Server error", error)
-        })     
-    
+        })    
     }
   }  
 
@@ -55,8 +51,8 @@ export default function ArtistCard({artistInfo, setYPos }) {
   }
   
   return(
-     <div className="artist-card">
-      <img className="fav-icon" src={isBookmarked !== -1? bookmarkedimage: notbookmarkedimage } onClick={ (e) => handleBookmark(e)}/>
+    <div className="artist-card">
+      <img className="fav-icon" src={isBookmarked? bookmarkedimage: notbookmarkedimage } onClick={handleBookmark}/>
 
       <div className="artist-card-photo-space">      
         <img className="artist-photo-card" src={artistInfo.picture}/>

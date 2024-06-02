@@ -21,8 +21,7 @@ function AuthProviderWrapper(props) {
   axios.get(`${API_URL}/user/${userId}`)
   .then( response => {
     setUserInformation(response.data)
-    console.log("Updating data in client")
-  }) 
+    /*console.log("Updating data in client")*/  }) 
   .catch( error => {
     console.log(error)
     })

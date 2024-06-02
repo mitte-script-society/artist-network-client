@@ -10,7 +10,6 @@ export default function SeeArtists() {
   const [isLoading, setIsLoading] = useState(true);
   const [artistsArray, setArtistsArray] = useState([]);
   const API_URL = "http://localhost:5005";
-  console.log("Followed:", userInformation.followedArtists)
 
  useEffect( ( () => {
     axios.get(`${API_URL}/artists`)
