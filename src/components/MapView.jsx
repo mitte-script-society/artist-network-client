@@ -4,34 +4,11 @@ import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
 import {Icon, divIcon} from "leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import { useState } from "react"
-import LocationMarker from "./LocationMarker"
 
 
-function MapView() {
-    
-    const markers = [
-        {
-          _id: 123456,
-          location: [52.52362,13.40720],
-          title: "Magic Jazz Evening",
-          date: "17 June 2024, 20h",
-          prices: 20
-        },
-        {
-          _id: 123456,
-          location: [52.53929,13.41371],
-          title: "Indie Rock Jam Session",
-          date: "20 June 2024, 19h",
-          prices: 15
-        },
-        {
-          _id: 123456,
-          location: [52.4615,13.3251],
-          title: "Soul Sisters Live",
-          date: "15 July 2024, 18h",
-          prices: 10
-        }
-      ];
+function MapView(props) {
+
+    const markers = props.concertData.list
       
       const customIcon = new Icon({
         iconUrl: "/music.png",
@@ -39,24 +16,26 @@ function MapView() {
       })
 
     return(
-        <MapContainer center={[52.52362,13.40720]} zoom={13}>
+        <MapContainer center={[50.86,5]} zoom={4}>
         <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://tile.openstreetmap.de/{z}/{x}/{y}.png"
         />
+    
+    {markers && 
       <MarkerClusterGroup chunkedLoading>
         {markers.map(marker => (
           <Marker position={marker.location} icon={customIcon}>
             <Popup>
             <h1 className="text-md font-bold underline leading-none">{marker.title}</h1>
-            <p className="text md leading-none">{marker.date}</p>
+            <p className="text md leading-none">{new Date(marker.date).toLocaleString('de-DE', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</p>
             <p className="text md leading-none">Price: {marker.prices} €</p>
             <Link to={`/concerts/${marker._id}`} className="text md leading-none">See Concert Details</Link>
             </Popup>
           </Marker>
         ))}
-        <LocationMarker/>
       </MarkerClusterGroup>
+      }
 
       </MapContainer>
     )
