@@ -4,6 +4,11 @@ import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { Spotify } from "react-spotify-embed";
 import { AuthContext } from "../context/auth.context";
 
+import "leaflet/dist/leaflet.css"
+import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
+import {Icon, divIcon} from "leaflet"
+import MarkerClusterGroup from "react-leaflet-cluster"
+
 export default function ConcertDetail(){
   const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
   const {concertId} = useParams()
@@ -25,6 +30,11 @@ export default function ConcertDetail(){
 //     }
 //   }
 
+
+const customIcon = new Icon({
+    iconUrl: "/music.png",
+    iconSize: [38, 38]
+  })
 
 
 
@@ -74,6 +84,21 @@ useEffect ( () => {
             <Link to={artistLink}><button type="button" className="ml-2 rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View Artist</button></Link>
             </div>
         </div>
+        <p className="text-lg font-bold mb-2 mt-2">Location</p>
+        <MapContainer center={concertInfo.location} zoom={15} className="h-80">
+        <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://tile.openstreetmap.de/{z}/{x}/{y}.png"
+        />
+    
+          <Marker position={concertInfo.location} icon={customIcon}>
+            <Popup>
+            <p className="text md leading-none">{concertInfo.address.street} {concertInfo.address.number}, {concertInfo.address.zipcode} {concertInfo.city}</p>
+            </Popup>
+          </Marker>
+      
+
+      </MapContainer>
 
         {/* {videoURL && 
         <div className="aspect-w-16 aspect-h-9 mb-2">
