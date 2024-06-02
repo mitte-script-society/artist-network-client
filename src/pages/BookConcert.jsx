@@ -96,10 +96,6 @@ function BookConcert(props) {
       })
   };
 
-  const dateControl = document.querySelector('input[type="datetime-local"]');
-  dateControl.value = "2017-06-01T08:30";
-
-
   return (
     <>
       <form className="max-w-3xl m-auto p-2" onSubmit={handleSignupSubmit} t>
