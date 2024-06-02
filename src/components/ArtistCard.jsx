@@ -15,7 +15,7 @@ export default function ArtistCard({artistInfo, setYPos }) {
     if (!isLoggedIn) { //if nog logged in, return false
     return false
     }
-    return userInformation.followedArtists.some(followedArtist => followedArtist === artistInfo._id);
+    return userInformation.followedArtists.some(followedArtist => followedArtist._id === artistInfo._id);
   })
 
  function handleBookmark() {

@@ -27,6 +27,15 @@
 #card-concert-buttons-container button {
   height: 50px;
   font-family: sans-serif;
+  font-weight: 550;
+  width: 100px;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: rgb(116, 41, 255);
+  color: white;
+  &:hover  {
+    background-color: rgb(8, 2, 14);
+  }
 }
 
 .fav-icon {

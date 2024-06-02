@@ -1,3 +1,4 @@
+import "../styles/ConcertCard.css";
 import { AuthContext } from "../context/auth.context";
 import { useContext, useState } from "react";
 import { bookmarkUser } from "../services/user-services";
@@ -5,12 +6,27 @@ import { bookmarkUser } from "../services/user-services";
 export default function ConcertCard({concertInfo, setYPos }) {
   const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
   const property = "bookmarkedEvents";
+  
+  const date = concertInfo.date
+  const dateStr = "2024-07-20T19:30:00.000Z";
+  const dateObj = new Date(dateStr);
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const dayNames = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+  ];
+  const nameDay = dayNames[dateObj.getUTCDay()];
+  const month = monthNames[dateObj.getUTCMonth()];
+  const day = dateObj.getUTCDate();
+
 
   const [isBookmarked, setIsBookmarked] = useState( () => {
     if (!isLoggedIn) { //if nog logged in, return false
     return false
     }
-    return userInformation.bookmarkedEvents.some( element => element === concertInfo._id);
+    return userInformation.bookmarkedEvents.some( element => element._id === concertInfo._id);
   })
 
   function handleBookmark() {
@@ -36,17 +52,23 @@ export default function ConcertCard({concertInfo, setYPos }) {
   }
 
   return (
-    <div className="artist-card">
-      <div className="fav-icon">Date</div>
+    <div className="concert-card">
 
-      <div className="artist-card-photo-space">      
-        <img className="artist-photo-card" src={concertInfo.image}/>
+      <div className="date-card-concert"> 
+        <div>{nameDay.slice(0,2)}. {month.slice(0,3)}</div>
+      
+        <div className="concert-date-day">{day}</div>
+      
       </div>
 
-      <div className="artist-card-info-space">
+      <div className="concert-card-photo-space">      
+        <img className="concert-photo-card" src="https://res.cloudinary.com/deckhnump/image/upload/v1717196062/movie-gallery/qysmva0pp5s1d7lbg9co.jpg" /* src={concertInfo.image} *//>
+      </div>
+
+      <div className="concert-card-info-space">
 
         <div style={{height:"70%"}}>
-          <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.artist}</div>
+          <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.artist.name}</div>
           <div className="text-lg text-gray-700 mb-1">{concertInfo.title}</div>
           <div className="text-lg text-gray-700 mb-1">{concertInfo.description}</div>
           <div className="text-md text-gray-600 mb-1">{concertInfo.city}</div>
@@ -55,7 +77,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
 
         <div id="card-concert-buttons-container" style={{height:"30%"}}>
           <button onClick={handleDetails}>Details</button>
-          <button onClick={handleBookmark}>{isBookmarked? "Unfollow" : "Join"}</button>
+          <button onClick={handleBookmark}>{isBookmarked? "Unfollow" : "Attend"}</button>
         </div>
       
       </div>

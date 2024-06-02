@@ -8,8 +8,6 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   const [triggerScroll, setTriggerScroll] = useState(false);
   const [yPos, setYPos] = useState(0);
 
-  console.log("Lo que llega a Display", concertsArray)
-
   useEffect(() => {
     console.log("UseEffect requested, going to:", yPos);
       setIsLoading(true);
