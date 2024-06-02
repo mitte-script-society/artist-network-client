@@ -11,7 +11,6 @@ function EditConcert(props) {
   const [newConcert, setNewConcert] = useState({});
   const [artistCost, setArtistCost] = useState(0)
   const [artist, setArtist] = useState({})
-  const [concert, setConcert] = useState({})
 
   // get user ID from auth context
   const { user } = useContext(AuthContext);
@@ -25,7 +24,6 @@ function EditConcert(props) {
   useEffect(() => {
     axios.get(`${API_URL}/concert/${concertId}`)
     .then(response => {
-        setConcert(response.data)
         setNewConcert({...response.data})
         setArtist(response.data.artist)
         setIsPublicChecked(response.data.isPublic)
