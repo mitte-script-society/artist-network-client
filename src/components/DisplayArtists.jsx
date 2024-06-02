@@ -9,7 +9,6 @@ export default function DisplayArtists({artistsArray, userInformation}) {
   const [yPos, setYPos] = useState(0);
   
   useEffect(() => {
-    console.log("UseEffect requested, going to:", yPos);
       setIsLoading(true);
       setTimeout(() => {
       setIsLoading(false);

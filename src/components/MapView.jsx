@@ -8,7 +8,8 @@ import { useState } from "react"
 
 function MapView(props) {
 
-    const markers = props.concertData.list
+    const markers = props.concertData
+    console.log("Markers:", markers)
       
       const customIcon = new Icon({
         iconUrl: "/music.png",
@@ -24,8 +25,8 @@ function MapView(props) {
     
     {markers && 
       <MarkerClusterGroup chunkedLoading>
-        {markers.map(marker => (
-          <Marker position={marker.location} icon={customIcon}>
+        {markers.map((marker, index) => (
+          <Marker position={marker.location} icon={customIcon} key={index}>
             <Popup>
             <h1 className="text-md font-bold leading-none">{marker.title}</h1>
             <p className="text md leading-none">{new Date(marker.date).toLocaleString('de-DE', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</p>

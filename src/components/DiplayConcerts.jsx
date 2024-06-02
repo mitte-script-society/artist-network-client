@@ -9,9 +9,8 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   const [yPos, setYPos] = useState(0);
 
   useEffect(() => {
-    console.log("UseEffect requested, going to:", yPos);
-      setIsLoading(true);
-      setTimeout(() => {
+    setIsLoading(true);
+    setTimeout(() => {
       setIsLoading(false);
       setTriggerScroll( prev => !prev)
       }, 1);
