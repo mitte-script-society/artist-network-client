@@ -54,13 +54,14 @@ export default function ArtistDetail(){
         <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
         <p className="text-lg mb-2">{artistInfo.artistDescription}</p>
         {videoURL && 
-        <div className="aspect-w-16 aspect-h-9">
+        <div className="aspect-w-16 aspect-h-9 mb-2">
           <iframe src={videoURL} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </div>
         }
         {audioURL && 
-        <Spotify link={audioURL} className="w-full h-48 mt-2"/>
+        <Spotify link={audioURL} className="w-full h-48 mb-2"/>
         }
+       <p className="text-lg mb-2">More Info: <a href={artistInfo.artistWebsite} className="underline" target="_blank">{artistInfo.artistWebsite}</a></p>
       </div>
       }
 
