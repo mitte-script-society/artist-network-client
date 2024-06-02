@@ -26,21 +26,24 @@ function EditConcert(props) {
     axios.get(`${API_URL}/concert/${concertId}`)
     .then(response => {
         setConcert(response.data)
+        setNewConcert({...response.data})
+        setArtist(response.data.artist)
+        setIsPublicChecked(response.data.isPublic)
         console.log(response.data)
     })
     .catch(error => {console.log(error) })
   }, [])
 
-  useEffect(() => {
-    axios.get(`${API_URL}/artists/${concert.artist}`)
-    .then(response => {
-      setArtist(response.data)
-      setNewConcert({...concert})
-      setIsPublicChecked(concert.isPublic)
-      console.log(response.data)
-    })
-    .catch(error => {console.log(error) })
-  }, [concert])
+  // useEffect(() => {
+  //   axios.get(`${API_URL}/artists/${concert.artist}`)
+  //   .then(response => {
+  //     setArtist(response.data)
+  //     setNewConcert({...concert})
+  //     setIsPublicChecked(concert.isPublic)
+  //     // console.log(response.data)
+  //   })
+  //   .catch(error => {console.log(error) })
+  // }, [concert])
 
 
   const [errorMessage, setErrorMessage] = useState(undefined);

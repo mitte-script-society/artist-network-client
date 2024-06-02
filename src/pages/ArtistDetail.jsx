@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Spotify } from "react-spotify-embed";
 import { AuthContext } from "../context/auth.context";
 
@@ -12,6 +12,7 @@ export default function ArtistDetail(){
   const API_URL = "http://localhost:5005";
   const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
   const [audioURL, setAudioURL] = useState()
+  const navigate = useNavigate();
 
   function handleBook () {
     if (isLoggedIn) {
@@ -32,7 +33,6 @@ export default function ArtistDetail(){
         let newArray = response.data.artistVideos[0].split("=");
         let embedURL = `https://www.youtube.com/embed/${newArray[1]}`
         setVideoURL(embedURL)
-
       }
       setIsLoading(false)
     })

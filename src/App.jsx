@@ -14,6 +14,7 @@ import SeeArtists from "./pages/SeeArtists";
 import EditUser from "./pages/EditUser";
 import NotFound from "./pages/NotFound";
 import ArtistDetail from "./pages/ArtistDetail";
+import ConcertDetail from "./pages/ConcertDetail";
 import About from "./pages/About";
 import IsAnon from "./components/IsAnon";
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/signup" element={ <IsAnon> <Signup/></IsAnon>} />
         <Route path="/edit-user/" element={<IsPrivate> <EditUser/> </IsPrivate>} />
         <Route path="/concerts/book/:artistId" element={<IsPrivate><BookConcert/></IsPrivate>} />
+        <Route path="/concerts/:concertId" element={<ConcertDetail/>}/>
         <Route path="/concerts/edit/:concertId" element={<IsPrivate><EditConcert/></IsPrivate>} />
         <Route path="/user" element={<IsPrivate> <User/> </IsPrivate>} />
         <Route path="*" element={<NotFound/>} />
