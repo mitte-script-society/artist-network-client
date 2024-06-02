@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
 
@@ -11,13 +10,24 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [isLogInWindow, setIsLogInWindow] = useState(false);
-
+  const [userInformation, setUserInformation] = useState([])
   const [routePostLogin, setRoutePostLogin] = useState("")
   
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
-  }  
-    
+  }
+  
+  function  resetUserInformation(userId){
+  axios.get(`${API_URL}/user/${userId}`)
+  .then( response => {
+    setUserInformation(response.data)
+    console.log("Updating data in client")
+  }) 
+  .catch( error => {
+    console.log(error)
+    })
+  }
+
   const authenticateUser = () => { 
     console.log("AuthenticateUser requested")
 
@@ -27,25 +37,29 @@ function AuthProviderWrapper(props) {
     // If the token exists in the localStorage
     if (storedToken) {
       // We must send the JWT token in the request's "Authorization" Headers
-      axios.get(
-        `${API_URL}/auth/verify`, 
+      axios.get(`${API_URL}/auth/verify`, 
         { headers: { Authorization: `Bearer ${storedToken}`} }
       )
-      .then((response) => {
-        // If the server verifies that JWT token is valid  ✅
+      .then( response => {
         const user = response.data;
-        console.log("User desde verify",user)
-       // Update state variables        
-        setIsLoggedIn(true);
-        setIsLoading(false);
-        setUser(user);
+        return  axios.get(`${API_URL}/user/${user._id}`)
       })
+      .then( fullInformation => {
+           // If the server verifies that JWT token is valid  ✅
+           // Update state variables        
+          setUserInformation(fullInformation.data)
+          setIsLoggedIn(true);
+          setIsLoading(false);
+          setUser(user);
+        })
       .catch((error) => {
         // If the server sends an error response (invalid token) ❌
         // Update state variables        
         setIsLoggedIn(false);
         setIsLoading(false);
         setUser(null);
+        setUserInformation({})
+        console.log("Error", error)
       });
 
     } else {
@@ -53,6 +67,7 @@ function AuthProviderWrapper(props) {
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+      setUserInformation({})
     }
   }
 
@@ -62,9 +77,9 @@ function AuthProviderWrapper(props) {
   }    
   
   const logOutUser = () => {
+    setUserInformation({})
     removeToken();
     authenticateUser();
-    
   }    
 
   useEffect(() => {
@@ -79,6 +94,7 @@ function AuthProviderWrapper(props) {
               storeToken, authenticateUser, logOutUser, 
               isLogInWindow, setIsLogInWindow,
               routePostLogin, setRoutePostLogin,
+              userInformation, resetUserInformation
             }}
     >
       {props.children}

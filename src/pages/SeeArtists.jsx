@@ -6,12 +6,13 @@ import { useContext } from "react";
 import axios from "axios";
 
 export default function SeeArtists() {
-  const { isLogInWindow} = useContext(AuthContext);
+  const { isLogInWindow, userInformation} = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [artistsArray, setArtistsArray] = useState(true);
+  const [artistsArray, setArtistsArray] = useState([]);
   const API_URL = "http://localhost:5005";
+  console.log("Followed:", userInformation.followedArtists)
 
-  useEffect( ( () => {
+ useEffect( ( () => {
     axios.get(`${API_URL}/artists`)
       .then( (response) => {
         setArtistsArray(response.data);
@@ -31,7 +32,7 @@ export default function SeeArtists() {
       {isLoading?
         <div>Loading</div>
         :
-        <DisplayArtists artistsArray={artistsArray}/>
+        <DisplayArtists artistsArray={artistsArray} userInformation={userInformation} />
       }
     </>
   )

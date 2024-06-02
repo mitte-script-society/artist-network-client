@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider `value` prop
-  const { isLoggedIn, user, logOutUser, setIsLogInWindow, setRoutePostLogin } = useContext(AuthContext);
+  const { isLoggedIn, userInformation, logOutUser, setIsLogInWindow, setRoutePostLogin } = useContext(AuthContext);
 
   const handleCallLogin = () => {
     setRoutePostLogin("/user")
@@ -112,7 +112,7 @@ function Navbar() {
                 <button  onClick={() => {document.getElementById("xxxx").classList.toggle("hidden") } } type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                   <span className="absolute -inset-1.5"></span>
                   <span className="sr-only">Open user menu</span>
-                  <img className="h-8 w-8 rounded-full" src={user.picture} alt="user picture"/>
+                  <img className="h-8 w-8 rounded-full" src={userInformation.picture} alt="user picture"/>
                 </button>
               </div>          
 
