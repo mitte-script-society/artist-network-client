@@ -3,38 +3,40 @@ import { Link } from "react-router-dom"
 import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
 import {Icon, divIcon} from "leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
+import { useState } from "react"
+import LocationMarker from "./LocationMarker"
 
-
-const markers = [
-    {
-      _id: 123456,
-      location: [52.52362,13.40720],
-      title: "Magic Jazz Evening",
-      date: "17 June 2024, 20h",
-      prices: 20
-    },
-    {
-      _id: 123456,
-      location: [52.53929,13.41371],
-      title: "Indie Rock Jam Session",
-      date: "20 June 2024, 19h",
-      prices: 15
-    },
-    {
-      _id: 123456,
-      location: [52.4615,13.3251],
-      title: "Soul Sisters Live",
-      date: "15 July 2024, 18h",
-      prices: 10
-    }
-  ];
-  
-  const customIcon = new Icon({
-    iconUrl: "/music.png",
-    iconSize: [38, 38]
-  })
 
 function MapView() {
+    
+    const markers = [
+        {
+          _id: 123456,
+          location: [52.52362,13.40720],
+          title: "Magic Jazz Evening",
+          date: "17 June 2024, 20h",
+          prices: 20
+        },
+        {
+          _id: 123456,
+          location: [52.53929,13.41371],
+          title: "Indie Rock Jam Session",
+          date: "20 June 2024, 19h",
+          prices: 15
+        },
+        {
+          _id: 123456,
+          location: [52.4615,13.3251],
+          title: "Soul Sisters Live",
+          date: "15 July 2024, 18h",
+          prices: 10
+        }
+      ];
+      
+      const customIcon = new Icon({
+        iconUrl: "/music.png",
+        iconSize: [38, 38]
+      })
 
     return(
         <MapContainer center={[52.52362,13.40720]} zoom={13}>
@@ -53,6 +55,7 @@ function MapView() {
             </Popup>
           </Marker>
         ))}
+        <LocationMarker/>
       </MarkerClusterGroup>
 
       </MapContainer>
