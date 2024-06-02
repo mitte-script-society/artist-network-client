@@ -1,8 +1,7 @@
 import axios from "axios"
-import users from "./list-artist.js";
+import {users, pictures} from "./list-artist.js";
 
 async function signup(user) {
-  console.log(users)
   try {
     const response = await axios.post('http://localhost:5005/auth/signup', user, {
       headers: {
@@ -20,8 +19,13 @@ async function signup(user) {
 }
 
 async function main() {
+  let index = 0;
   for (const user of users) {
+    user.groupName = "";
+    user.artistMembers = [];
+    user.picture = pictures[index]
     await signup(user);
+    index ++
   }
 }
 

@@ -1,7 +1,6 @@
 .concerts-main-space {
  display: flex;
  position: relative;
- border: 2px solid pink;
 }
 
 .display-concerts-wrapper {
@@ -18,30 +17,31 @@
   background-color: rgb(197, 197, 197);
   position: fixed;
   right: 0;
-  
 }
 
 #display-elements {
   display: flex;
   flex-direction: column;
-  border: 3px solid blue;
   width: 100%;
+  padding: 20px;
 }
 
 #search-bar-container{
   margin: 10px auto;
 }
+
 #search-bar {
   width: 500px;
   height: 50px;
   border-radius: 10px;
 }
+
 #search-filters {
   margin: 10px auto;
   text-align: center;
 }
 
-#list-elements-space {
+.list-elements-space {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -49,15 +49,23 @@
 
 .item-list {
   width: 300px;
-  height: 400px;
+  min-height: 420px;
   border-radius: 10px;
   background-color: rgb(235, 235, 235);
   padding: 10px;
   margin: 10px 0;
   &:hover {
-    background-color: rgb(224, 224, 224);
-    transform: scale(1.01);
+    background-color: rgb(207, 207, 207);
+    transform: scale(1.02);
   }
+}
+
+.list-elements-space button {
+  width: 100px;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: rgb(116, 41, 255);
+  color: white;
 }
 
 .concert-card {

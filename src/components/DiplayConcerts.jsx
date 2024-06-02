@@ -13,7 +13,7 @@ export default function DisplayConcerts() {
         <div id="search-filters">Filters</div>
       </div>
 
-      <div id='list-elements-space'>
+      <div className='list-elements-space'>
         {arrayToShow.map( (element, index) => {
 
           return (

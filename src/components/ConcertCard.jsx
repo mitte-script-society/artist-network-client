@@ -1,5 +1,4 @@
 import "../styles/ConcertCard.css"
-import image from "../assets/artist.jpg"
 
 export default function ConcertCard() {
 
@@ -31,7 +30,7 @@ export default function ConcertCard() {
   
   return(
     <div className="concert-card">
-      <img src={image}/>
+      <img src="https://res.cloudinary.com/deckhnump/image/upload/v1717240360/artist2_gerp3h.jpg"/>
       <div>Get name of the artist</div>
       <div>{object.title}</div>
       <div>{object.description}</div>
