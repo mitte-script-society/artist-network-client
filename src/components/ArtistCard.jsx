@@ -29,6 +29,7 @@ export default function ArtistCard({artistInfo, setYPos }) {
         .then( response => {
           setYPos(window.scrollY)
           resetUserInformation(userInformation._id);
+          setIsBookmarked(!isBookmarked)
           /*console.log("Data updated in Server", response)*/
         })
         .catch( error => {

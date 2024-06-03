@@ -8,7 +8,7 @@ export default function DisplayArtists({artistsArray, userInformation}) {
   const [triggerScroll, setTriggerScroll] = useState(false)
   const [yPos, setYPos] = useState(0);
   
-  useEffect(() => {
+/*   useEffect(() => {
       setIsLoading(true);
       setTimeout(() => {
       setIsLoading(false);
@@ -18,10 +18,11 @@ export default function DisplayArtists({artistsArray, userInformation}) {
 
   useEffect ( () => {
     window.scrollTo({ top: yPos });
-  }, [triggerScroll])
+  }, [triggerScroll]) */
 
   return (
     <div id='display-elements'>
+      
       <div id="search-bar-container">
         <input id="search-bar" type='text' placeholder='Search'/>
         <div id="search-filters">Filters</div>

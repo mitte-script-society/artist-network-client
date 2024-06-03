@@ -40,6 +40,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
         .then( response => {
           setYPos(window.scrollY)
           resetUserInformation(userInformation._id);
+          setIsBookmarked(!isBookmarked)
         })
         .catch( error => {
           alert("Unable to update data. Server error", error)

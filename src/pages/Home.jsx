@@ -11,9 +11,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [concertsArray, setConcertsArray] = useState([]);
   const API_URL = "http://localhost:5005";
-//  const [concertData, setConcertData] = useState([])
 
- useEffect( ( () => {
+  useEffect( ( () => {
     axios.get(`${API_URL}/concert`)
       .then( (response) => {
         setConcertsArray(response.data.list);
@@ -24,11 +23,11 @@ export default function Home() {
       })
   }), [])
 
- /*  useEffect(() => {
-    axios.get(`${API_URL}/concert/`)
-    .then(response => {setConcertData(response.data) })
-    .catch(error => {console.log(error) })
-  }, []) */
+ 
+  const identifyItem = (itemInfo) => {
+    console.log("Hello:", itemInfo)
+    //Find the item 
+  }
 
   return (
     <>
@@ -44,7 +43,7 @@ export default function Home() {
           <DisplayConcerts concertsArray={concertsArray} userInformation={userInformation}/>
         </div>
         <div className="map-space">
-          <MapView concertData={concertsArray}/>
+          <MapView concertData={concertsArray} identifyItem={identifyItem}/>
         </div>
     
       </div>
