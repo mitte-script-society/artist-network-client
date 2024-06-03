@@ -13,7 +13,7 @@ function EditConcert(props) {
   const [artist, setArtist] = useState({})
 
   // get user ID from auth context
-  const { user } = useContext(AuthContext);
+  const { userInformation } = useContext(AuthContext);
 
   // get concert from params
   const {concertId} = useParams()
@@ -31,18 +31,6 @@ function EditConcert(props) {
     })
     .catch(error => {console.log(error) })
   }, [])
-
-  // useEffect(() => {
-  //   axios.get(`${API_URL}/artists/${concert.artist}`)
-  //   .then(response => {
-  //     setArtist(response.data)
-  //     setNewConcert({...concert})
-  //     setIsPublicChecked(concert.isPublic)
-  //     // console.log(response.data)
-  //   })
-  //   .catch(error => {console.log(error) })
-  // }, [concert])
-
 
   const [errorMessage, setErrorMessage] = useState(undefined);
   const navigate = useNavigate();
