@@ -63,7 +63,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
       </div>
 
       <div className="concert-card-photo-space">      
-        <img className="concert-photo-card" src={concertInfo.image} /* src={concertInfo.image} *//>
+        <img className="concert-photo-card object-cover h-80 w-full m-auto" src={concertInfo.image} /* src={concertInfo.image} *//>
       </div>
 
       <div className="concert-card-info-space">

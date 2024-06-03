@@ -4,7 +4,7 @@
   font-family: sans-serif;
 }
 .artist-card-photo-space {
-  height: 50%;
+  height: 60%;
   display: flex;
 }
 .artist-photo-card {
@@ -15,7 +15,8 @@
 }
 
 .artist-card-info-space {
-  height: 50%;
+  height: 40%;
+  margin-left: 7px;
 }
 
 #card-concert-buttons-container {

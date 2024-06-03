@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Spotify } from "react-spotify-embed";
 import { AuthContext } from "../context/auth.context";
+import Reviews from "../components/Reviews"
 
 export default function ArtistDetail(){
   const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
@@ -64,6 +65,9 @@ export default function ArtistDetail(){
         {audioURL && 
         <Spotify link={audioURL} className="w-full h-48 mb-2"/>
         }
+        <div>
+          <Reviews></Reviews>
+        </div>
       </div>
       }
 

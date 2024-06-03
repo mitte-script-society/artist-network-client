@@ -56,7 +56,7 @@ export default function ArtistCard({artistInfo, setYPos }) {
       <img className="fav-icon" src={isBookmarked? bookmarkedimage: notbookmarkedimage } onClick={handleBookmark}/>
 
       <div className="artist-card-photo-space">      
-        <img className="artist-photo-card" src={artistInfo.picture}/>
+        <img className="artist-photo-card object-cover h-80 w-full m-auto" src={artistInfo.picture}/>
       </div>
 
       <div className="artist-card-info-space">
