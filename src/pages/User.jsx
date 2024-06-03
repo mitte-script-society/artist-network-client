@@ -15,7 +15,6 @@ const User = () => {
       const newArray = [... array ]
       newArray.splice(index,1)
       setFunction(newArray)
-
     })
     .catch( error => {
       console.log(error)
@@ -70,7 +69,7 @@ const User = () => {
               <div className="text-sm text-gray-600 mt-2">{element.date.slice(0,10)}</div>
             </div>
             <div style={{flex:"1"}}>
-              <button onClick={ () => handleDetails("/", element._id)}>Details</button>
+              <button onClick={ () => handleDetails("concerts", element._id)}>Details</button>
               <button onClick={() => handleDelete(favConcerts, setFavConcerts, index, "bookmarkedEvents", element._id )}>Delete</button>
             </div>
           </div>)

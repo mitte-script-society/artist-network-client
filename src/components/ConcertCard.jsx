@@ -6,7 +6,6 @@ import { bookmarkUser } from "../services/user-services";
 export default function ConcertCard({concertInfo, setYPos }) {
   const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
   const property = "bookmarkedEvents";
-  
   const date = concertInfo.date
   const dateStr = "2024-07-20T19:30:00.000Z";
   const dateObj = new Date(dateStr);
@@ -38,7 +37,6 @@ export default function ConcertCard({concertInfo, setYPos }) {
     let action = isBookmarked? "$pull" : "$push"
     bookmarkUser( action, userInformation._id, property , concertInfo._id)
         .then( response => {
-          setYPos(window.scrollY)
           resetUserInformation(userInformation._id);
           setIsBookmarked(!isBookmarked)
         })
@@ -68,10 +66,9 @@ export default function ConcertCard({concertInfo, setYPos }) {
 
       <div className="concert-card-info-space">
 
-        <div style={{height:"70%"}}>
-          <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.artist.name}</div>
-          <div className="text-lg text-gray-700 mb-1">{concertInfo.title}</div>
-          <div className="text-lg text-gray-700 mb-1">{concertInfo.description}</div>
+        <div style={{minHeight:"70%", border:"1px solid red"}}>
+          <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.title}</div>
+          <div className="text-lg text-gray-700 mb-1">{concertInfo.artist.name}</div>
           <div className="text-md text-gray-600 mb-1">{concertInfo.city}</div>
           <div className="text-md text-gray-800 mt-2 font-semibold">{concertInfo.prices} €</div>
         </div>
