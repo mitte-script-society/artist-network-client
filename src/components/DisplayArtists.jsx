@@ -1,4 +1,3 @@
-import '../styles/DisplayArtists.css'
 import ArtistCard from './ArtistCard';
 import { useState } from 'react';
 import SearchBar from './SearchBar';
@@ -9,12 +8,13 @@ export default function DisplayArtists({artistsArray, userInformation}) {
   const [isLoading, setIsLoading] = useState(false);
 
   function triggerSearch(string) {
-    //Using concertsArray, we find the elements that match the searched string
-    console.log("Word:", string)
-    //
-    //setArrayToShow(/* The elements that match the criteria */)
+    const newArray = artistsArray.filter( element => {
+      let genreToString = element?.artistGenre.join(" ")
+      let allWords = element?.title + element.name + element?.groupName + element.city + genreToString
+      return allWords.toLowerCase().includes(string.toLowerCase())
+    })
+    setArrayToShow(newArray)
   }
-
 
   return (
     <div id='display-elements'>

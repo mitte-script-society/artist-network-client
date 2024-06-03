@@ -65,7 +65,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
 
       <div className="concert-card-info-space">
 
-        <div style={{minHeight:"70%", border:"1px solid red"}}>
+        <div style={{minHeight:"70%"}}>
           <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.title}</div>
           <div className="text-lg text-gray-700 mb-1">{concertInfo.artist.name}</div>
           <div className="text-md text-gray-600 mb-1">{concertInfo.city}</div>
