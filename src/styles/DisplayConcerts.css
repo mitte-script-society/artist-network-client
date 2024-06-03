@@ -57,6 +57,7 @@
   &:hover {
     background-color: rgb(207, 207, 207);
     transform: scale(1.02);
+    box-shadow: 0 0 10px 2px rgb(11, 11, 142);
   }
 }
 

@@ -8,7 +8,7 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   const [triggerScroll, setTriggerScroll] = useState(false);
   const [yPos, setYPos] = useState(0);
 
-  useEffect(() => {
+/*   useEffect(() => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -18,7 +18,7 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
 
   useEffect ( () => {
     window.scrollTo({ top: yPos });
-  }, [triggerScroll])
+  }, [triggerScroll]) */
   
   return (
     <div id='display-elements'>
