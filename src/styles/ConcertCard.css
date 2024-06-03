@@ -6,6 +6,7 @@
 
 .concert-card-photo-space {
   display: flex;
+  height: 50%;
 }
 .concert-photo-card {
   max-height: 95%;
@@ -15,6 +16,7 @@
 }
 
 .concert-card-info-space {
+  height: 50%;
 }
 
 #card-concert-buttons-container {

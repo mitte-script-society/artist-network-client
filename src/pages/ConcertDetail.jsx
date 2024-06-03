@@ -8,6 +8,7 @@ import "leaflet/dist/leaflet.css"
 import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
 import {Icon, divIcon} from "leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
+import { bookmarkUser } from "../services/user-services";
 
 export default function ConcertDetail(){
   const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
@@ -20,6 +21,8 @@ export default function ConcertDetail(){
   const navigate = useNavigate();
   const [artistLink, setArtistLink] = useState("")
   const [editLink, setEditLink] = useState("")
+  const [isBookmarked, setIsBookmarked] = useState(null)
+
 
 //   function handleBook () {
 //     if (isLoggedIn) {
@@ -37,14 +40,17 @@ const customIcon = new Icon({
   })
 
 
-
 useEffect ( () => {
     axios.get(`${API_URL}/concert/${concertId}`)
     .then( response => {
       setConcertInfo(response.data);
       setArtistLink(`/see-artists/${response.data.artist._id}`)
       setEditLink(`/concerts/edit/${concertId}`)
-      console.log(response.data)
+      setIsBookmarked(() => {
+        if (!isLoggedIn) 
+        { return false }
+        return userInformation.bookmarkedEvents.some( element => element._id === concertInfo._id);
+      })
       setIsLoading(false)
     })
     .catch( error => {
@@ -52,6 +58,25 @@ useEffect ( () => {
     })
   }, [])
 
+
+
+  function handleBookmark() {
+    if (!isLoggedIn) {  
+      setRoutePostLogin("");
+      setIsLogInWindow(true);
+    }
+    else {
+    let action = isBookmarked? "$pull" : "$push"
+    bookmarkUser( action, userInformation._id, "bookmarkedEvents" , concertInfo._id)
+        .then( response => {
+          resetUserInformation(userInformation._id);
+          setIsBookmarked(!isBookmarked)
+        })
+        .catch( error => {
+          alert("Unable to update data. Server error", error)
+        })    
+    }
+  }
 
 
   return (
@@ -64,9 +89,8 @@ useEffect ( () => {
         <img src={concertInfo.image} className="object-cover h-80 w-full m-auto"/>
         <div className="flex items-center mb-2">
             <p className="text-xl font-bold mt-2 mb-2">{concertInfo.title} ({concertInfo.prices} €)</p>
-            <button type="button" className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Attend</button>
-            <Link to={editLink}><button type="button" className="ml-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</button></Link>
-        </div>
+            <button onClick={handleBookmark} type="button" className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isBookmarked? "Unfollow" : "Attend" }</button>
+            { userInformation._id === concertInfo.host && <Link to={editLink}><button type="button" className="ml-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</button></Link>}        </div>
         <div className="flex items-center mb-2"><img src="/schedule.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{new Date(concertInfo.date).toLocaleString('de-DE', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}h</p></div>
         <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.address.street} {concertInfo.address.number}, {concertInfo.address.zipcode} {concertInfo.city}</p></div>
         <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">
