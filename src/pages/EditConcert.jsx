@@ -11,7 +11,6 @@ function EditConcert(props) {
   const [newConcert, setNewConcert] = useState({});
   const [artistCost, setArtistCost] = useState(0)
   const [artist, setArtist] = useState({})
-  const [concert, setConcert] = useState({})
 
   // get user ID from auth context
   const { user } = useContext(AuthContext);
@@ -25,22 +24,24 @@ function EditConcert(props) {
   useEffect(() => {
     axios.get(`${API_URL}/concert/${concertId}`)
     .then(response => {
-        setConcert(response.data)
+        setNewConcert({...response.data})
+        setArtist(response.data.artist)
+        setIsPublicChecked(response.data.isPublic)
         console.log(response.data)
     })
     .catch(error => {console.log(error) })
   }, [])
 
-  useEffect(() => {
-    axios.get(`${API_URL}/artists/${concert.artist}`)
-    .then(response => {
-      setArtist(response.data)
-      setNewConcert({...concert})
-      setIsPublicChecked(concert.isPublic)
-      console.log(response.data)
-    })
-    .catch(error => {console.log(error) })
-  }, [concert])
+  // useEffect(() => {
+  //   axios.get(`${API_URL}/artists/${concert.artist}`)
+  //   .then(response => {
+  //     setArtist(response.data)
+  //     setNewConcert({...concert})
+  //     setIsPublicChecked(concert.isPublic)
+  //     // console.log(response.data)
+  //   })
+  //   .catch(error => {console.log(error) })
+  // }, [concert])
 
 
   const [errorMessage, setErrorMessage] = useState(undefined);

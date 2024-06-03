@@ -12,7 +12,7 @@ export default function ArtistDetail(){
   const API_URL = "http://localhost:5005";
   const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
   const [audioURL, setAudioURL] = useState()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleBook () {
     if (isLoggedIn) {
@@ -33,7 +33,6 @@ export default function ArtistDetail(){
         let newArray = response.data.artistVideos[0].split("=");
         let embedURL = `https://www.youtube.com/embed/${newArray[1]}`
         setVideoURL(embedURL)
-
       }
       setIsLoading(false)
     })
