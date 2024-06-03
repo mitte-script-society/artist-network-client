@@ -14,7 +14,7 @@ export default function IsSpecificUser( {children}) {
   const { isLoading, user } = useContext(AuthContext);
 
   // If the authentication is still loading 
-  if (isLoading) return <p>Loading ...</p>;
+  if (isLoading) return <isLoading/>;
 
   if ( ! user.concertsHosted.some( concertHosted => concertHosted === concertId ) ) {
     // If it is not true that one concert hosted by the user matches the concert we want to edit...     

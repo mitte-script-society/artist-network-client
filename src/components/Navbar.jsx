@@ -5,10 +5,9 @@ import { AuthContext } from "../context/auth.context";
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider `value` prop
-  const { isLoggedIn, userInformation, logOutUser, setIsLogInWindow, setRoutePostLogin } = useContext(AuthContext);
+  const { isLoggedIn, userInformation, logOutUser, setIsLogInWindow} = useContext(AuthContext);
 
   const handleCallLogin = () => {
-    setRoutePostLogin("/user")
     setIsLogInWindow(true);
   }
 

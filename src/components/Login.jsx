@@ -11,7 +11,7 @@ function Login( ) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { storeToken, authenticateUser, isLoggedIn, setIsLogInWindow, routePostLogin, setRoutePostLogin } = useContext(AuthContext);
+  const { storeToken, authenticateUser, isLoggedIn, setIsLogInWindow } = useContext(AuthContext);
 
   const handleClose = () => {
     setIsLogInWindow(false)

@@ -2,6 +2,7 @@ import '../styles/DisplayArtists.css'
 import ArtistCard from './ArtistCard';
 import { useState } from 'react';
 import SearchBar from './SearchBar';
+import LoadingPage from './LoadingPage';
 
 export default function DisplayArtists({artistsArray, userInformation}) {
   const [arrayToShow, setArrayToShow] = useState(artistsArray);
@@ -31,7 +32,7 @@ export default function DisplayArtists({artistsArray, userInformation}) {
           )
         })
         :
-        <div>Loading</div>
+        <LoadingPage/>
         }
       </div>
     </div>

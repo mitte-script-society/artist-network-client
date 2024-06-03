@@ -5,6 +5,7 @@ import Login from '../components/Login'
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 import { useEffect, useState } from "react";
+import LoadingPage from "../components/LoadingPage";
 
 export default function Home() {
   const { isLogInWindow, userInformation} = useContext(AuthContext);
@@ -36,7 +37,7 @@ export default function Home() {
       }
 
       {isLoading?
-        <div>Loading</div>
+        <LoadingPage/>
         :
         <div className="concerts-main-space">
         <div className="display-concerts-wrapper">

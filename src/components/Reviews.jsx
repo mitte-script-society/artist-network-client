@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 
 function Comments() {
 
-const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
+const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
 
 const API_URL = "http://localhost:5005"
 

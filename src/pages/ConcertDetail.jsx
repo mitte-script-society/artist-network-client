@@ -9,30 +9,19 @@ import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
 import {Icon, divIcon} from "leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import { bookmarkUser } from "../services/user-services";
+import LoadingPage from "../components/LoadingPage";
 
 export default function ConcertDetail(){
-  const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
+  const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const {concertId} = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [concertInfo, setConcertInfo] = useState({});
   const API_URL = "http://localhost:5005";
   const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
   const [audioURL, setAudioURL] = useState()
-  const navigate = useNavigate();
   const [artistLink, setArtistLink] = useState("")
   const [editLink, setEditLink] = useState("")
   const [isBookmarked, setIsBookmarked] = useState(null)
-
-
-//   function handleBook () {
-//     if (isLoggedIn) {
-//       navigate(`/concerts/book/${artistInfo._id}`);
-//     } else {
-//       setRoutePostLogin(`/concerts/book/${artistInfo._id}`);
-//       setIsLogInWindow(true);
-//     }
-//   }
-
 
 const customIcon = new Icon({
     iconUrl: "/music.png",
@@ -58,11 +47,8 @@ useEffect ( () => {
     })
   }, [])
 
-
-
   function handleBookmark() {
     if (!isLoggedIn) {  
-      setRoutePostLogin("");
       setIsLogInWindow(true);
     }
     else {
@@ -83,14 +69,14 @@ useEffect ( () => {
     <div className="m-auto max-w-xl">
 
       {isLoading? 
-      <div>Loading</div>
+      <LoadingPage/>
       :
       <div className="m-auto max-w:1/2 gap:3">
         <img src={concertInfo.image} className="object-cover h-80 w-full m-auto"/>
         <div className="flex items-center mb-2">
             <p className="text-xl font-bold mt-2 mb-2">{concertInfo.title} ({concertInfo.prices} €)</p>
             <button onClick={handleBookmark} type="button" className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isBookmarked? "Unfollow" : "Attend" }</button>
-            { userInformation._id === concertInfo.host && <Link to={editLink}><button type="button" className="ml-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</button></Link>}        </div>
+            { userInformation._id === concertInfo.host && <Link to={editLink}><button type="button" className="ml-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</button></Link>}  </div>
         <div className="flex items-center mb-2"><img src="/schedule.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{new Date(concertInfo.date).toLocaleString('de-DE', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}h</p></div>
         <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.address.street} {concertInfo.address.number}, {concertInfo.address.zipcode} {concertInfo.city}</p></div>
         <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">

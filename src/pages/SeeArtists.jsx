@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 import axios from "axios";
+import LoadingPage from "../components/LoadingPage";
 
 export default function SeeArtists() {
   const { isLogInWindow, userInformation} = useContext(AuthContext);
@@ -29,7 +30,7 @@ export default function SeeArtists() {
       }
 
       {isLoading?
-        <div>Loading</div>
+        <LoadingPage/>
         :
         <DisplayArtists artistsArray={artistsArray} userInformation={userInformation} />
       }

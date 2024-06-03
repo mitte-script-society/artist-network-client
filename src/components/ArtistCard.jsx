@@ -7,7 +7,7 @@ import notbookmarkedimage from "../assets/2.png";
 import { bookmarkUser } from "../services/user-services";
 
 export default function ArtistCard({artistInfo, setYPos }) {
-  const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
+  const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const navigate = useNavigate();
   const property = "followedArtists";
   
@@ -20,17 +20,14 @@ export default function ArtistCard({artistInfo, setYPos }) {
 
  function handleBookmark() {
     if (!isLoggedIn) {  
-      setRoutePostLogin("");
       setIsLogInWindow(true);
     }
     else {
     let action = isBookmarked? "$pull" : "$push"
     bookmarkUser( action, userInformation._id, property , artistInfo._id)
         .then( response => {
-          setYPos(window.scrollY)
           resetUserInformation(userInformation._id);
           setIsBookmarked(!isBookmarked)
-          /*console.log("Data updated in Server", response)*/
         })
         .catch( error => {
           alert("Unable to update data. Server error", error)
@@ -42,7 +39,6 @@ export default function ArtistCard({artistInfo, setYPos }) {
     if (isLoggedIn) {
       navigate(`/concerts/book/${artistInfo._id}`);
     } else {
-      setRoutePostLogin(`/concerts/book/${artistInfo._id}`);
       setIsLogInWindow(true);
     }
   }

@@ -17,6 +17,7 @@ import ArtistDetail from "./pages/ArtistDetail";
 import ConcertDetail from "./pages/ConcertDetail";
 import About from "./pages/About";
 import IsAnon from "./components/IsAnon";
+import Chat from "./components/Chat";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 
       <Routes>      
         <Route path="/" element={<Home/>} />
+        <Route path="/chat" element={<Chat/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/see-artists/:artistId" element={<ArtistDetail/>}/>

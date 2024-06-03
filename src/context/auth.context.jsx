@@ -12,7 +12,6 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [isLogInWindow, setIsLogInWindow] = useState(false);
   const [userInformation, setUserInformation] = useState([])
-  const navigate = useNavigate()
   
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -29,7 +28,7 @@ function AuthProviderWrapper(props) {
     })
   }
 
-  const authenticateUser = (newRoute) => { 
+  const authenticateUser = () => { 
     console.log("AuthenticateUser requested")
 
     // Get the stored token from the localStorage
@@ -52,9 +51,6 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(user);
-          if (newRoute) {
-            navigate(newRoute);
-            }
         })
       .catch((error) => {
         // If the server sends an error response (invalid token) ❌

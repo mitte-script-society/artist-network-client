@@ -8,3 +8,22 @@
 .leaflet-container {
   height: 100vh;
 }
+
+.loading-page-effect {
+  height: 90vh;
+  display: flex;
+  background-color: rgb(207, 207, 207);
+}
+.circle-loading {
+  margin: auto auto;
+  width: 100px;
+  height: 100px;
+  border: 10px solid rgba(37, 70, 3, 0.3); 
+  border-radius: 50%; 
+  border-top: 10px solid #3b7700; 
+  animation: spin 1s linear infinite; 
+  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+  }

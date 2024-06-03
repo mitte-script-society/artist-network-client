@@ -4,9 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Spotify } from "react-spotify-embed";
 import { AuthContext } from "../context/auth.context";
 import Reviews from "../components/Reviews"
+import LoadingPage from "../components/LoadingPage";
 
 export default function ArtistDetail(){
-  const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
+  const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const {artistId} = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [artistInfo, setArtistInfo] = useState({});
@@ -19,7 +20,6 @@ export default function ArtistDetail(){
     if (isLoggedIn) {
       navigate(`/concerts/book/${artistInfo._id}`);
     } else {
-      setRoutePostLogin(`/concerts/book/${artistInfo._id}`);
       setIsLogInWindow(true);
     }
   }
@@ -46,7 +46,7 @@ export default function ArtistDetail(){
     <div className="m-auto max-w-xl">
 
       {isLoading? 
-      <div>Loading</div>
+      <LoadingPage/>
       :
       <div className="m-auto max-w:1/2 gap:3">
         <img src={artistInfo.picture} className="object-cover h-80 w-full m-auto"/>

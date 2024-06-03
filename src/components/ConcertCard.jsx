@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { bookmarkUser } from "../services/user-services";
 
 export default function ConcertCard({concertInfo, setYPos }) {
-  const { isLoggedIn, setIsLogInWindow, setRoutePostLogin, userInformation, resetUserInformation } = useContext(AuthContext);
+  const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const property = "bookmarkedEvents";
   const date = concertInfo.date
   const dateStr = "2024-07-20T19:30:00.000Z";
@@ -30,7 +30,6 @@ export default function ConcertCard({concertInfo, setYPos }) {
 
   function handleBookmark() {
     if (!isLoggedIn) {  
-      setRoutePostLogin("");
       setIsLogInWindow(true);
     }
     else {

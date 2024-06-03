@@ -2,6 +2,7 @@ import '../styles/DisplayConcerts.css'
 import ConcertCard from './ConcertCard';
 import { useState } from 'react';
 import SearchBar from './SearchBar';
+import LoadingPage from './LoadingPage';
 
 export default function DisplayConcerts({concertsArray, userInformation}) {
   const [arrayToShow, setArrayToShow] = useState(concertsArray);
@@ -62,7 +63,7 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
             )
           }) 
         :
-        <div>Loading</div>
+        <LoadingPage/>
       }
       </div>
     </div>
