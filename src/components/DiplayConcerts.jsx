@@ -1,31 +1,55 @@
 import '../styles/DisplayConcerts.css'
 import ConcertCard from './ConcertCard';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import SearchBar from './SearchBar';
 
 export default function DisplayConcerts({concertsArray, userInformation}) {
   const [arrayToShow, setArrayToShow] = useState(concertsArray);
   const [isLoading, setIsLoading] = useState(false);
-  const [triggerScroll, setTriggerScroll] = useState(false);
-  const [yPos, setYPos] = useState(0);
 
-/*   useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setTriggerScroll( prev => !prev)
-      }, 1);
-  }, [userInformation]);
+  //No idea if one search bar can handle the two sets of filters. 
+  //THis example works only when se submit. Other possibility is to trigger the search after 
+ // each letter change on the inputs. 
+  function triggerSearch(string) {
+    //Example for concerts: putting together all the terms of the fields where we search,
 
-  useEffect ( () => {
-    window.scrollTo({ top: yPos });
-  }, [triggerScroll]) */
+    // and checking if the string is included there. If it is, then we include the item
+
+    //Using concertsArray, we find the elements that match the searched string
+    console.log("Word to find:", string)   
+    const newArray = concertsArray.filter( element => {
+      let genreToString = element.genre.join(" ")
+      let allWords = element.title + element.artist.name + element?.groupName + element.city + genreToString
+      return allWords.toLowerCase().includes(string.toLowerCase())
+    })
+    console.log(newArray.length, newArray)
+    console.log(newArray)
   
+      /*Relevant properties to search: 
+        Artists: 
+          name
+          gropuName
+          artistGenre
+          city
+
+          Concerts: 
+          title
+          artist
+          groupName
+          city
+          artistGenre      
+      */
+
+    // 
+
+    setArrayToShow(newArray)
+  }
+
+
   return (
     <div id='display-elements'>
-      <div id="search-bar-container">
-        <input id="search-bar" type='text' placeholder='Search'/>
-        <div id="search-filters">Filters</div>
-      </div>
+     
+      <SearchBar triggerSearch={triggerSearch} />
 
       <div className='list-elements-space'>
         
@@ -33,7 +57,7 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
         arrayToShow.map( (element, index) => {
             return (
               <div className='item-list' key={index}> 
-                <ConcertCard concertInfo={element} setYPos={setYPos}/>
+                <ConcertCard concertInfo={element}/>
               </div>
             )
           }) 

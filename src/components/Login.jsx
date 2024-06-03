@@ -1,5 +1,5 @@
 import "../styles/Login.css"
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
@@ -12,7 +12,6 @@ function Login( ) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   const { storeToken, authenticateUser, isLoggedIn, setIsLogInWindow, routePostLogin, setRoutePostLogin } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const handleClose = () => {
     setIsLogInWindow(false)
@@ -27,25 +26,18 @@ function Login( ) {
     
     // added async and await so authenticate changes the variables before redirecting to /user
     axios.post(`${API_URL}/auth/login`, requestBody)
-    .then(async (response) => {
+    .then((response) => {
       storeToken(response.data.authToken);
-      await authenticateUser();
-      console.log("authentication completed");
-      console.log("is logged in desde Login después de autenticación", isLoggedIn)
-      console.log("going to:", routePostLogin)
       setIsLogInWindow(false);
-      if (routePostLogin !== "") {
-        navigate(routePostLogin);
-      }
-      setRoutePostLogin("") // => reset the value to ""
-      return
-
+      authenticateUser("/user");
     })
      .catch((error) => {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
   };
+
+
 
   return (
   <div className="fixed-background-windows">

@@ -1,32 +1,24 @@
 import '../styles/DisplayArtists.css'
 import ArtistCard from './ArtistCard';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import SearchBar from './SearchBar';
 
 export default function DisplayArtists({artistsArray, userInformation}) {
   const [arrayToShow, setArrayToShow] = useState(artistsArray);
   const [isLoading, setIsLoading] = useState(false);
-  const [triggerScroll, setTriggerScroll] = useState(false)
-  const [yPos, setYPos] = useState(0);
-  
-/*   useEffect(() => {
-      setIsLoading(true);
-      setTimeout(() => {
-      setIsLoading(false);
-      setTriggerScroll( prev => !prev)
-      }, 1);
-  }, [userInformation]);
 
-  useEffect ( () => {
-    window.scrollTo({ top: yPos });
-  }, [triggerScroll]) */
+  function triggerSearch(string) {
+    //Using concertsArray, we find the elements that match the searched string
+    console.log("Word:", string)
+    //
+    //setArrayToShow(/* The elements that match the criteria */)
+  }
+
 
   return (
     <div id='display-elements'>
       
-      <div id="search-bar-container">
-        <input id="search-bar" type='text' placeholder='Search'/>
-        <div id="search-filters">Filters</div>
-      </div>
+      <SearchBar triggerSearch={triggerSearch} />
 
       <div className='list-elements-space'>
 
@@ -34,7 +26,7 @@ export default function DisplayArtists({artistsArray, userInformation}) {
         arrayToShow.map( (element, index) => {
           return (
             <div className='item-list' key={index} > 
-              <ArtistCard artistInfo={element} setYPos={setYPos} />
+              <ArtistCard artistInfo={element} />
             </div>
           )
         })
