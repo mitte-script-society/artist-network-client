@@ -13,14 +13,18 @@ function BookConcert(props) {
   const [artist, setArtist] = useState({})
 
   // get user ID from auth context
-  const { user } = useContext(AuthContext);
+  const { userInformation } = useContext(AuthContext);
+  console.log(userInformation)
 
   // get artist from params
   const {artistId} = useParams()
 
   useEffect(() => {
     axios.get(`${API_URL}/artists/${artistId}`)
-    .then(response => {setArtist(response.data) })
+    .then(response => {
+      setArtist(response.data)
+      setArtistCost(0)
+     })
     .catch(error => {console.log(error) })
   }, [])
 
@@ -45,7 +49,7 @@ function BookConcert(props) {
   const handleChange = (e) => {
     const newObject = { ...newConcert };
     newObject[e.target.name] = e.target.value;
-    newObject["host"] = user._id
+    newObject["host"] = userInformation._id
     newObject["artist"] = artistId
     newObject["isPublic"] = isPublicChecked
     setNewConcert(newObject)

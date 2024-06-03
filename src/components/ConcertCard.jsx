@@ -62,7 +62,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
       </div>
 
       <div className="concert-card-photo-space">      
-        <img className="concert-photo-card" src="https://res.cloudinary.com/deckhnump/image/upload/v1717196062/movie-gallery/qysmva0pp5s1d7lbg9co.jpg" /* src={concertInfo.image} *//>
+        <img className="concert-photo-card" src={concertInfo.image} /* src={concertInfo.image} *//>
       </div>
 
       <div className="concert-card-info-space">

@@ -8,7 +8,7 @@ import { useState } from "react"
 
 function MapView(props) {
 
-    const markers = props.concertData
+    const markers = props.concertData.filter(obj => obj.hasOwnProperty('location'));
     console.log("Markers:", markers)
       
       const customIcon = new Icon({
