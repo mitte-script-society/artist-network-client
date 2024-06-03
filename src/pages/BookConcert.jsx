@@ -11,6 +11,12 @@ function BookConcert(props) {
   const [newConcert, setNewConcert] = useState({});
   const [artistCost, setArtistCost] = useState(0)
   const [artist, setArtist] = useState({})
+  const [street, setStreet] = useState("")
+  const [houseNumber, setHouseNumber] = useState("")
+  const [zipCode, setZipCode] = useState("")
+  const [city, setCity] = useState("")
+  const [address, setAddress] = useState("")
+  const [validationText, setValidationText] = useState("Please validate the address before booking the concert so we can place you on the map.")
 
   // get user ID from auth context
   const { userInformation } = useContext(AuthContext);
@@ -89,6 +95,66 @@ function BookConcert(props) {
     console.log(newObject)
   }
 
+  const handleStreet = (e) => {
+    setStreet(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleHouseNumber = (e) => {
+    setHouseNumber(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleZipcode = (e) => {
+    setZipCode(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleCity = (e) => {
+    const newObject = { ...newConcert };
+    newObject["city"] = e.target.value
+    setNewConcert(newObject)
+    setCity(e.target.value)
+    console.log(e.target.value)
+  }
+
+
+  const validateAddress = () => {
+    const searchAddress = street+" "+houseNumber+" "+zipCode+" "+city
+    console.log("validating address..."+searchAddress)
+    setValidationText("Looking up the address in all the databases in the world... (this may take a while)")
+    const formatAddress = encodeURI(searchAddress);
+    const apiUrl = `https://nominatim.openstreetmap.org/search?q=${formatAddress}&format=json`;
+
+    axios.get(apiUrl)
+      .then(response => {
+        const data = response.data;
+        if (data && data.length > 0) {
+          console.log(data)
+          const { lat, lon } = data[0];
+          setValidationText(data[0].display_name)
+          const newObject = { ...newConcert }
+          newObject.location = [Number(lat), Number(lon)]
+          newObject.address = {
+            street: street,
+            number: houseNumber,
+            zipcode: zipCode
+          }
+          newObject.city = city
+          console.log(newObject.address)
+          console.log(newObject.location)
+          setNewConcert(newObject)
+
+        } else {
+          console.log('Address not found');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching geocoordinates', error);
+      });
+  }
+
+
   const handleSignupSubmit = (e) => {
     e.preventDefault();
 
@@ -138,33 +204,40 @@ function BookConcert(props) {
               <div className="sm:col-span-2 sm:col-start-1">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Street</label>
                 <div className="mt-2">
-                  <input type="text" name="street" id="city" onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                  <input type="text" name="street" id="street" onChange={handleStreet} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
                 </div>
               </div>
 
               <div className="sm:col-span-1">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Number</label>
                 <div className="mt-2">
-                  <input type="text" name="number" id="city" onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                  <input type="string" name="string" id="number" onChange={handleHouseNumber} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
                 </div>
               </div>
 
               <div className="sm:col-span-1">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Zip Code</label>
                 <div className="mt-2">
-                  <input type="text" name="zipcode" id="city" onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                  <input type="string" name="string" id="zipcode" onChange={handleZipcode} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
                 </div>
               </div>
-
 
               <div className="sm:col-span-2">
                 <label for="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
                 <div className="mt-2">
-                  <input type="text" name="city" id="city" onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                  <input type="text" name="city" id="city" onChange={handleCity} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
                 </div>
               </div>
 
-              <div className="sm:col-span-2">
+              <div className="flex items-center justify-start gap-x-6 border-0 sm:col-start-1">
+              <button type="button" onClick={validateAddress} className="rounded-md h-9 bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Validate</button>
+              </div>
+
+              <div className="sm:col-span-5">
+              <p className="mt-2 text-sm leading-6 text-gray-600">{validationText}</p>
+              </div>
+    
+              <div className="sm:col-span-2 sm:col-start-1">
                 <label for="date" className="block text-sm font-medium leading-6 text-gray-900">Date and Time</label>
                 <div className="mt-2">
                   <input type="datetime-local" name="date" id="date" className="mt-1 block w-full" onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
@@ -203,7 +276,7 @@ function BookConcert(props) {
 
 
               <div className="col-span-full">
-                <div className="mt-6 space-y-6">
+                <div className="mt-2 space-y-6">
                   <div className="relative flex gap-x-3">
                     <div className="flex h-6 items-center">
                       <input id="isArtist" name="isArtist" type="checkbox" checked={isPublicChecked} onChange={handleIsPublic} className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
