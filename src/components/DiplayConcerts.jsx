@@ -22,16 +22,6 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
     setArrayToShow(newArray)
   }
 
-  // function handleGenre(e){
-  //   const newArray = concertsArray.filter(element => element.genre.includes(e.target.value))
-  //   setArrayToShow(newArray)
-  // }
-
-  // function handleCity(e){
-  //   const newArray = concertsArray.filter(element => element.city.includes(e.target.value))
-  //   setArrayToShow(newArray)
-  // }
-
   useEffect(() => {
     console.log(genreFilter)
     console.log(locationFilter)
