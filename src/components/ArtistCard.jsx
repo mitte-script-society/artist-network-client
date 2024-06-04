@@ -6,7 +6,7 @@ import bookmarkedimage from "../assets/1.png";
 import notbookmarkedimage from "../assets/2.png";
 import { bookmarkUser } from "../services/user-services";
 
-export default function ArtistCard({artistInfo, setYPos }) {
+export default function ArtistCard({artistInfo }) {
   const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const navigate = useNavigate();
   const property = "followedArtists";

@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 
 function Comments() {
 
-const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
+const { isLoggedIn, userInformation, } = useContext(AuthContext);
 
   const { artistId } = useParams();
   const [comment, setComment] = useState("");

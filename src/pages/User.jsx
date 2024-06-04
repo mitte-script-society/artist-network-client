@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import { bookmarkUser } from "../services/user-services";
 
 const User = () => {
-  const { userInformation} = useContext(AuthContext);
+  const { userInformation, resetUserInformation} = useContext(AuthContext);
   const [showArtist, setShowArtist] = useState(true);
   const [favArtist, setFavArtist] = useState(userInformation.followedArtists);
   const [favConcerts, setFavConcerts] = useState(userInformation.bookmarkedEvents);
@@ -12,10 +12,10 @@ const User = () => {
   function handleDelete(array, setFunction, index, property, element) {
     bookmarkUser("$pull", userInformation._id, property, element)
     .then( (response) => {
-      console.log(response.data.followedArtists)
       const newArray = [... array ]
       newArray.splice(index,1)
       setFunction(newArray)
+      resetUserInformation(userInformation._id);
     })
     .catch( error => {
       console.log(error)
