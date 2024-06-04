@@ -93,7 +93,8 @@ function EditConcert(props) {
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     console.log(newConcert)
-    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, newConcert)
+    const storedToken = localStorage.getItem("authToken");
+    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, newConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         console.log(response)
         navigate("/");
@@ -106,7 +107,8 @@ function EditConcert(props) {
   };
   
   const handleDeletion = (e) => {
-    axios.delete(`${import.meta.env.VITE_API_URL}/concert/${concertId}`)
+    const storedToken = localStorage.getItem("authToken");
+    axios.delete(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         console.log(response)
         navigate("/");

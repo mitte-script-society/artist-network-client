@@ -161,8 +161,9 @@ function BookConcert(props) {
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
+    const storedToken = localStorage.getItem("authToken");
     console.log(newConcert)
-    axios.post(`${import.meta.env.VITE_API_URL}/concert`, newConcert)
+    axios.post(`${import.meta.env.VITE_API_URL}/concert`, newConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         navigate("/");
 
