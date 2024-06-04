@@ -4,7 +4,7 @@ import axios from "axios";
 import uploadImage from "../services/file-upload.service";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+
 
 function Signup(props) {
   const [isArtistChecked, setIsArtistChecked] = useState(false)
@@ -102,13 +102,13 @@ useEffect(() => {
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
-    axios.post(`${API_URL}/auth/signup`, newUser)
+    axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, newUser)
       .then(() => {
         const body = {
           email: newUser.email,
           password: newUser.password
         }
-        return axios.post(`${API_URL}/auth/login`, body)
+        return axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, body)
       })
       .then((response) => {
         storeToken(response.data.authToken);

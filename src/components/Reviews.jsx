@@ -7,15 +7,13 @@ function Comments() {
 
 const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
 
-const API_URL = "http://localhost:5005"
-
   const { artistId } = useParams();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/reference/${artistId}`)
+      .get(`${import.meta.env.VITE_API_URL}/reference/${artistId}`)
       .then((response) => {
         setComments(response.data)
         console.log(response.data)
@@ -35,7 +33,7 @@ const API_URL = "http://localhost:5005"
       };
       console.log(newComment)
       axios
-        .post(`${API_URL}/reference/`, newComment)
+        .post(`${import.meta.env.VITE_API_URL}/reference/`, newComment)
         .then((response) => {
           setComments([...comments, response.data]);
           setComment("");
@@ -48,7 +46,7 @@ const API_URL = "http://localhost:5005"
 
   const handleDeletion = (commentId) => {
     console.log(commentId)
-    axios.delete(`${API_URL}/reference/${commentId}`)
+    axios.delete(`${import.meta.env.VITE_API_URL}/reference/${commentId}`)
       .then((response) => {
         console.log(response)
         setComments(comments.filter(element => element._id !== commentId))

@@ -1,0 +1,1256 @@
+[
+  {
+  "_id": {
+    "$oid": "665a55af512f571de408bb6f"
+  },
+  "name": "Luwdig B.",
+  "email": "beethoven@artist.com",
+  "password": "$2b$10$2JaocQVaYAaYYjmoWMxpquyGavoE1aQM/DbB/RluYyLwlDdOzr252",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717196062/movie-gallery/qysmva0pp5s1d7lbg9co.jpg",
+  "bookmarkedEvents": [],
+  "followedArtists": [
+    {
+      "$oid": "665a6722ec3c65db5e16588c"
+    },
+    {
+      "$oid": "665b0d8e996bb3789ec15fd5"
+    },
+    {
+      "$oid": "665b0d8e996bb3789ec15fde"
+    }
+  ],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "artistMembers": [],
+  "artistDescription": "I am struggling with money and I think I am going deaf. Please hire me. People say I am good.",
+  "artistFee": 100,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://www.youtube.com/watch?v=524VlYD0PVw"
+  ],
+  "artistAudio": [
+    "https://open.spotify.com/intl-es/track/7rYCenkV4OXJgiUuKrhDCb?si=6b49cdca68d148d7"
+  ],
+  "artistWebsite": "http://www.beethoven.org",
+  "artistGenre": [
+    "Heavy Metal, Techno"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-05-31T22:56:47.528Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-03T22:16:20.929Z"
+  },
+  "__v": 0,
+  "conversations": [
+    "665df9b6f968453939f89907"
+  ]
+},
+{
+  "_id": {
+    "$oid": "665a6722ec3c65db5e16588c"
+  },
+  "name": "Wolfgang Amadeus",
+  "email": "amadeus@artist.com",
+  "password": "$2b$10$O3RvvU2PpcbzrtnzmA6UUeXxNFzhTpdRso1.7Q9EEDpmPEYD0SD2G",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717200535/movie-gallery/woolsshqlrx8vxk8mpd8.jpg",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "artistMembers": [],
+  "artistDescription": "Do you need a pianist for your raves? I am your man.",
+  "artistFee": 100,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://www.youtube.com/watch?v=9jlQiHHMlkA"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "http://www.mozart.com",
+  "artistGenre": [
+    "Techno-Classical"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T00:11:14.728Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T00:11:14.728Z"
+  },
+  "__v": 0,
+  "conversations": [
+    "665df9b6f968453939f89907"
+  ]
+},
+{
+  "_id": {
+    "$oid": "665b06453540952590e65573"
+  },
+  "name": "Singer Girls of Atlacholoaya",
+  "email": "altachocanta@gmail.com",
+  "password": "$2b$10$XX/6wdlLVu9IDJyWlp.eO.vbMNFOuIlHZblfo6cVjQy8JNqmDk7xW",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238486/coro_m6kbl2.jpg",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": true,
+  "groupName": "Singer Girls of Atlacholoaya",
+  "artistMembers": [
+    "Lilian",
+    "Madison",
+    "Allison",
+    "Rubí",
+    "Vanessa",
+    "Luis Arturo"
+  ],
+  "artistDescription": "From the little village of Atlacholoaya to the World!",
+  "artistFee": 100,
+  "artistPictures": [],
+  "artistVideos": [
+    ""
+  ],
+  "artistAudio": [],
+  "artistWebsite": "",
+  "artistGenre": [
+    "classical, folk mexican"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T11:30:13.289Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T11:30:13.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b06453540952590e65576"
+  },
+  "name": "Johannes",
+  "email": "emma@artist.com",
+  "password": "$2b$10$FEAE6GDf1dGjWdT65ujfouSec1jIetLZhj1S4edDr2KL7fNByNr4K",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717194936/movie-gallery/xilk8q3wplgrzpcgeuav.jpg",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "artistMembers": [],
+  "artistDescription": "I have to work some extra hours to provide for my 17 children. Please help me. I wil be famous in the future",
+  "artistFee": 100,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://youtu.be/j6Asb0tRxQ4?si=AWtxOtxtgP0gXeaf"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://suastech.github.io/contracanto/",
+  "artistGenre": [
+    "classical"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T11:30:13.477Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T11:30:13.477Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8e996bb3789ec15fcf"
+  },
+  "name": "Lars Weber",
+  "email": "lars@artist.com",
+  "password": "$2b$10$bbYDxp4MaqD3SDE4sqK1wOrlLm.Gh3sCIZnPBZJya/k5q4mV6QBFi",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717240360/artist_qjs8rk.jpg",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Classical pianist",
+  "artistFee": 150,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/larsweber"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://larsweber.com",
+  "artistGenre": [
+    "Classical"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:18.277Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:18.277Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8e996bb3789ec15fd2"
+  },
+  "name": "Nina Schmidt",
+  "email": "nina@artist.com",
+  "password": "$2b$10$7NH6A8uZlReBtHKBqcTTeep5aNMmcXL7af8JaZNfgrrmSQUT3VZSW",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238495/op_dtlcxk.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Abstract painter",
+  "artistFee": 200,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/ninaschmidt"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://ninaschmidtart.com",
+  "artistGenre": [
+    "Abstract Art"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:18.425Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:18.425Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8e996bb3789ec15fd5"
+  },
+  "name": "Johannes Becker",
+  "email": "johannes@artist.com",
+  "password": "$2b$10$LYziDnm2MCQsSNWuk4THgOi2vVUV4CjfaVvfvfWVoIZQk.v4.JiXS",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238495/f_qfxg1b.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Jazz saxophonist",
+  "artistFee": 250,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/johannesbecker"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://johannesbeckerjazz.com",
+  "artistGenre": [
+    "Jazz"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:18.560Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:18.560Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8e996bb3789ec15fd8"
+  },
+  "name": "Laura Fischer",
+  "email": "laura@artist.com",
+  "password": "$2b$10$xaoRlJgzo68Xo/e5tEYMIOdfe/QCVKwdSAdBCCGFb5/m49B3aEKJq",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238494/rtr_q7cd8u.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Modern dancer",
+  "artistFee": 180,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/laurafischer"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://laurafischer.com",
+  "artistGenre": [
+    "Dance"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:18.688Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:18.688Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8e996bb3789ec15fdb"
+  },
+  "name": "Felix Braun",
+  "email": "felix@artist.com",
+  "password": "$2b$10$b6gXxpY/XggSczXKmaw4xOZNh2g8KJbG3nRh49wVpyG9iixZVWr.G",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238494/lmkm_cwiiig.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Rock guitarist",
+  "artistFee": 220,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/felixbraun"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://felixbraunrock.com",
+  "artistGenre": [
+    "Rock"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:18.827Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:18.827Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8e996bb3789ec15fde"
+  },
+  "name": "Sara Klein",
+  "email": "sara@artist.com",
+  "password": "$2b$10$JM7DACA7b5urwEpe8yKVI.YGi5r8luszAysyLCEGfYenwyPBtw1Yi",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238493/lkl_hpinhq.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Contemporary sculptor",
+  "artistFee": 300,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/saraklein"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://sarakleinart.com",
+  "artistGenre": [
+    "Sculpture"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:18.951Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:18.951Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15fe1"
+  },
+  "name": "Tim Wagner",
+  "email": "tim@artist.com",
+  "password": "$2b$10$EZTCiVa3JEhVVUOjkgYwKuyIZySn6yd6MIjZQvEC33nuPAdtoW9gi",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238491/dd_na85no.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Hip-hop dancer",
+  "artistFee": 210,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/timwagner"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://timwagnerdance.com",
+  "artistGenre": [
+    "Hip-hop"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.078Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.078Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15fe4"
+  },
+  "name": "Hannah Krüger",
+  "email": "hannah@artist.com",
+  "password": "$2b$10$LgeuLY1NqtNPO1O2.kWnnuUecKNf7GNKBhjmqOq4xgt2XrT.DcySy",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238491/l_m2rgna.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Indie folk singer",
+  "artistFee": 190,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/hannahkrueger"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://hannahkruegerfolk.com",
+  "artistGenre": [
+    "Indie Folk"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.210Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.210Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15fe7"
+  },
+  "name": "Oliver Richter",
+  "email": "oliver@artist.com",
+  "password": "$2b$10$KHjPv5V1GXy65sWuA/WqWe/wGvG4htj80AOoLiaJTOK8Qg7WKBsMS",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238491/g_ol1xtx.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Electronic music producer",
+  "artistFee": 270,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/oliverrichter"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://oliverrichterbeats.com",
+  "artistGenre": [
+    "Electronic"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.346Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.346Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15fea"
+  },
+  "name": "Mia König",
+  "email": "mia@artist.com",
+  "password": "$2b$10$XvDnzx.E9W6sCCldWorbUuBejMWVs6BaAXk.fGLtMisA0sBSdUNr2",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238490/ewr_f0trvd.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Pop singer-songwriter",
+  "artistFee": 230,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/miakoenig"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://miakoenigpop.com",
+  "artistGenre": [
+    "Pop"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.476Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.476Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15fed"
+  },
+  "name": "Max Bauer",
+  "email": "max@artist.com",
+  "password": "$2b$10$jisYqdIUJZbKmeIhiHNC3eFwQL5N002lEoUoMRp/AH6mjVAFNFMk.",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238488/asdf_viwe6i.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Street artist",
+  "artistFee": 260,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/maxbauer"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://maxbauerart.com",
+  "artistGenre": [
+    "Street Art"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.608Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.608Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15ff0"
+  },
+  "name": "Lea Hartmann",
+  "email": "lea@artist.com",
+  "password": "$2b$10$Dm.l9qPuYXwSlkqbxgD40eTRqWlCT6qkUtpqctOa4M1mkbRMhVoEC",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238487/as_ilr4d1.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Opera singer",
+  "artistFee": 280,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/leahartmann"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://leahartmannopera.com",
+  "artistGenre": [
+    "Opera"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.731Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15ff3"
+  },
+  "name": "Jonas Vogel",
+  "email": "jonas@artist.com",
+  "password": "$2b$10$vM5TQYZX.I9zSvD5EYjbfONifI8PtJ5as6BkgWN.Cbk6NWUdoOS5q",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238487/b_ckcimu.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Contemporary photographer",
+  "artistFee": 240,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/jonasvogel"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://jonasvogelphoto.com",
+  "artistGenre": [
+    "Photography"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.854Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.854Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d8f996bb3789ec15ff6"
+  },
+  "name": "Anna Schulz",
+  "email": "anna@artist.com",
+  "password": "$2b$10$ejtG4m4LqwrNit5SgkTwRek3YaDX1badPOqtTmxwx/0j/4i9xPjQy",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238487/c_rmkgft.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Jazz singer",
+  "artistFee": 170,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/annaschulz"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://annaschulzjazz.com",
+  "artistGenre": [
+    "Jazz"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:19.979Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:19.979Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec15ff9"
+  },
+  "name": "Lena Meier",
+  "email": "lena@artist.com",
+  "password": "$2b$10$snRSL3eyDBTR9h29sIJFC.bgmMHog45JRTZ6vT2hUW9Mqdf0mVaPy",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238485/aa_fbgbhw.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Experimental filmmaker",
+  "artistFee": 320,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/lenameier"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://lenameierfilm.com",
+  "artistGenre": [
+    "Film"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.106Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.106Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec15ffc"
+  },
+  "name": "Paul Neumann",
+  "email": "paul@artist.com",
+  "password": "$2b$10$OxGZAEPGvU.52Y55IPM0tuzsyVBHh5hjAfhE3kbDC.gV4fgKF.Q8a",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238485/17_ihaqif.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Classical violinist",
+  "artistFee": 200,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/paulneumann"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://paulneumannviolin.com",
+  "artistGenre": [
+    "Classical"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.248Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec15fff"
+  },
+  "name": "Clara Weiß",
+  "email": "clara@artist.com",
+  "password": "$2b$10$UNehJFN3nAa06x1udaX4ze5Yjp4x2nRWKNhAj1Hskgsh8jxBCtYbC",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238485/7_xdbdvr.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Indie rock drummer",
+  "artistFee": 250,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/claraweiss"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://claraweissdrums.com",
+  "artistGenre": [
+    "Indie Rock"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.385Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.385Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec16002"
+  },
+  "name": "David Horn",
+  "email": "david@artist.com",
+  "password": "$2b$10$f/eZ.vgMinEkmROHTnrBKu6sRCZjeAs/2cOokAorM4OhtpCQ0/cjK",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238484/9_q4rbku.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Spoken word poet",
+  "artistFee": 180,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/davidhorn"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://davidhornpoetry.com",
+  "artistGenre": [
+    "Spoken Word"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.558Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.558Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec16005"
+  },
+  "name": "Ella Schwarz",
+  "email": "ella@artist.com",
+  "password": "$2b$10$0L0Pl2mIe14r0F0j9RZqLOEYOLwgRGwuywFjPs8bnikZ3xHpv7b4m",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238483/a_kpx1xf.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Folk guitarist",
+  "artistFee": 210,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/ellaschwarz"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://ellaschwarzfolk.com",
+  "artistGenre": [
+    "Folk"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.685Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.685Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec16008"
+  },
+  "name": "Tom Hofmann",
+  "email": "tom@artist.com",
+  "password": "$2b$10$Uej7PW4ZChUF0OmoFbHu2eyIoJeSQKbBniC21pp49Rx0L4OdGcfeu",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238483/8_vbnhmx.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Jazz trumpeter",
+  "artistFee": 220,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/tomhofmann"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://tomhofmannjazz.com",
+  "artistGenre": [
+    "Jazz"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.806Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.806Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d90996bb3789ec1600b"
+  },
+  "name": "Maria Seidel",
+  "email": "maria@artist.com",
+  "password": "$2b$10$/eFL5ndMnfhxHyj0WDImn.XvLuxt63GaWpRAI0Jwd6nkEZZz4.jGu",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238483/6_iyfxs7.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Digital artist",
+  "artistFee": 260,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/mariaseidel"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://mariaseideldigital.com",
+  "artistGenre": [
+    "Digital Art"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:20.932Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:20.932Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec1600e"
+  },
+  "name": "Jan Richter",
+  "email": "jan@artist.com",
+  "password": "$2b$10$xev.DtVOg3UtMpIy7aFBMOC7mZYmc4VY3Dbi53WA2CQxWTUX0G3ra",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238481/10_mwe5rb.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Classical cellist",
+  "artistFee": 230,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/janrichter"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://janrichtercello.com",
+  "artistGenre": [
+    "Classical"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.055Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.055Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec16011"
+  },
+  "name": "Sophia Kruger",
+  "email": "sophia@artist.com",
+  "password": "$2b$10$AtTI1Kh25S8yZL/kfZt4m.AeR/IMoeQSqgOteBqbfRt8STBBTSBRm",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238480/2_fengbi.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Graffiti artist",
+  "artistFee": 270,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/sophiakruger"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://sophiakrugerart.com",
+  "artistGenre": [
+    "Graffiti"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.194Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.194Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec16014"
+  },
+  "name": "Erik Lange",
+  "email": "erik@artist.com",
+  "password": "$2b$10$1SCDvz/53CPj/sI9/jgGnObsUwlLkr3tOdKpJvpXKZmrzoNi391MG",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238480/1_tg36cw.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Ballet dancer",
+  "artistFee": 280,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/eriklange"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://eriklangeballet.com",
+  "artistGenre": [
+    "Ballet"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.338Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.338Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec16017"
+  },
+  "name": "Lina Braun",
+  "email": "lina@artist.com",
+  "password": "$2b$10$IRGaZ7H46.XA4SsWAYEx.uCzKrk2ivW9gk6Aasr3gAQFRvJmZEtZW",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238480/5_yhreaj.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Jazz bassist",
+  "artistFee": 250,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/linabraun"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://linabraunjazz.com",
+  "artistGenre": [
+    "Jazz"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.463Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.463Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec1601a"
+  },
+  "name": "Chris Walter",
+  "email": "chris@artist.com",
+  "password": "$2b$10$pYNN3rFLcoP2AEa16LZN7.1lOq7LgqQ9AqhH1skoys9i9ufbqm2.e",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238478/3_mnzzfk.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Film composer",
+  "artistFee": 300,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/chriswalter"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://chriswalterfilm.com",
+  "artistGenre": [
+    "Film Music"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.585Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.585Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec1601d"
+  },
+  "name": "Isabel Hoffmann",
+  "email": "isabel@artist.com",
+  "password": "$2b$10$tK5WXYwJoHeMxbvp4hk1y.JJfHaZRbkoKMDCsv0c.cWEVIwVymAgC",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717238478/4_wzaph2.png",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Indie singer",
+  "artistFee": 190,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/isabelhoffmann"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://isabelhoffmannindie.com",
+  "artistGenre": [
+    "Indie"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.711Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.711Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b0d91996bb3789ec16020"
+  },
+  "name": "Günther B.",
+  "email": "guntherb@artist.com",
+  "password": "$2b$10$DmUb57mDsKMssnuJsjHyqOCferCry.MNkw84AWWhO8aR7SAmWW55O",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717198556/pianist_bvudci.jpg",
+  "bookmarkedEvents": [],
+  "followedArtists": [],
+  "city": "Berlin",
+  "isArtist": true,
+  "moreThanOne": false,
+  "groupName": "",
+  "artistMembers": [],
+  "artistDescription": "Folk german music",
+  "artistFee": 190,
+  "artistPictures": [],
+  "artistVideos": [
+    "https://videos.com/ottob"
+  ],
+  "artistAudio": [],
+  "artistWebsite": "https://ottob.com",
+  "artistGenre": [
+    "Folk"
+  ],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T12:01:21.837Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-01T12:01:21.837Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "665b7c09dec4f59da155e953"
+  },
+  "name": "Jesús Suaste",
+  "email": "jsuaste86@gmail.com",
+  "password": "$2b$10$H/bLS839lzchVhlMLhjE2eCh3r4t4Uew5pGx36ID8GLW8XncedHKm",
+  "picture": "https://res.cloudinary.com/deckhnump/image/upload/v1717271554/movie-gallery/e2fzszn1xtl3kgqzxn4m.jpg",
+  "bookmarkedEvents": [
+    {
+      "$oid": "66583f60f2666a11c2f4f539"
+    },
+    {
+      "$oid": "66584b1df5d7bf3edcb473b3"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edcae"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edcb0"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edc99"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edc9a"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edc9c"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edc9d"
+    },
+    {
+      "$oid": "665cc41a139fe3c7ea3edc98"
+    }
+  ],
+  "followedArtists": [
+    {
+      "$oid": "665b0d8e996bb3789ec15fcf"
+    },
+    {
+      "$oid": "665b0d8e996bb3789ec15fd2"
+    },
+    {
+      "$oid": "665b0d8f996bb3789ec15fe1"
+    },
+    {
+      "$oid": "665b0d8f996bb3789ec15fe4"
+    },
+    {
+      "$oid": "665b0d8f996bb3789ec15ff3"
+    },
+    {
+      "$oid": "665b0d8f996bb3789ec15ff0"
+    },
+    {
+      "$oid": "665b0d8e996bb3789ec15fde"
+    },
+    {
+      "$oid": "665a6722ec3c65db5e16588c"
+    }
+  ],
+  "city": "Berlin",
+  "isArtist": false,
+  "moreThanOne": false,
+  "artistMembers": [],
+  "artistPictures": [],
+  "artistVideos": [],
+  "artistAudio": [],
+  "artistGenre": [],
+  "artistConcerts": [],
+  "artistReferences": [],
+  "createdAt": {
+    "$date": "2024-06-01T19:52:41.252Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-03T12:42:26.591Z"
+  },
+  "__v": 0
+}]

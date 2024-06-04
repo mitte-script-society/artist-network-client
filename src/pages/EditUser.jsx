@@ -4,7 +4,7 @@ import axios from "axios";
 import uploadImage from "../services/file-upload.service";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+
 
 function EditUser() {
   const [newUser, setNewUser] = useState({});
@@ -13,7 +13,7 @@ function EditUser() {
   const location  = useLocation();
 
   useEffect( () => {
-    axios.get(`${API_URL}/user/${user._id}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/user/${user._id}`)
     .then( response => {
       setNewUser(response.data)
       setIsArtistChecked(response.data.isArtist)
@@ -106,7 +106,7 @@ useEffect(() => {
       userInfo: newUser
     }
 
-    axios.put(`${API_URL}/user`, body )
+    axios.put(`${import.meta.env.VITE_API_URL}/user`, body )
       .then((response) => {
         console.log(response)
         console.log(response.status)

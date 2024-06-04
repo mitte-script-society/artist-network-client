@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5005";
+
 
 const AuthContext = React.createContext();
 
@@ -18,7 +18,7 @@ function AuthProviderWrapper(props) {
   }
   
   function  resetUserInformation(userId){
-  axios.get(`${API_URL}/user/${userId}`)
+  axios.get(`${import.meta.env.VITE_API_URL}/user/${userId}`)
   .then( response => {
     setUserInformation(response.data)
     console.log("Updating data in client")
@@ -37,12 +37,12 @@ function AuthProviderWrapper(props) {
     // If the token exists in the localStorage
     if (storedToken) {
       // We must send the JWT token in the request's "Authorization" Headers
-      axios.get(`${API_URL}/auth/verify`, 
+      axios.get(`${import.meta.env.VITE_API_URL}/auth/verify`, 
         { headers: { Authorization: `Bearer ${storedToken}`} }
       )
       .then( response => {
         const user = response.data;
-        return  axios.get(`${API_URL}/user/${user._id}`)
+        return  axios.get(`${import.meta.env.VITE_API_URL}/user/${user._id}`)
       })
       .then( fullInformation => {
            // If the server verifies that JWT token is valid  ✅

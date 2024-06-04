@@ -4,7 +4,7 @@ import axios from "axios";
 import uploadImage from "../services/file-upload.service";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+
 
 function BookConcert(props) {
   const [isPublicChecked, setIsPublicChecked] = useState(false)
@@ -25,7 +25,7 @@ function BookConcert(props) {
   const {artistId} = useParams()
 
   useEffect(() => {
-    axios.get(`${API_URL}/artists/${artistId}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/artists/${artistId}`)
     .then(response => {
       setArtist(response.data)
       setArtistCost(0)
@@ -162,7 +162,7 @@ function BookConcert(props) {
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     console.log(newConcert)
-    axios.post(`${API_URL}/concert`, newConcert)
+    axios.post(`${import.meta.env.VITE_API_URL}/concert`, newConcert)
       .then((response) => {
         navigate("/");
 
