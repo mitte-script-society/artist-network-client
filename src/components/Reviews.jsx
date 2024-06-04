@@ -37,6 +37,7 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
         .then((response) => {
           setComments([...comments, response.data]);
           setComment("");
+          console.log("Comments array:", comments)
         })
         .catch((error) => {
           console.error("Error posting comment:", error);
@@ -69,8 +70,9 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
             >
               <div className="flex gap-3 items-center">
                 <h3 className="font-bold text-lg">{c.senderName} ({new Date(c.date).toLocaleDateString('de-DE')})</h3>
-                {isLoggedIn && 
-                <button type="button" onClick={() => handleDeletion(c._id)} className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
+                { c?.sender === userInformation?._id &&
+                  <button type="button" onClick={() => handleDeletion(c._id)} className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
+
                 }
               </div>
               <p className="text-gray-800 mt-2">{c.content}</p>
