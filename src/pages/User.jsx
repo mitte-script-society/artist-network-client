@@ -11,7 +11,8 @@ const User = () => {
 
   function handleDelete(array, setFunction, index, property, element) {
     bookmarkUser("$pull", userInformation._id, property, element)
-    .then( () => {
+    .then( (response) => {
+      console.log(response.data.followedArtists)
       const newArray = [... array ]
       newArray.splice(index,1)
       setFunction(newArray)
