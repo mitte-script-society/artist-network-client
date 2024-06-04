@@ -28,14 +28,14 @@ export default function ArtistDetail(){
     axios.get(`${import.meta.env.VITE_API_URL}/artists/${artistId}`)
     .then( response => {
       setArtistInfo(response.data);
+      setIsLoading(false)
       console.log(response.data)
       if(response.data.artistAudio.length>0) setAudioURL(response.data.artistAudio)
-      if(response.data.artistVideos[0].includes("www.youtube.com")) {
+      if(response.data.artistVideos[0]?.includes("www.youtube.com")) {
         let newArray = response.data.artistVideos[0].split("=");
         let embedURL = `https://www.youtube.com/embed/${newArray[1]}`
         setVideoURL(embedURL)
       }
-      setIsLoading(false)
     })
     .catch( error => {
       console.log(error)
