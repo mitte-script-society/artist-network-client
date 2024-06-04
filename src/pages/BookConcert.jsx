@@ -124,7 +124,7 @@ function BookConcert(props) {
     console.log("validating address..."+searchAddress)
     setValidationText("Looking up the address in all the databases in the world... (this may take a while)")
     const formatAddress = encodeURI(searchAddress);
-    const apiUrl = `https://nominatim.openstreetmap.org/search?q=${formatAddress}&format=json`;
+    const apiUrl = `https://nominatim.openstreetmap.org/search?q=${formatAddress}&format=json&limit=1`;
 
     axios.get(apiUrl)
       .then(response => {
