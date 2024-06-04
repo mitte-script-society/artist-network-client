@@ -4,7 +4,7 @@ import axios from "axios";
 import uploadImage from "../services/file-upload.service";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+
 
 function EditConcert(props) {
   const [isPublicChecked, setIsPublicChecked] = useState(false)
@@ -22,7 +22,7 @@ function EditConcert(props) {
   // get concert and associated artist details
   
   useEffect(() => {
-    axios.get(`${API_URL}/concert/${concertId}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/concert/${concertId}`)
     .then(response => {
         setNewConcert({...response.data})
         setArtist(response.data.artist)
@@ -93,7 +93,7 @@ function EditConcert(props) {
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     console.log(newConcert)
-    axios.put(`${API_URL}/concert/${concertId}`, newConcert)
+    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, newConcert)
       .then((response) => {
         console.log(response)
         navigate("/");
@@ -106,7 +106,7 @@ function EditConcert(props) {
   };
   
   const handleDeletion = (e) => {
-    axios.delete(`${API_URL}/concert/${concertId}`)
+    axios.delete(`${import.meta.env.VITE_API_URL}/concert/${concertId}`)
       .then((response) => {
         console.log(response)
         navigate("/");

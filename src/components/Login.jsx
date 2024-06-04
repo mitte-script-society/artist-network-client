@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import closebutton from "../assets/closebutton.png"
 
-const API_URL = "http://localhost:5005";
+
 
 function Login( ) {
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ function Login( ) {
     const requestBody = { email, password };
     
     // added async and await so authenticate changes the variables before redirecting to /user
-    axios.post(`${API_URL}/auth/login`, requestBody)
+    axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, requestBody)
     .then((response) => {
       storeToken(response.data.authToken);
       setIsLogInWindow(false);

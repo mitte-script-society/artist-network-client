@@ -9,8 +9,10 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect ( () => {
-      if (userInformation.length !== 0 ) {
-        console.log("Entra al useEffect")
+    console.log("Entra al useEffect, Valor:", userInformation)
+
+      if (userInformation.conversations) {
+        console.log("Evaluó positivo:", userInformation.length)
         const newArray = userInformation.conversations.map ( element => {
         const idConversation = element._id
         const participant = element.participants.filter ( person => person._id !== userInformation._id )
@@ -26,29 +28,39 @@ export default function Chat() {
        setIsLoading(false)}
     } ,[userInformation])
     
-    return (
-    <>
-      { isLoading ? 
-      <LoadingPage/>
+    if (isLoading) { return <LoadingPage/> }
     
-      :
-      <div className="space">
-      <div className="conversations-list">Conversations list
-      {conversations.map( (element, index) => {
-        return <div key={index}>{element.name}, {element.picture}, {element.idConversation} </div>
-      })
-      }
-        
+    if (!isLoading) { return (
+      <>
+        <div className="space">
+        <div className="conversations-list">Conversations list
+        {conversations.map( (element, index) => {
+          return <div key={index}>{element.name}, {element.picture}, {element.idConversation} </div>
+        })
+        }
+        </div>
+
+        <div id="chat-box">
+          <div id="chat-header">Header</div>
+          <div id="chat-messages">
+            <div className="message">Hi how are you doing?</div>
+            <div className="message others">Hi how are you doing?</div>
+          </div>
+          
+          <div id="chat-footer">
+            <input id="write-message-space" type="textarea"></input>
+            <button id="send-message-button">Send</button>
+          </div>
+
+
+        </div>
+     
+     
+     
       </div>
+      
 
-      <div id="chat-box">
-        <div className="message">Hi how are you doing?</div>
-        <div className="message others">Hi how are you doing?</div>
-      </div>
-    </div>
-    }
+      </>
 
-    </>
-
-  )
+    )}
 } 

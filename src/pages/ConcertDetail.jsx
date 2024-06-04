@@ -16,7 +16,7 @@ export default function ConcertDetail(){
   const {concertId} = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [concertInfo, setConcertInfo] = useState({});
-  const API_URL = "http://localhost:5005";
+  
   const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
   const [audioURL, setAudioURL] = useState()
   const [artistLink, setArtistLink] = useState("")
@@ -30,7 +30,7 @@ const customIcon = new Icon({
 
 
 useEffect ( () => {
-    axios.get(`${API_URL}/concert/${concertId}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/concert/${concertId}`)
     .then( response => {
       setConcertInfo(response.data);
       setArtistLink(`/see-artists/${response.data.artist._id}`)

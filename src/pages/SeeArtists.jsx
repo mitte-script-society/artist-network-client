@@ -10,11 +10,18 @@ export default function SeeArtists() {
   const { isLogInWindow, userInformation} = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [artistsArray, setArtistsArray] = useState([]);
-  const API_URL = "http://localhost:5005";
+  
 
  useEffect( ( () => {
-    axios.get(`${API_URL}/artists`)
+    axios.get(`${import.meta.env.VITE_API_URL}/artists`)
       .then( (response) => {
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }}
+
+        shuffleArray(response.data);        
         setArtistsArray(response.data);
         setIsLoading(false);
       })

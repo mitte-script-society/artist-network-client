@@ -11,7 +11,7 @@ export default function ArtistDetail(){
   const {artistId} = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [artistInfo, setArtistInfo] = useState({});
-  const API_URL = "http://localhost:5005";
+  
   const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
   const [audioURL, setAudioURL] = useState()
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function ArtistDetail(){
   }
 
   useEffect ( () => {
-    axios.get(`${API_URL}/artists/${artistId}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/artists/${artistId}`)
     .then( response => {
       setArtistInfo(response.data);
       console.log(response.data)

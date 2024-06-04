@@ -11,12 +11,20 @@ export default function Home() {
   const { isLogInWindow, userInformation} = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [concertsArray, setConcertsArray] = useState([]);
-  const API_URL = "http://localhost:5005";
+  
 
   useEffect( ( () => {
-    axios.get(`${API_URL}/concert`)
-      .then( (response) => {
-        setConcertsArray(response.data.list);
+    axios.get(`${import.meta.env.VITE_API_URL}/concert`)
+      .then( (response) => 
+        {
+      function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }}
+
+        shuffleArray(response.data.list);
+        setConcertsArray(response.data.list);      
         setIsLoading(false);
       })
       .catch( error => {
