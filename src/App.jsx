@@ -32,12 +32,12 @@ function App() {
 
       <Routes>      
         <Route path="/" element={<Home/>} />
-        <Route path="/chat" element={<Chat/>} />
+        {/*<Route path="/chat" element={<Chat/>} />*/}
         <Route path="/about" element={<About/>} />
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/see-artists/:artistId" element={<ArtistDetail/>}/>
         <Route path="/signup" element={ <IsAnon> <Signup/></IsAnon>} />
-        <Route path="/edit-user/" element={<IsPrivate> <EditUser/> </IsPrivate>} />
+        <Route path="/edit-user" element={<IsPrivate> <EditUser/> </IsPrivate>} />
         <Route path="/concerts/book/:artistId" element={<IsPrivate><BookConcert/></IsPrivate>} />
         <Route path="/concerts/:concertId" element={<ConcertDetail/>}/>
         <Route path="/concerts/edit/:concertId" element={<IsPrivate><EditConcert/></IsPrivate>} />

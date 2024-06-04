@@ -7,7 +7,7 @@ import Reviews from "../components/Reviews"
 import LoadingPage from "../components/LoadingPage";
 
 export default function ArtistDetail(){
-  const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
+  const { isLoggedIn, setIsLogInWindow } = useContext(AuthContext);
   const {artistId} = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [artistInfo, setArtistInfo] = useState({});
