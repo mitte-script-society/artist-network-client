@@ -20,41 +20,48 @@ export default function Chat() {
   const [artistsArray, setArtistsArray] = useState([]);
   const [arrayToShow, setArrayToShow] = useState(artistsArray)
 
-useEffect( ( () => {
-  axios.get(`${import.meta.env.VITE_API_URL}/artists`)
+  useEffect ( () => {
+    const newArray = userInformation.conversations.map ( element => {
+    const idConversation = element._id
+    const participant = element.participants.filter ( person => person._id !== userInformation._id )
+      return {
+      idConversation,
+      name: participant[0].name,
+      picture: participant[0].picture,
+      idOther: participant[0]._id,
+      idMe: userInformation._id
+      }    
+     })
+   setAllConversations(newArray)
+} ,[userInformation])
+
+function addConversationToList (newElement) {
+  const newArray = [... allConversations];
+  newArray.push(newElement);
+  setAllConversations(newArray)
+} 
+
+function fetchUsers () {
+  axios.get(`${import.meta.env.VITE_API_URL}/user`)
     .then( (response) => {
       const newArray = response.data.sort((a, b) => a.name.localeCompare(b.name));
-      setArtistsArray(newArray);
-      console.log(allConversations)
-      console.log(response.data)
-      console.log("We just changed the value of artistsArray")
-      console.log("UserInfo:", userInformation)
+      const filteredArray = newArray.filter( user =>        
+        user._id !== userInformation._id && 
+        ! (allConversations.some( conversation => conversation.idOther === user._id))         
+      );
+      setArtistsArray(filteredArray);
+      setIsSearch(true);
     })
     .catch( error => {
       console.log(error)
     })
-}), [])
+}
 
 useEffect( (() => {
   setArrayToShow(artistsArray)
 }), [artistsArray])
 
-useEffect ( () => {
-      const newArray = userInformation.conversations.map ( element => {
-      const idConversation = element._id
-      const participant = element.participants.filter ( person => person._id !== userInformation._id )
-        return {
-        idConversation,
-        name: participant[0].name,
-        picture: participant[0].picture,
-        idOther: participant[0]._id,
-        idMe: userInformation._id
-        }    
-       })
-     setAllConversations(newArray)
-     setIsLoading(false)
-  } ,[userInformation])
-  
+
   function handleSelectChat (index) {
     //With index I extract the information of the requested chat
     setIsSearch(false)
@@ -66,14 +73,18 @@ useEffect ( () => {
   }
 
   function handleNewSearch () {
-    setShowingChatInfo(null)
-    setIsSearch(true)    
+    setShowingChatInfo(null);
+    if (artistsArray.length === 0) {
+      fetchUsers()
+    }
+    else {
+      setIsSearch(true);
+    }
   }
 
   function createConversation(idOther, name, picture) {
-    console.log("creating conversation with:", idOther, name )
     setShowingChatInfo({
-      idConversation: "",
+      idConversation: undefined,
       name: name,
       picture: picture,
       idOther: idOther,
@@ -130,7 +141,7 @@ useEffect ( () => {
         </div>
         
         { showingChatInfo !== null &&
-          <Chatbox chatInformation={showingChatInfo} handleCloseChat={handleCloseChat}/>
+          <Chatbox chatInformation={showingChatInfo} handleCloseChat={handleCloseChat} addConversationToList={addConversationToList}/>
         }
 
       </div>

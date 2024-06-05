@@ -4,7 +4,7 @@ import axios from "axios";
 import closeButton from "../assets/closebutton.png"
 import sendButton from "../assets/send.png"
 
-export default function Chatbox({ chatInformation, handleCloseChat}) {
+export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList}) {
   const [isLoading, setIsLoading] = useState(true)
   const [messagesArray, setMessagesArray] = useState([])
   const storedToken = localStorage.getItem("authToken");
@@ -12,7 +12,6 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
 
   useEffect( () => {
     if (chatInformation.idConversation !== undefined)
-
     { 
       axios.get(`${import.meta.env.VITE_API_URL}/conversation/messages/${chatInformation.idConversation}`,
       { headers: { Authorization: `Bearer ${storedToken}`} }
@@ -25,6 +24,12 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
         console.log(error)
       })
     }
+    
+    else {
+    setIsLoading(false)
+    }
+
+
   } , [fetchAgain, chatInformation]) //¿Qué pasará cuando cambie el valor de chatInformation en creación de nuevo chat?
 
   function handleSendMessage(e) {
@@ -47,10 +52,7 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
   function createChat(newMessage) {
     const body = {
       participants: [chatInformation.idMe, chatInformation.idOther],
-      messages: [{
-          content: newMessage,
-          sender: chatInformation.idMe
-          }]
+      messages: [newMessage]
       }
     axios.post(`${import.meta.env.VITE_API_URL}/conversation/create-conversation`, body)
     .then ( response => {
@@ -72,28 +74,28 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
     }
     axios.put(`${import.meta.env.VITE_API_URL}/user/add-conversation`, body)
     .then( response => {
-      console.log(response);
+      document.getElementById('write-message').value = '';
       chatInformation.idConversation = conversationId;
+      setFetchAgain(!fetchAgain);     
+      addConversationToList(chatInformation);
+
     } )
     .catch( error => {
       console.log(error)
     })
   }
 
-  function sendMessage() {
+  function sendMessage(newMessage) {
     axios.put(`${import.meta.env.VITE_API_URL}/conversation/createMessage/${chatInformation.idConversation}`, newMessage,
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
     .then( (response) => {
-      console.log(response.data)
       setFetchAgain(!fetchAgain)
       document.getElementById('write-message').value = '';
     })
     .catch( error => {
       console.log(error)
     })
-  
-
   }
 
   return (
