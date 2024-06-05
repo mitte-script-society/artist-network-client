@@ -7,12 +7,12 @@
  overflow-y: scroll;
  scrollbar-width: none; /* Firefox */
  -ms-overflow-style: none;
- width: 60%;
+ width: 65%;
 
 }
 
 .map-space {
-  width: 40%;
+  width: 35%;
   height: 100vh;
   background-color: rgb(197, 197, 197);
   position: fixed;
