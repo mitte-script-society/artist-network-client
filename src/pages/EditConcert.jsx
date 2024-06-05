@@ -101,7 +101,8 @@ function EditConcert(props) {
   };
   
   const handleDeletion = (e) => {
-    axios.delete(`${import.meta.env.VITE_API_URL}/concert/${concertId}`)
+    const storedToken = localStorage.getItem("authToken");
+    axios.delete(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         navigate("/");
 

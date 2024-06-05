@@ -31,7 +31,8 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
         date: new Date()
       };
       axios
-        .post(`${import.meta.env.VITE_API_URL}/reference/`, newComment)
+        .post(`${import.meta.env.VITE_API_URL}/reference/`, newComment, 
+        { headers: { Authorization: `Bearer ${storedToken}`} })
         .then((response) => {
           setComments([...comments, response.data]);
           setComment("");

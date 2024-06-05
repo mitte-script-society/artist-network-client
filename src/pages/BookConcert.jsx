@@ -7,7 +7,7 @@ import { AuthContext } from "../context/auth.context";
 
 
 function BookConcert(props) {
-  const [isPublicChecked, setIsPublicChecked] = useState(false)
+  const [isPublicChecked, setIsPublicChecked] = useState(true)
   const [newConcert, setNewConcert] = useState({});
   const [artistCost, setArtistCost] = useState(0)
   const [artist, setArtist] = useState({})

@@ -30,10 +30,6 @@ function EditUser() {
   const [showGroupFields, setShowGroupFields] = useState(false)
   const [errorMessage, setErrorMessage] = useState(undefined);
 
-  // const handleEmail = (e) => setEmail(e.target.value);
-  // const handlePassword = (e) => setPassword(e.target.value);
-  // const handleName = (e) => setName(e.target.value);
-
   const handleImage = (e) => {
     const uploadData = new FormData();
     uploadData.append("imageUrl", e.target.files[0]);
@@ -100,7 +96,7 @@ useEffect(() => {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
     const body = {
-      userId: user._id,
+      userId: userInformation._id,
       userInfo: newUser
     }
 
@@ -135,7 +131,6 @@ useEffect(() => {
                 <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">Username*</label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                     <input type="text" name="name" id="name" value={newUser.name} autoComplete="name" onChange={handleChange} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required />
                   </div>
                 </div>
@@ -147,7 +142,6 @@ useEffect(() => {
                   <svg className="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
                   </svg>
-                  {/* <button type="button" className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> */}
                   <input type="file" onChange={handleImage}/>
                 </div>
               </div>
@@ -203,7 +197,6 @@ useEffect(() => {
                   <label htmlFor="groupName" className="block text-sm font-medium leading-6 text-gray-900">Group Name*</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="text" name="groupName" id="groupName" onChange={handleChange} autoComplete="groupName" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Berlin Rockstars" required />
                     </div>
                   </div>
@@ -213,7 +206,6 @@ useEffect(() => {
                   <label htmlFor="groupname" className="block text-sm font-medium leading-6 text-gray-900">Members*</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="text" name="artistMembers" id="artistMembers" onChange={handleChange} autoComplete="artistMembers" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Mary, John, Otto, ..." required/>
                     </div>
                   </div>
@@ -236,30 +228,10 @@ useEffect(() => {
                   <label htmlFor="groupname" className="block text-sm font-medium leading-6 text-gray-900">Hourly Fee in €*</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="number" name="artistFee" id="artistFee" onChange={handleChange} autoComplete="groupname" value={newUser.artistFee} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
                     </div>
                   </div>
                 </div>
-
-                {/* <div className="col-span-full">
-                  <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">Cover photo</label>
-                  <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                    <div className="text-center">
-                      <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                      </svg>
-                      <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                        <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                          <span>Upload a file</span>
-                          <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                        </label>
-                        <p className="pl-1">or drag and drop</p>
-                      </div>
-                      <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                    </div>
-                  </div>
-                </div> */}
 
               <div className="col-span-full">
                 <label htmlFor="photo" className="block text-sm font-medium leading-6 text-gray-900">Photo</label>
@@ -267,7 +239,6 @@ useEffect(() => {
                   <svg className="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
                   </svg>
-                  {/* <button type="button" className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> */}
                   <input type="file" onChange={handleArtistImage} />
                 </div>
               </div>
@@ -276,7 +247,6 @@ useEffect(() => {
                   <label htmlFor="artistVideos" className="block text-sm font-medium leading-6 text-gray-900">YouTube Video Link</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="url" name="artistVideos" id="artistVideos" value={newUser.artistVideos} onChange={handleChange} autoComplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="https://www.youtube.com/watch?v=pcVRrlmpcWk" />
                     </div>
                   </div>
@@ -286,7 +256,6 @@ useEffect(() => {
                   <label htmlFor="artistAudio" className="block text-sm font-medium leading-6 text-gray-900">Spotify Track Link</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="url" name="artistAudio" id="artistAudio" value={newUser.artistAudio} onChange={handleChange} autoComplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="https://open.spotify.com/track/5jTnYArqmGHFXpi7v4bjoa" />
                     </div>
                   </div>
@@ -296,7 +265,6 @@ useEffect(() => {
                   <label htmlFor="groupname" className="block text-sm font-medium leading-6 text-gray-900">Website</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="url" name="artistWebsite" id="artistWebsite" value={newUser.artistWebsite} onChange={handleChange} autoComplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="www.berlin-rockstars.com" />
                     </div>
                   </div>
@@ -307,7 +275,6 @@ useEffect(() => {
                   <label htmlFor="groupname" className="block text-sm font-medium leading-6 text-gray-900">Genres</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                       <input type="text" name="artistGenre" id="artistGenres" value={newUser.artistGenre} onChange={handleChange} autoComplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Rock, Pop, Indie, ..." />
                     </div>
                   </div>
@@ -322,15 +289,18 @@ useEffect(() => {
           }
 
         </div>
+        {errorMessage && 
+        <div className="sm:col-span-3 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+          <p>{errorMessage}</p>
+        </div>
+        }
 
         <div className="mt-6 flex items-center justify-start gap-x-6">
-          {/* <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button> */}
           <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save Changes</button>
           <p>Already have account?</p>
           <Link to={"/login"}> Login</Link>
         </div>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </>
 
 
