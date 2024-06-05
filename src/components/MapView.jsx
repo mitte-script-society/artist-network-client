@@ -10,33 +10,62 @@ import { useRef } from "react"
 
 function MapView(props) {
 
-  const [userLocation, setUserLocation] = useState()
+  const [closestMarker, setClosestMarker] = useState([0,0])
   const [showZoom, setShowZoom] = useState(false)
+
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const earthRadiusKm = 6371;
+  
+    const dLat = toRadians(lat2 - lat1);
+    const dLon = toRadians(lon2 - lon1);
+  
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadiusKm * c;
+  
+    return distance;
+  }
+  
+  function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
+  }
+  
+  const markers = props.concertData
 
   function ZoomPoint() {
     const map = useMap()
-    map.flyTo(userLocation, 14)
+    map.flyTo(closestMarker, 14)
     return null
   }
 
 
   function geoFindMe() {
     const status = document.querySelector("#status");
-    const mapLink = document.querySelector("#map-link");
-
-    mapLink.href = "";
-    mapLink.textContent = "";
 
     function success(position) {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
-      setUserLocation([latitude, longitude])
+      const userLat = latitude
+      const userLong = longitude
+
+      markers.map(element => {
+        element.distance = calculateDistance(userLat, userLong, element.location[0], element.location[1])
+      })
+
+      console.log(markers)
+      const markerWithMinDistance = markers.reduce((min, current) => (min.distance < current.distance) ? min : current);
+
+      setClosestMarker(markerWithMinDistance.location)
       setShowZoom(true)
 
-
-      status.textContent = "";
+      status.textContent = "Zooming in to closest event...";
       mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-      mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+      // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+      
     }
 
     function error() {
@@ -50,8 +79,6 @@ function MapView(props) {
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }
-  
-  const markers = props.concertData
 
   function handleMarkerClick(marker) {
     props.identifyItem(marker)
@@ -64,9 +91,8 @@ function MapView(props) {
 
   return (
     <>
-      <button id="find-me" onClick={geoFindMe}>Find events near me</button><br />
+      <button id="find-me" className="border-2 m-auto" onClick={geoFindMe}>Find events near me</button><br />
       <p id="status"></p>
-      <a id="map-link" target="_blank"></a>
 
       <MapContainer center={[50.86, 5]} zoom={4}>
         <TileLayer
