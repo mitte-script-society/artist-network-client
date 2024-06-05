@@ -2,15 +2,83 @@ import { useContext, useEffect, useState } from "react";
 import "../styles/Chat.css";
 import { AuthContext } from "../context/auth.context";
 import LoadingPage from "./LoadingPage";
+import { io } from "socket.io-client";
+import Chatbox from "./Chatbox";
+
+const ENDPOINT = import.meta.env.VITE_API_URL;
+var socket, selectedChatCompare;
 
 export default function Chat() {
+  const [socketConnected, setSocketConnected] = useState(false);
+  const userData = {_id: "adfasdfasdf"}
   const { userInformation} = useContext(AuthContext);
-  const [conversations, setConversations] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [allConversations, setAllConversations] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showingChatInfo, setShowingChatInfo] = useState(null);
+
+    useEffect ( () => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", userData);
+    socket.on("connection", () => { setSocketConnected(true) 
+    })
+  } , [])
+
+  function handleSelectChat () {
+    //With index I extract the information of the requested chat
+    const chatInfo = {
+      chatId: "adsfafas",
+      myId: "adfasf",
+      otherId: "afasfad",
+    }
+    setShowingChatInfo(chatInfo)
+  }
+  function handleCloseChat() {
+    setShowingChatInfo(null)
+  }
+
+
+
+  if (isLoading) { return <LoadingPage/> }
+    
+  if (!isLoading) { return (
+
+    <div className="chat-page">
+
+        <div className="conversations-list">Conversations list
+          {/* {allConversations.map( (element, index) => {
+            return <div key={index} className="chat-list-row" onClick={ () => handleSelectChat(index)}>
+              {element.name}, {element.picture}
+            </div>
+          })
+          } */}
+          <div onClick={handleSelectChat}  >Info Chat 1</div>
+          <div>Info Chat 2</div>
+          <div>Info Chat 3</div>
+        </div>
+        
+        { showingChatInfo !== null &&
+          <Chatbox showingChatInfo={showingChatInfo} handleCloseChat={handleCloseChat}/>
+        }
+     
+    </div>
+      
+
+    ) 
+  }
+} 
+
+/*
+
+  /* useEffect ( () => {
+    socket = io(ENDPOINT);
+    socket.emit("setup", userData);
+    socket.on("connection", () => { setSocketConnected(true) 
+    })
+  } , [])
+
+export default function Chat() {
 
   useEffect ( () => {
-    console.log("Entra al useEffect, Valor:", userInformation)
-
       if (userInformation.conversations) {
         console.log("Evaluó positivo:", userInformation.length)
         const newArray = userInformation.conversations.map ( element => {
@@ -24,43 +92,9 @@ export default function Chat() {
           }    
          })
 
-       setConversations(newArray)
+       setAllConversations(newArray)
        setIsLoading(false)}
     } ,[userInformation])
     
-    if (isLoading) { return <LoadingPage/> }
-    
-    if (!isLoading) { return (
-      <>
-        <div className="space">
-        <div className="conversations-list">Conversations list
-        {conversations.map( (element, index) => {
-          return <div key={index}>{element.name}, {element.picture}, {element.idConversation} </div>
-        })
-        }
-        </div>
-
-        <div id="chat-box">
-          <div id="chat-header">Header</div>
-          <div id="chat-messages">
-            <div className="message">Hi how are you doing?</div>
-            <div className="message others">Hi how are you doing?</div>
-          </div>
-          
-          <div id="chat-footer">
-            <input id="write-message-space" type="textarea"></input>
-            <button id="send-message-button">Send</button>
-          </div>
-
-
-        </div>
-     
-     
-     
-      </div>
-      
-
-      </>
-
-    )}
-} 
+   
+}  */

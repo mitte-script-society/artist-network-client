@@ -1,26 +1,16 @@
 .space {
   position: relative
 }
-#chat-box {
-  position: absolute;
-  height: 300px;
-  width: 300px;
-  padding: 5px;
-  left: 30%;
-  top: 100px;
-  border: 1px solid black;
-}
-.message {
-  background-color: rgb(95, 95, 254, 0.5);
+
+.conversations-list {
   width: 200px;
-  height: fit-content;
-  padding: 5px;
-  border-radius: 20px;
-  border-bottom-left-radius: 0px;
-  margin: 4px 0;
+  height: 500px;
+  border: 1px solid red;
+  position: absolute;
+  top: 20%;
+  left: 20px;
 }
-.others {
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 0px;
-  margin-left: auto;
+
+.chat-list-row {
+  
 }
