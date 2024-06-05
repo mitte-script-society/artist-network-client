@@ -94,7 +94,6 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   })
   const cityValues = cityArray.reduce((acc, arr) => acc.concat(arr), []);
   const uniqueCities = cityValues.filter((value, index, self) => self.indexOf(value) === index);
-  console.log(uniqueCities)
 
   return (
     <div id='display-elements'>
