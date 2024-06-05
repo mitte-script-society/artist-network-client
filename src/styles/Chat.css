@@ -4,11 +4,12 @@
 
 .conversations-list {
   width: 240px;
-  min-height: 300px;
+  min-height: 200px;
+  height: fit-content;
   border-radius: 10px;
   background-color: rgb(31, 41, 55);
   position: absolute;
-  top: 20%;
+  top: 90px;
   left: 20px;
   overflow-x: hidden;
 }
@@ -31,6 +32,9 @@
   &:hover {
     background-color: rgb(15, 15, 48);
   }
+}
+.chat-list-row img {
+  height: 30px;
 }
 
 .chat-partners {
