@@ -23,6 +23,8 @@
 .chat-messages {
   border: 1px solid purple;
   height: 80%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .message {
@@ -38,6 +40,8 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 0px;
   margin-left: auto;
+  background-color: rgba(0, 90, 14, 0.5);
+
 }
 
 .chat-write-space {
@@ -48,7 +52,7 @@
 }
 
 #write-message {
-  border-radius: 10px;
+  border-radius: 30px;
   width: 80%;
   height: 45px;
   padding: 4px 4px 4px 4;

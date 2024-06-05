@@ -3,14 +3,49 @@
 }
 
 .conversations-list {
-  width: 200px;
-  height: 500px;
-  border: 1px solid red;
+  width: 240px;
+  min-height: 300px;
+  border-radius: 10px;
+  background-color: rgb(31, 41, 55);
   position: absolute;
   top: 20%;
   left: 20px;
+  overflow-x: hidden;
+}
+
+.conversations-list h1 {
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  margin: 10px 0;
+  
 }
 
 .chat-list-row {
+  margin: 10px 10px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(6, 6, 30);
+  padding: 10px 12px;
+  border-radius: 10px;
+  &:hover {
+    background-color: rgb(15, 15, 48);
+  }
   
+}
+
+.chat-list-row img {
+  width: 30px;
+  border-radius: 20%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.find-new-conversation {
+  width: 700px;
+  height: 400px;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  border: 2px solid black;
 }

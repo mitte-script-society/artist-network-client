@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import LoadingPage from "./LoadingPage";
 import { io } from "socket.io-client";
 import Chatbox from "./Chatbox";
+import axios from "axios";
 
 const ENDPOINT = import.meta.env.VITE_API_URL;
 var socket, selectedChatCompare;
@@ -15,56 +16,89 @@ export default function Chat() {
   const [allConversations, setAllConversations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showingChatInfo, setShowingChatInfo] = useState(null);
+  const [isSearch, setIsSearch] = useState(false)
+  const [artistsArray, setArtistsArray] = useState([]);
 
-    useEffect ( () => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", userData);
-    socket.on("connection", () => { setSocketConnected(true) 
-    })
-  } , [])
 
-  function handleSelectChat () {
+
+useEffect ( () => {
+      const newArray = userInformation.conversations.map ( element => {
+      const idConversation = element._id
+      const participant = element.participants.filter ( person => person._id !== userInformation._id )
+        return {
+        idConversation,
+        name: participant[0].name,
+        picture: participant[0].picture,
+        idOther: participant[0]._id,
+        idMe: userInformation._id
+        }    
+       })
+     setAllConversations(newArray)
+     setIsLoading(false)
+  } ,[userInformation])
+  
+  function handleSelectChat (index) {
     //With index I extract the information of the requested chat
-    const chatInfo = {
-      chatId: "adsfafas",
-      myId: "adfasf",
-      otherId: "afasfad",
-    }
-    setShowingChatInfo(chatInfo)
+    setIsSearch(false)
+    setShowingChatInfo(allConversations[index]);
   }
+
   function handleCloseChat() {
     setShowingChatInfo(null)
   }
 
+  function handleNewSearch () {
+    setShowingChatInfo(null)
+    axios.get(`${import.meta.env.VITE_API_URL}/artists`)
+      .then( (response) => {
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }}
+        shuffleArray(response.data);
+        setArtistsArray(response.data);
+        
+        setIsSearch(true)
 
-
-  if (isLoading) { return <LoadingPage/> }
+      })
+      .catch( error => {
+        console.log(error)
+      })
     
-  if (!isLoading) { return (
+  }
 
-    <div className="chat-page">
+  return (
 
-        <div className="conversations-list">Conversations list
-          {/* {allConversations.map( (element, index) => {
+      <div className="chat-page">
+
+
+        {isSearch &&
+          <div className="find-new-conversation">
+
+          </div>
+        }
+
+        <div className="conversations-list"> 
+          <h1 >My conversations</h1>
+        <div onClick={handleNewSearch} className="chat-list-row">New conversation</div>
+          
+          {allConversations.map( (element, index) => {
             return <div key={index} className="chat-list-row" onClick={ () => handleSelectChat(index)}>
-              {element.name}, {element.picture}
+              <img src={element.picture}/>{element.name}
             </div>
-          })
-          } */}
-          <div onClick={handleSelectChat}  >Info Chat 1</div>
-          <div>Info Chat 2</div>
-          <div>Info Chat 3</div>
+            })
+          }
+          
         </div>
         
         { showingChatInfo !== null &&
-          <Chatbox showingChatInfo={showingChatInfo} handleCloseChat={handleCloseChat}/>
+          <Chatbox chatInformation={showingChatInfo} handleCloseChat={handleCloseChat}/>
         }
-     
-    </div>
-      
+
+      </div>
 
     ) 
-  }
 } 
 
 /*
@@ -78,23 +112,4 @@ export default function Chat() {
 
 export default function Chat() {
 
-  useEffect ( () => {
-      if (userInformation.conversations) {
-        console.log("Evaluó positivo:", userInformation.length)
-        const newArray = userInformation.conversations.map ( element => {
-        const idConversation = element._id
-        const participant = element.participants.filter ( person => person._id !== userInformation._id )
-          return {
-          idConversation,
-          name: participant[0].name,
-          picture: participant[0].picture,
-          idOther: participant[0]._id
-          }    
-         })
-
-       setAllConversations(newArray)
-       setIsLoading(false)}
-    } ,[userInformation])
-    
-   
-}  */
+  */
