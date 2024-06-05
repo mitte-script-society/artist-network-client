@@ -58,6 +58,7 @@ function BookConcert(props) {
     newObject["artist"] = artistId
     newObject["isPublic"] = isPublicChecked
     setNewConcert(newObject)
+    console.log(newConcert)
   }
 
   const handleIsPublic = (e) => {
@@ -68,6 +69,7 @@ function BookConcert(props) {
     const newObject = { ...newConcert };
     newObject.isPublic = isPublicChecked
     setNewConcert(newObject)
+    console.log(isPublicChecked)
   }, [isPublicChecked])
 
   useEffect(() => {
@@ -90,18 +92,22 @@ function BookConcert(props) {
     let trimmedArray = genreArray.map(element => element.trim())
     newObject.genre = trimmedArray
     setNewConcert(newObject)
+    console.log(newObject)
   }
 
   const handleStreet = (e) => {
     setStreet(e.target.value)
+    console.log(e.target.value)
   }
 
   const handleHouseNumber = (e) => {
     setHouseNumber(e.target.value)
+    console.log(e.target.value)
   }
 
   const handleZipcode = (e) => {
     setZipCode(e.target.value)
+    console.log(e.target.value)
   }
 
   const handleCity = (e) => {
@@ -109,11 +115,13 @@ function BookConcert(props) {
     newObject["city"] = e.target.value
     setNewConcert(newObject)
     setCity(e.target.value)
+    console.log(e.target.value)
   }
 
 
   const validateAddress = () => {
     const searchAddress = street+" "+houseNumber+" "+zipCode+" "+city
+    console.log("validating address..."+searchAddress)
     setValidationText("Looking up the address in all the databases in the world... (this may take a while)")
     const formatAddress = encodeURI(searchAddress);
     const apiUrl = `https://nominatim.openstreetmap.org/search?q=${formatAddress}&format=json&limit=1`;
@@ -122,6 +130,7 @@ function BookConcert(props) {
       .then(response => {
         const data = response.data;
         if (data && data.length > 0) {
+          console.log(data)
           const { lat, lon } = data[0];
           setValidationText(data[0].display_name)
           const newObject = { ...newConcert }
@@ -132,7 +141,8 @@ function BookConcert(props) {
             zipcode: zipCode
           }
           newObject.city = city
-          
+          console.log(newObject.address)
+          console.log(newObject.location)
           setNewConcert(newObject)
 
         } else {
@@ -151,7 +161,9 @@ function BookConcert(props) {
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
-    axios.post(`${import.meta.env.VITE_API_URL}/concert`, newConcert)
+    const storedToken = localStorage.getItem("authToken");
+    console.log(newConcert)
+    axios.post(`${import.meta.env.VITE_API_URL}/concert`, newConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         navigate("/");
 

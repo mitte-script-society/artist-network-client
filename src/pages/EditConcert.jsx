@@ -27,6 +27,7 @@ function EditConcert(props) {
         setNewConcert({...response.data})
         setArtist(response.data.artist)
         setIsPublicChecked(response.data.isPublic)
+        console.log(response.data)
     })
     .catch(error => {console.log(error) })
   }, [])
@@ -56,6 +57,7 @@ function EditConcert(props) {
     // newObject["artist"] = artistId
     newObject["isPublic"] = isPublicChecked
     setNewConcert(newObject)
+    console.log(newConcert)
   }
 
   const handleIsPublic = (e) => {
@@ -66,6 +68,7 @@ function EditConcert(props) {
     const newObject = { ...newConcert };
     newObject.isPublic = isPublicChecked
     setNewConcert(newObject)
+    console.log(isPublicChecked)
   }, [isPublicChecked])
 
   useEffect(() => {
@@ -89,8 +92,11 @@ function EditConcert(props) {
     // Make an axios request to the API
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
-    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, newConcert)
+    console.log(newConcert)
+    const storedToken = localStorage.getItem("authToken");
+    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, newConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
+        console.log(response)
         navigate("/");
 
       })
@@ -104,6 +110,7 @@ function EditConcert(props) {
     const storedToken = localStorage.getItem("authToken");
     axios.delete(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
+        console.log(response)
         navigate("/");
 
       })
