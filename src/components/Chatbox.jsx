@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../styles/Chatbox.css";
 import axios from "axios";
 import closeButton from "../assets/closebutton.png"
+import sendButton from "../assets/send.png"
 
 export default function Chatbox({ chatInformation, handleCloseChat}) {
   const [isLoading, setIsLoading] = useState(true)
@@ -116,7 +117,7 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
 
           <form onSubmit={handleSendMessage} className="chat-write-space">
             <textarea id="write-message" placeholder="Type..."></textarea>
-            <button type="submit" id="send-message-button"> {`>>`} </button>
+            <button type="submit" id="send-message-button"> <img src={sendButton} /> </button>
           </form>
       </>
       }
