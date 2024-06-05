@@ -18,8 +18,26 @@ export default function Chat() {
   const [showingChatInfo, setShowingChatInfo] = useState(null);
   const [isSearch, setIsSearch] = useState(false)
   const [artistsArray, setArtistsArray] = useState([]);
+  const [arrayToShow, setArrayToShow] = useState(artistsArray)
 
+useEffect( ( () => {
+  axios.get(`${import.meta.env.VITE_API_URL}/artists`)
+    .then( (response) => {
+      const newArray = response.data.sort((a, b) => a.name.localeCompare(b.name));
+      setArtistsArray(newArray);
+      console.log(allConversations)
+      console.log(response.data)
+      console.log("We just changed the value of artistsArray")
+      console.log("UserInfo:", userInformation)
+    })
+    .catch( error => {
+      console.log(error)
+    })
+}), [])
 
+useEffect( (() => {
+  setArrayToShow(artistsArray)
+}), [artistsArray])
 
 useEffect ( () => {
       const newArray = userInformation.conversations.map ( element => {
@@ -49,23 +67,33 @@ useEffect ( () => {
 
   function handleNewSearch () {
     setShowingChatInfo(null)
-    axios.get(`${import.meta.env.VITE_API_URL}/artists`)
-      .then( (response) => {
-        function shuffleArray(array) {
-          for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-          }}
-        shuffleArray(response.data);
-        setArtistsArray(response.data);
-        
-        setIsSearch(true)
+    setIsSearch(true)    
+  }
 
-      })
-      .catch( error => {
-        console.log(error)
-      })
-    
+  function createConversation(idOther, name, picture) {
+    console.log("creating conversation with:", idOther, name )
+    setShowingChatInfo({
+      idConversation: "",
+      name: name,
+      picture: picture,
+      idOther: idOther,
+      idMe: userInformation._id
+    })
+    setIsSearch(false)
+  }
+
+  function handleSearch(e){
+    e.preventDefault()
+    triggerSearch(e.target.value);
+    console.log(e.target.value)
+  }
+
+  function triggerSearch(string) {
+    const newArray = artistsArray.filter( element => {
+      let allNames = element.name
+      return allNames.toLowerCase().includes(string.toLowerCase())
+    })
+    setArrayToShow(newArray)
   }
 
   return (
@@ -74,14 +102,23 @@ useEffect ( () => {
 
 
         {isSearch &&
-          <div className="find-new-conversation">
+        <>
 
+          <div className="find-new-conversation flex">
+          <form id="search-bar-container">
+              <input onChange={handleSearch} id="search-bar" type='text' placeholder='Find an artist to chat with'/>
+            </form>
+            {arrayToShow.map((element, index) => {
+              return <div key={index} className="chat-list-row chat-partners" onClick={ () => createConversation(element._id, element.name, element.picture)}>
+              <img src={element.picture}/>{element.name}
+            </div>
+            })}
           </div>
+          </>
         }
-
         <div className="conversations-list"> 
           <h1 >My conversations</h1>
-        <div onClick={handleNewSearch} className="chat-list-row">New conversation</div>
+        <div onClick={handleNewSearch} className="chat-list-row max-w: 20%">New conversation</div>
           
           {allConversations.map( (element, index) => {
             return <div key={index} className="chat-list-row" onClick={ () => handleSelectChat(index)}>

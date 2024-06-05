@@ -31,7 +31,10 @@
   &:hover {
     background-color: rgb(15, 15, 48);
   }
-  
+}
+
+.chat-partners {
+  width: 47%;
 }
 
 .chat-list-row img {
@@ -43,9 +46,11 @@
 
 .find-new-conversation {
   width: 700px;
-  height: 400px;
   position: absolute;
   top: 20%;
   left: 30%;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  flex-shrink: 0;
+  flex-flow: row wrap;
+  justify-content: flex-start;
 }
