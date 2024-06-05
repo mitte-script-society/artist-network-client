@@ -37,6 +37,10 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
     if(genreFilter !== "all" && locationFilter === "all") {
         const newArray = concertsArray.filter(element => element.genre.includes(genreFilter))
         setArrayToShow(newArray)
+        setGenreFilters(concertsArray)
+        setGenreFilter("all")
+        let currentGenre = document.querySelector("#genre")
+        currentGenre.value = "all"
     }
     if(genreFilter !== "all" && locationFilter !== "all") {
       const newArray = concertsArray.filter(element => element.genre.includes(genreFilter) && element.city.includes(locationFilter))
@@ -73,6 +77,8 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
       setGenreFilters(newGenreFilters)
   }
   }, [genreFilter])
+
+
 
 
   const genreArray = []
