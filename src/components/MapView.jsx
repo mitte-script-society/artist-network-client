@@ -62,9 +62,7 @@ function MapView(props) {
       setClosestMarker(markerWithMinDistance.location)
       setShowZoom(true)
 
-      status.textContent = "Zooming in to closest event...";
-      mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-      // mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+      // status.textContent = "Zooming in to the event closest to you...";
       
     }
 
@@ -75,7 +73,7 @@ function MapView(props) {
     if (!navigator.geolocation) {
       status.textContent = "Geolocation is not supported by your browser";
     } else {
-      status.textContent = "Locating…";
+      // status.textContent = "Locating…";
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }
@@ -91,8 +89,10 @@ function MapView(props) {
 
   return (
     <>
-      <button id="find-me" className="border-2 m-auto" onClick={geoFindMe}>Find events near me</button><br />
-      <p id="status"></p>
+      <div className="flex flex-col mt-1 mb-1">
+      <button id="find-me" className="m-auto rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={geoFindMe}>Find events near me</button>
+      <p id="status" className="m-auto text-sm"></p>
+      </div>
 
       <MapContainer center={[50.86, 5]} zoom={4}>
         <TileLayer
@@ -116,7 +116,6 @@ function MapView(props) {
             ))}
           </MarkerClusterGroup>
         }
-
       </MapContainer>
     </>
   )
