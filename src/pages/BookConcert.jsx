@@ -135,14 +135,6 @@ function BookConcert(props) {
           setValidationText(data[0].display_name)
           const newObject = { ...newConcert }
           newObject.location = [Number(lat), Number(lon)]
-          newObject.address = {
-            street: street,
-            number: houseNumber,
-            zipcode: zipCode
-          }
-          newObject.city = city
-          console.log(newObject.address)
-          console.log(newObject.location)
           setNewConcert(newObject)
 
         } else {
@@ -163,7 +155,13 @@ function BookConcert(props) {
     // If the request resolves with an error, set the error message in the state
     const storedToken = localStorage.getItem("authToken");
     console.log(newConcert)
-    axios.post(`${import.meta.env.VITE_API_URL}/concert`, newConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
+    const sendConcert = {...newConcert}
+    sendConcert.address = {
+      street: street,
+      number: houseNumber,
+      zipcode: zipCode
+    }
+    axios.post(`${import.meta.env.VITE_API_URL}/concert`, sendConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         navigate("/");
 

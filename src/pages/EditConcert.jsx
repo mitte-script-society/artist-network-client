@@ -12,19 +12,29 @@ function EditConcert(props) {
   const [artistCost, setArtistCost] = useState(0)
   const [artist, setArtist] = useState({})
 
-  // get user ID from auth context
-  const { userInformation } = useContext(AuthContext);
-
   // get concert from params
   const {concertId} = useParams()
 
+
+  function mongoDateConversion(mongoDate){
+    const date = new Date(mongoDate)
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so we add 1
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}`;
+    return formattedDate
+  }
 
   // get concert and associated artist details
   
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/concert/${concertId}`)
     .then(response => {
-        setNewConcert({...response.data})
+        const concertFromDB = {...response.data}
+        concertFromDB.date = mongoDateConversion(concertFromDB.date)
+        setNewConcert(concertFromDB)
         setArtist(response.data.artist)
         setIsPublicChecked(response.data.isPublic)
         console.log(response.data)
