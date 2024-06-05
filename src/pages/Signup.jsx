@@ -57,7 +57,6 @@ useEffect(() => {
   const newObject = { ...newUser };
   newObject.isArtist = isArtistChecked
   setNewUser(newObject)
-  console.log(isArtistChecked)
 
 }, [isArtistChecked])
 
@@ -66,7 +65,6 @@ useEffect(() => {
   }
 
   useEffect(() => {
-    console.log(isGroupChecked)
     const newObject = { ...newUser };
     newObject.isArtist = isGroupChecked
     setNewUser(newObject)
@@ -82,7 +80,6 @@ useEffect(() => {
     newObject.isArtist = isArtistChecked
     newObject.moreThanOne = isGroupChecked
     setNewUser(newObject)
-    console.log(newObject)
   }
 
   const handleGenre = (e) => {
@@ -92,7 +89,6 @@ useEffect(() => {
     let trimmedArray = genreArray.map(element => element.trim())
     newObject.artistGenre = trimmedArray
     setNewUser(newObject)
-    console.log(newObject)
   }
 
   const handleSignupSubmit = (e) => {

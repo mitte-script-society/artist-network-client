@@ -9,10 +9,8 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect ( () => {
-    console.log("Entra al useEffect, Valor:", userInformation)
 
       if (userInformation.conversations) {
-        console.log("Evaluó positivo:", userInformation.length)
         const newArray = userInformation.conversations.map ( element => {
         const idConversation = element._id
         const participant = element.participants.filter ( person => person._id !== userInformation._id )

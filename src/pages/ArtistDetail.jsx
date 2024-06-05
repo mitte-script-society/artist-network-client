@@ -7,7 +7,7 @@ import Reviews from "../components/Reviews"
 import LoadingPage from "../components/LoadingPage";
 
 export default function ArtistDetail(){
-  const { isLoggedIn, setIsLogInWindow } = useContext(AuthContext);
+  const { isLoggedIn, setIsLogInWindow, userInformation } = useContext(AuthContext);
   const {artistId} = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [artistInfo, setArtistInfo] = useState({});
@@ -29,7 +29,6 @@ export default function ArtistDetail(){
     .then( response => {
       setArtistInfo(response.data);
       setIsLoading(false)
-      console.log(response.data)
       if(response.data.artistAudio.length>0) setAudioURL(response.data.artistAudio)
       if(response.data.artistVideos[0]?.includes("www.youtube.com")) {
         let newArray = response.data.artistVideos[0].split("=");
@@ -50,7 +49,9 @@ export default function ArtistDetail(){
       :
       <div className="m-auto max-w:1/2 gap:3">
         <img src={artistInfo.picture} className="object-cover h-80 w-full m-auto"/>
-        <div className="flex items-center mb-2"><p className="text-xl font-bold mt-2 mb-2">{artistInfo.name} ({artistInfo.artistFee} € / hr)</p><button type="button" onClick={handleBook} className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button></div>
+        { artistId !== userInformation._id &&
+          <div className="flex items-center mb-2"><p className="text-xl font-bold mt-2 mb-2">{artistInfo.name} ({artistInfo.artistFee} € / hr)</p><button type="button" onClick={handleBook} className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button></div>}
+        
         <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.city}</p></div>
         <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
         {artistInfo.artistWebsite && 

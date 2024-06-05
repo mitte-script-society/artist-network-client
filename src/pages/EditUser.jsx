@@ -72,7 +72,6 @@ useEffect(() => {
   const newObject = { ...newUser };
   newObject.isArtist = isArtistChecked
   setNewUser(newObject)
-  console.log(isArtistChecked)
 
 }, [isArtistChecked])
 
@@ -81,7 +80,6 @@ useEffect(() => {
   }
 
   useEffect(() => {
-    console.log(isGroupChecked)
     const newObject = { ...newUser };
     newObject.isArtist = isGroupChecked
     setNewUser(newObject)
@@ -108,8 +106,6 @@ useEffect(() => {
 
     axios.put(`${import.meta.env.VITE_API_URL}/user`, body )
       .then((response) => {
-        console.log(response)
-        console.log(response.status)
         if (response.status === 200) {
           
           alert("User Information Updated!")

@@ -16,7 +16,6 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
       .get(`${import.meta.env.VITE_API_URL}/reference/${artistId}`)
       .then((response) => {
         setComments(response.data)
-        console.log(response.data)
     })
       .catch((error) => console.error("Error fetching comments:", error));
   }, [artistId]);
@@ -31,13 +30,11 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
         content: comment,
         date: new Date()
       };
-      console.log(newComment)
       axios
         .post(`${import.meta.env.VITE_API_URL}/reference/`, newComment)
         .then((response) => {
           setComments([...comments, response.data]);
           setComment("");
-          console.log("Comments array:", comments)
         })
         .catch((error) => {
           console.error("Error posting comment:", error);
@@ -46,10 +43,8 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
   };
 
   const handleDeletion = (commentId) => {
-    console.log(commentId)
     axios.delete(`${import.meta.env.VITE_API_URL}/reference/${commentId}`)
       .then((response) => {
-        console.log(response)
         setComments(comments.filter(element => element._id !== commentId))
       })
       .catch((error) => {

@@ -66,7 +66,8 @@ export default function ArtistCard({artistInfo }) {
 
         <div id="card-concert-buttons-container" style={{height:"30%"}}>
           <button onClick={handleDetails}>Details</button>
-          <button onClick={handleBook}>Book</button>
+          {  artistInfo._id !== userInformation._id && 
+            <button onClick={handleBook}>Book</button>}
         </div>
       
       </div>

@@ -21,11 +21,8 @@ export default function SeeArtists() {
             [array[i], array[j]] = [array[j], array[i]];
           }}
 
-        //shuffleArray(response.data);
+        shuffleArray(response.data);
         setArtistsArray(response.data);
-        console.log("We just changed the value of artistsArray")
-        console.log("UserInfro:", userInformation)
-
         setIsLoading(false);
       })
       .catch( error => {

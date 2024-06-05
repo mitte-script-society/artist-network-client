@@ -34,7 +34,6 @@ export default function Home() {
 
  
   const identifyItem = (itemInfo) => {
-    console.log("Hello:", itemInfo)
     //Find the item 
   }
 

@@ -21,7 +21,6 @@ function AuthProviderWrapper(props) {
   axios.get(`${import.meta.env.VITE_API_URL}/user/${userId}`)
   .then( response => {
     setUserInformation(response.data)
-    console.log("Updating data in client")
   }) 
   .catch( error => {
     console.log(error)
@@ -29,7 +28,6 @@ function AuthProviderWrapper(props) {
   }
 
   const authenticateUser = () => { 
-    console.log("AuthenticateUser requested")
 
     // Get the stored token from the localStorage
     const storedToken = localStorage.getItem("authToken");
