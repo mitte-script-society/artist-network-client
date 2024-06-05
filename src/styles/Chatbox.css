@@ -15,8 +15,9 @@
   border-bottom: 1px solid black;
 }
 
-.chat-header button {
-  background-color: grey;
+.chat-header img {
+  width: 25px;
+
 
 }
 

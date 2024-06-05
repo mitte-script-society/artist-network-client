@@ -1,28 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Chatbox.css";
 import axios from "axios";
-
+import closeButton from "../assets/closebutton.png"
 
 export default function Chatbox({ chatInformation, handleCloseChat}) {
   const [isLoading, setIsLoading] = useState(true)
   const [messagesArray, setMessagesArray] = useState([])
   const storedToken = localStorage.getItem("authToken");
   const [fetchAgain, setFetchAgain] = useState(false);
-  const myRef = useRef();
 
   useEffect( () => {
-    axios.get(`${import.meta.env.VITE_API_URL}/conversation/messages/${chatInformation.idConversation}`,
-    { headers: { Authorization: `Bearer ${storedToken}`} }
-    )
-    .then( (response) => {
-      setMessagesArray(response.data.messages)
-      setIsLoading(false)
-    })
-    .catch( error => {
-      console.log(error)
-    })
+    if (chatInformation.idConversation !== undefined)
 
-  } , [fetchAgain]) 
+    { 
+      axios.get(`${import.meta.env.VITE_API_URL}/conversation/messages/${chatInformation.idConversation}`,
+      { headers: { Authorization: `Bearer ${storedToken}`} }
+      )
+      .then( (response) => {
+        setMessagesArray(response.data.messages)
+        setIsLoading(false)
+      })
+      .catch( error => {
+        console.log(error)
+      })
+    }
+  } , [fetchAgain, chatInformation]) //¿Qué pasará cuando cambie el valor de chatInformation en creación de nuevo chat?
 
   function handleSendMessage(e) {
     e.preventDefault();
@@ -32,8 +34,53 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
         sender: chatInformation.idMe,
         content: textareaValue
       }
+    
+    if (chatInformation.idConversation === undefined) {
+        createChat(newMessage)
+    } else {
+      sendMessage(newMessage)
+    }
+  }
+  
+  //Creates a new chat and, if succesfull, invokes updateUsers
+  function createChat(newMessage) {
+    const body = {
+      participants: [chatInformation.idMe, chatInformation.idOther],
+      messages: [{
+          content: newMessage,
+          sender: chatInformation.idMe
+          }]
+      }
+    axios.post(`${import.meta.env.VITE_API_URL}/conversation/create-conversation`, body)
+    .then ( response => {
+      response.data
+      const conversationId = response.data._id
+      updateUsers(conversationId)
+    })
+    .catch (error => {
+      console.log(error)
+    })
+  }
 
-   axios.put(`${import.meta.env.VITE_API_URL}/conversation/createMessage/${chatInformation.idConversation}`, newMessage,
+  //Adds the newly created conversation to the corresponding users
+  function updateUsers (conversationId) {
+    const body = {
+      userId: chatInformation.idMe,
+      userId2: chatInformation.idOther,
+      conversationId: conversationId
+    }
+    axios.put(`${import.meta.env.VITE_API_URL}/user/add-conversation`, body)
+    .then( response => {
+      console.log(response);
+      chatInformation.idConversation = conversationId;
+    } )
+    .catch( error => {
+      console.log(error)
+    })
+  }
+
+  function sendMessage() {
+    axios.put(`${import.meta.env.VITE_API_URL}/conversation/createMessage/${chatInformation.idConversation}`, newMessage,
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
     .then( (response) => {
@@ -45,6 +92,7 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
       console.log(error)
     })
   
+
   }
 
   return (
@@ -55,10 +103,10 @@ export default function Chatbox({ chatInformation, handleCloseChat}) {
       <>
           <div className="chat-header">
             <div>{chatInformation.name}</div>
-            <button onClick={handleCloseChat}>Close </button>
+            <img onClick={handleCloseChat} src={closeButton} />
           </div>
 
-          <div id="chat-messages" className="chat-messages" ref={myRef}>
+          <div id="chat-messages" className="chat-messages">
             {messagesArray.map( (message, index) => {
               return  (
               <div key={index} className={ message.sender !== chatInformation.idOther? "message" :"message others" } > {message.content}</div>
