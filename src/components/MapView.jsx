@@ -90,7 +90,7 @@ function MapView(props) {
   return (
     <>
       <div className="flex flex-col mt-1 mb-1">
-      <button id="find-me" className="m-auto rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={geoFindMe}>Find events near me</button>
+      <button id="find-me" onClick={geoFindMe} className="text-sm font-semibold flex m-auto"><img className="h-5 w-5 mr-1" src="/search.png"/>Find events near me</button>
       <p id="status" className="m-auto text-sm"></p>
       </div>
 
