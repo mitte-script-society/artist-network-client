@@ -23,8 +23,36 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   }
 
   useEffect(() => {
-    console.log(genreFilter)
-    console.log(locationFilter)
+    // console.log(genreFilter)
+    // console.log(locationFilter)
+    if(genreFilter === "all" && locationFilter === "all") {
+      setArrayToShow(concertsArray)
+      setGenreFilters(concertsArray)
+    }
+    if(genreFilter === "all" && locationFilter !== "all") {
+        const newArray = concertsArray.filter(element => element.city.includes(locationFilter))
+        setArrayToShow(newArray)
+        setGenreFilters(newArray)    
+    }
+    if(genreFilter !== "all" && locationFilter === "all") {
+        const newArray = concertsArray.filter(element => element.genre.includes(genreFilter))
+        setArrayToShow(newArray)
+    }
+    if(genreFilter !== "all" && locationFilter !== "all") {
+      const newArray = concertsArray.filter(element => element.genre.includes(genreFilter) && element.city.includes(locationFilter))
+      setArrayToShow(newArray)
+      const newGenreFilters = concertsArray.filter(element => element.city.includes(locationFilter))
+      setGenreFilters(newGenreFilters)
+      setGenreFilter("all")
+      // update also the value of the field then we are done !
+      let currentGenre = document.querySelector("#genre")
+      currentGenre.value = "all"
+  }
+  }, [locationFilter])
+
+  useEffect(() => {
+    // console.log(genreFilter)
+    // console.log(locationFilter)
     if(genreFilter === "all" && locationFilter === "all") {
       setArrayToShow(concertsArray)
       setGenreFilters(concertsArray)
@@ -44,58 +72,7 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
       const newGenreFilters = concertsArray.filter(element => element.city.includes(locationFilter))
       setGenreFilters(newGenreFilters)
   }
-  }, [genreFilter, locationFilter])
-
-
-  // useEffect(() => {
-  //   console.log(genreFilter)
-  //   console.log(locationFilter)
-  //   if(genreFilter === "all" && locationFilter === "all") {
-  //     setArrayToShow(concertsArray)
-  //     setGenreFilters(concertsArray)
-  //   }
-  //   if(genreFilter === "all" && locationFilter !== "all") {
-  //       const newArray = concertsArray.filter(element => element.city.includes(locationFilter))
-  //       setArrayToShow(newArray)
-  //       setGenreFilters(newArray)    
-  //   }
-  //   if(genreFilter !== "all" && locationFilter === "all") {
-  //       const newArray = concertsArray.filter(element => element.genre.includes(genreFilter))
-  //       setArrayToShow(newArray)
-  //   }
-  //   if(genreFilter !== "all" && locationFilter !== "all") {
-  //     const newArray = concertsArray.filter(element => element.genre.includes(genreFilter) && element.city.includes(locationFilter))
-  //     setArrayToShow(newArray)
-  //     const newGenreFilters = concertsArray.filter(element => element.city.includes(locationFilter))
-  //     setGenreFilters(newGenreFilters)
-  // }
-  // }, [locationFilter])
-
-  // useEffect(() => {
-  //   console.log(genreFilter)
-  //   console.log(locationFilter)
-  //   if(genreFilter === "all" && locationFilter === "all") {
-  //     setArrayToShow(concertsArray)
-  //     setGenreFilters(concertsArray)
-  //   }
-  //   if(genreFilter === "all" && locationFilter !== "all") {
-  //       const newArray = concertsArray.filter(element => element.city.includes(locationFilter))
-  //       setArrayToShow(newArray)
-  //       setGenreFilters(newArray)    
-  //   }
-  //   if(genreFilter !== "all" && locationFilter === "all") {
-  //       const newArray = concertsArray.filter(element => element.genre.includes(genreFilter))
-  //       setArrayToShow(newArray)
-  //   }
-  //   if(genreFilter !== "all" && locationFilter !== "all") {
-  //     const newArray = concertsArray.filter(element => element.genre.includes(genreFilter) && element.city.includes(locationFilter))
-  //     setArrayToShow(newArray)
-  //     const newGenreFilters = concertsArray.filter(element => element.city.includes(locationFilter))
-  //     setGenreFilters(newGenreFilters)
-  // }
-  // }, [genreFilter])
-
-
+  }, [genreFilter])
 
 
   const genreArray = []
