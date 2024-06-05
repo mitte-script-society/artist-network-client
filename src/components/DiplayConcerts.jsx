@@ -47,10 +47,61 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   }, [genreFilter, locationFilter])
 
 
+  // useEffect(() => {
+  //   console.log(genreFilter)
+  //   console.log(locationFilter)
+  //   if(genreFilter === "all" && locationFilter === "all") {
+  //     setArrayToShow(concertsArray)
+  //     setGenreFilters(concertsArray)
+  //   }
+  //   if(genreFilter === "all" && locationFilter !== "all") {
+  //       const newArray = concertsArray.filter(element => element.city.includes(locationFilter))
+  //       setArrayToShow(newArray)
+  //       setGenreFilters(newArray)    
+  //   }
+  //   if(genreFilter !== "all" && locationFilter === "all") {
+  //       const newArray = concertsArray.filter(element => element.genre.includes(genreFilter))
+  //       setArrayToShow(newArray)
+  //   }
+  //   if(genreFilter !== "all" && locationFilter !== "all") {
+  //     const newArray = concertsArray.filter(element => element.genre.includes(genreFilter) && element.city.includes(locationFilter))
+  //     setArrayToShow(newArray)
+  //     const newGenreFilters = concertsArray.filter(element => element.city.includes(locationFilter))
+  //     setGenreFilters(newGenreFilters)
+  // }
+  // }, [locationFilter])
+
+  // useEffect(() => {
+  //   console.log(genreFilter)
+  //   console.log(locationFilter)
+  //   if(genreFilter === "all" && locationFilter === "all") {
+  //     setArrayToShow(concertsArray)
+  //     setGenreFilters(concertsArray)
+  //   }
+  //   if(genreFilter === "all" && locationFilter !== "all") {
+  //       const newArray = concertsArray.filter(element => element.city.includes(locationFilter))
+  //       setArrayToShow(newArray)
+  //       setGenreFilters(newArray)    
+  //   }
+  //   if(genreFilter !== "all" && locationFilter === "all") {
+  //       const newArray = concertsArray.filter(element => element.genre.includes(genreFilter))
+  //       setArrayToShow(newArray)
+  //   }
+  //   if(genreFilter !== "all" && locationFilter !== "all") {
+  //     const newArray = concertsArray.filter(element => element.genre.includes(genreFilter) && element.city.includes(locationFilter))
+  //     setArrayToShow(newArray)
+  //     const newGenreFilters = concertsArray.filter(element => element.city.includes(locationFilter))
+  //     setGenreFilters(newGenreFilters)
+  // }
+  // }, [genreFilter])
+
+
+
+
   const genreArray = []
- genreFilters.map(element => {
-    genreArray.push(element.genre)
-  })
+    genreFilters.map(element => {
+        genreArray.push(element.genre)
+      })
   const genreValues = genreArray.reduce((acc, arr) => acc.concat(arr), []);
   const uniqueGenres = genreValues.filter((value, index, self) => self.indexOf(value) === index);
 
