@@ -30,12 +30,15 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
         content: comment,
         date: new Date()
       };
+      console.log(newComment)
+      const storedToken = localStorage.getItem("authToken");
       axios
         .post(`${import.meta.env.VITE_API_URL}/reference/`, newComment, 
         { headers: { Authorization: `Bearer ${storedToken}`} })
         .then((response) => {
           setComments([...comments, response.data]);
           setComment("");
+          console.log("Comments array:", comments)
         })
         .catch((error) => {
           console.error("Error posting comment:", error);
@@ -44,8 +47,10 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
   };
 
   const handleDeletion = (commentId) => {
-    axios.delete(`${import.meta.env.VITE_API_URL}/reference/${commentId}`)
+    const storedToken = localStorage.getItem("authToken");
+    axios.delete(`${import.meta.env.VITE_API_URL}/reference/${commentId}`, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
+        console.log(response)
         setComments(comments.filter(element => element._id !== commentId))
       })
       .catch((error) => {
