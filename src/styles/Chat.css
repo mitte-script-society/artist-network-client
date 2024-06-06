@@ -5,6 +5,7 @@
 .conversations-list {
   width: 240px;
   min-height: 200px;
+  max-height: 85%;
   height: fit-content;
   border-radius: 10px;
   background-color: rgb(31, 41, 55);
