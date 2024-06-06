@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../styles/Chatbox.css";
 import axios from "axios";
 import closeButton from "../assets/closebutton.png";
@@ -123,6 +123,19 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
     })
   }
 
+  const lastMessageRef = useRef(null);
+
+  // This useEffect will run whenever messages change
+  useEffect(() => {
+    // Scroll to the last message
+    if (lastMessageRef.current) {
+      // Scroll to the last message
+      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messagesArray]);
+
+  
+
   return (
     <div id="chat-box">
       {isLoading?
@@ -137,13 +150,13 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
           <div id="chat-messages" className="chat-messages">
             {messagesArray.map( (message, index) => {
               return  (
-              <div key={index} className={ message.sender === chatInformation.idOther? "message" :"message others" } > {message.content}</div>
+              <div key={index} ref={index === messagesArray.length - 1 ? lastMessageRef : null} className={ message.sender === chatInformation.idOther? "message" :"message others" } > {message.content}</div>
               )
-            })} 
+            })}
           </div>
 
           <form onSubmit={handleSendMessage} className="chat-write-space">
-            <textarea id="write-message" placeholder="Type..."></textarea>
+            <textarea id="write-message" placeholder="Type..."/>
             <button type="submit" id="send-message-button"> <img src={sendButton} /> </button>
           </form>
       </>
