@@ -89,10 +89,10 @@ function MapView(props) {
 
   return (
     <div className="relative">
-      <div className="absolute z-10 top-3 left-12 flex flex-col mt-1 mb-1">
+      {/* <div className="absolute z-10 top-3 left-12 flex flex-col mt-1 mb-1">
         <button id="find-me" onClick={geoFindMe} className="text-sm font-semibold flex"><img className="h-5 w-5 mr-1" src="search.png"/>Closest Event</button>
         <p id="status" className="text-sm"></p>
-      </div>
+      </div> */}
       <MapContainer center={[50.86, 5]} zoom={4} id="map-cont" className="relative z-0">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
