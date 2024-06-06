@@ -18,13 +18,24 @@ import ConcertDetail from "./pages/ConcertDetail";
 import About from "./pages/About";
 import IsAnon from "./components/IsAnon";
 import Chat from "./components/Chat";
+import { io } from "socket.io-client";
+
 
 
 function App() {
   //Aquí llamo a LogIn
-  const { isLogInWindow} = useContext(AuthContext);
+  const { isLogInWindow, userInformation} = useContext(AuthContext);
 
   const [showAlert, setShowAlert] = useState(false)
+
+    const socket = io(import.meta.env.VITE_API_URL);
+    socket.on('new message', (newMessage) => {
+      if (newMessage.destiny === userInformation._id) 
+        {
+          console.log("user got message", newMessage)
+          setShowAlert(true)
+        }
+    })
 
   return (
     <div className="App">
