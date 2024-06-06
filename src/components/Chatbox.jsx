@@ -1,14 +1,32 @@
 import { useEffect, useState } from "react";
 import "../styles/Chatbox.css";
 import axios from "axios";
-import closeButton from "../assets/closebutton.png"
-import sendButton from "../assets/send.png"
+import closeButton from "../assets/closebutton.png";
+import sendButton from "../assets/send.png";
+import { io } from "socket.io-client";
+
+const socket = io(import.meta.env.VITE_API_URL);
 
 export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList}) {
   const [isLoading, setIsLoading] = useState(true)
   const [messagesArray, setMessagesArray] = useState([])
   const storedToken = localStorage.getItem("authToken");
   const [fetchAgain, setFetchAgain] = useState(false);
+
+
+  socket.on('new message', (newMessage) => {
+    console.log("user got message")
+    if (newMessage.destiny === chatInformation.idMe) 
+      {
+      setFetchAgain(!fetchAgain)
+      }
+  })
+
+  function sendMessageToSocket (newMessage) {
+    //Add destiny to the message: 
+    newMessage.destiny = chatInformation.idOther;    
+    socket.emit('new message', newMessage)
+  }
 
   useEffect( () => {
     if (chatInformation.idConversation !== undefined)
@@ -30,7 +48,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
     }
 
 
-  } , [fetchAgain, chatInformation]) //¿Qué pasará cuando cambie el valor de chatInformation en creación de nuevo chat?
+  } , [fetchAgain, chatInformation])
 
   function handleSendMessage(e) {
     e.preventDefault();
@@ -54,7 +72,9 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       participants: [chatInformation.idMe, chatInformation.idOther],
       messages: [newMessage]
       }
-    axios.post(`${import.meta.env.VITE_API_URL}/conversation/create-conversation`, body)
+    axios.post(`${import.meta.env.VITE_API_URL}/conversation/create-conversation`, body, 
+    { headers: { Authorization: `Bearer ${storedToken}`} }
+    )
     .then ( response => {
       response.data
       const conversationId = response.data._id
@@ -72,13 +92,14 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       userId2: chatInformation.idOther,
       conversationId: conversationId
     }
-    axios.put(`${import.meta.env.VITE_API_URL}/user/add-conversation`, body)
+    axios.put(`${import.meta.env.VITE_API_URL}/user/add-conversation`, body, 
+    { headers: { Authorization: `Bearer ${storedToken}`} }
+    )
     .then( response => {
       document.getElementById('write-message').value = '';
       chatInformation.idConversation = conversationId;
       setFetchAgain(!fetchAgain);     
       addConversationToList(chatInformation);
-
     } )
     .catch( error => {
       console.log(error)
@@ -90,8 +111,12 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
     .then( (response) => {
-      setFetchAgain(!fetchAgain)
+      //After putting the message in the database I send it to the socket.
       document.getElementById('write-message').value = '';
+      sendMessageToSocket(newMessage);
+      setFetchAgain(!fetchAgain);
+      //Instead of requesting the data again, I could mannualy append it or add it to the array.
+      //messagesArray.push(newMessage) // => Problem: it did not re-rendered
     })
     .catch( error => {
       console.log(error)

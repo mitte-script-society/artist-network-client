@@ -1,17 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import "../styles/Chat.css";
 import { AuthContext } from "../context/auth.context";
-import LoadingPage from "./LoadingPage";
-import { io } from "socket.io-client";
 import Chatbox from "./Chatbox";
 import axios from "axios";
 
-const ENDPOINT = import.meta.env.VITE_API_URL;
-var socket, selectedChatCompare;
+
 
 export default function Chat() {
-  const [socketConnected, setSocketConnected] = useState(false);
-  const userData = {_id: "adfasdfasdf"}
   const { userInformation} = useContext(AuthContext);
   const [allConversations, setAllConversations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +14,10 @@ export default function Chat() {
   const [isSearch, setIsSearch] = useState(false)
   const [artistsArray, setArtistsArray] = useState([]);
   const [arrayToShow, setArrayToShow] = useState(artistsArray)
+  const newMessage = "test from client xxxxxx"
+
+ 
+
 
   useEffect ( () => {
     const newArray = userInformation.conversations.map ( element => {
@@ -111,7 +110,6 @@ useEffect( (() => {
 
       <div className="chat-page">
 
-
         {isSearch &&
         <>
 
@@ -149,15 +147,3 @@ useEffect( (() => {
     ) 
 } 
 
-/*
-
-  /* useEffect ( () => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", userData);
-    socket.on("connection", () => { setSocketConnected(true) 
-    })
-  } , [])
-
-export default function Chat() {
-
-  */
