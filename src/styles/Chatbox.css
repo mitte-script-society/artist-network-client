@@ -10,6 +10,12 @@
   padding-bottom: 60px;
 }
 
+.getting-messages {
+  width: 100%;
+  height: 100%;
+  display: flex;  
+}
+
 .chat-header {
   display: flex;
   justify-content: space-between;
