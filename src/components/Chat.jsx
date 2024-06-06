@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 
-export default function Chat() {
+export default function Chat({setShowAlert}) {
   const { userInformation} = useContext(AuthContext);
   const [allConversations, setAllConversations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -69,6 +69,7 @@ useEffect( (() => {
 
   function handleCloseChat() {
     setShowingChatInfo(null)
+    handleNewSearch()
   }
 
   function handleNewSearch () {
@@ -90,6 +91,8 @@ useEffect( (() => {
       idMe: userInformation._id
     })
     setIsSearch(false)
+    setArtistsArray([])
+    document.getElementById("search-bar").value = ""
   }
 
   function handleSearch(e){
@@ -139,7 +142,7 @@ useEffect( (() => {
         </div>
         
         { showingChatInfo !== null &&
-          <Chatbox chatInformation={showingChatInfo} handleCloseChat={handleCloseChat} addConversationToList={addConversationToList}/>
+          <Chatbox setShowAlert={setShowAlert} chatInformation={showingChatInfo} handleCloseChat={handleCloseChat} addConversationToList={addConversationToList}/>
         }
 
       </div>

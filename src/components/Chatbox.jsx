@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 
 const socket = io(import.meta.env.VITE_API_URL);
 
-export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList}) {
+export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert}) {
   const [isLoading, setIsLoading] = useState(true)
   const [messagesArray, setMessagesArray] = useState([])
   const storedToken = localStorage.getItem("authToken");
@@ -137,7 +137,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
           <div id="chat-messages" className="chat-messages">
             {messagesArray.map( (message, index) => {
               return  (
-              <div key={index} className={ message.sender !== chatInformation.idOther? "message" :"message others" } > {message.content}</div>
+              <div key={index} className={ message.sender === chatInformation.idOther? "message" :"message others" } > {message.content}</div>
               )
             })} 
           </div>

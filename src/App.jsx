@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState} from "react";
 import { AuthContext } from "./context/auth.context";
 import Navbar from "./components/Navbar";
 import IsPrivate from "./components/IsPrivate";
@@ -24,15 +24,17 @@ function App() {
   //Aquí llamo a LogIn
   const { isLogInWindow} = useContext(AuthContext);
 
+  const [showAlert, setShowAlert] = useState(false)
+
   return (
     <div className="App">
-      <Navbar />
+      <Navbar showAlert={showAlert}/>
       
       {isLogInWindow && <Login/>}
 
       <Routes>      
         <Route path="/" element={<Home/>} />
-        <Route path="/chat" element={<IsPrivate><Chat/> </IsPrivate>} />
+        <Route path="/chat" element={<IsPrivate><Chat setShowAlert={setShowAlert}/> </IsPrivate>} />
         <Route path="/about" element={<About/>} />
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/see-artists/:artistId" element={<ArtistDetail/>}/>
