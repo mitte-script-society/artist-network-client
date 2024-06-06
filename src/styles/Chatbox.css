@@ -84,3 +84,27 @@
   rotate: 43deg;
 
 }
+
+.typing-effect {
+  display: flex;
+}
+
+.mini-loading{
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  position: relative;
+  margin-top: 5px;
+  margin-left: 3px;
+  border-radius:50%;
+  border:4px solid lightblue;
+  border-color:#1e70c9 lightblue;
+  box-sizing:border-box;
+  animation:loading 0.7s linear infinite;}
+
+@keyframes loading{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)
+  
+  }
+}

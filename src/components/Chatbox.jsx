@@ -8,11 +8,11 @@ import { io } from "socket.io-client";
 const socket = io(import.meta.env.VITE_API_URL);
 
 export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert}) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [messagesArray, setMessagesArray] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
+  const [messagesArray, setMessagesArray] = useState([]);
   const storedToken = localStorage.getItem("authToken");
   const [fetchAgain, setFetchAgain] = useState(false);
-
+  const [typingEffect, setTypingEffect] = useState(false);
 
   socket.on('new message', (newMessage) => {
     console.log("user got message")
@@ -21,6 +21,29 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       setFetchAgain(!fetchAgain)
       }
   })
+
+  socket.on('user typing', (typingInfo) => {
+    if (  typingInfo.destiny === chatInformation.idMe &&
+          typingInfo.sender === chatInformation.idOther ) {
+      timerTyping()
+    }
+  })
+
+  function timerTyping() {
+    setTypingEffect(true)
+    setTimeout( () => {
+      setTypingEffect(false)
+    } , 2000)
+
+  }
+
+  function isTyping() {
+    const typingInfo = {
+      sender: chatInformation.idMe ,
+      destiny: chatInformation.idOther
+    }
+    socket.emit('user typing', typingInfo)
+  }
 
   function sendMessageToSocket (newMessage) {
     //Add destiny to the message: 
@@ -111,12 +134,10 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
     .then( (response) => {
-      //After putting the message in the database I send it to the socket.
       document.getElementById('write-message').value = '';
       sendMessageToSocket(newMessage);
       setFetchAgain(!fetchAgain);
-      //Instead of requesting the data again, I could mannualy append it or add it to the array.
-      //messagesArray.push(newMessage) // => Problem: it did not re-rendered
+      
     })
     .catch( error => {
       console.log(error)
@@ -145,7 +166,17 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       :
       <>
           <div className="chat-header">
-            <div style={{display:"flex"}}> <img src={chatInformation.picture} style={{marginRight:"10px", height:"30px", width:"30px", borderRadius:"50%"}}/>{chatInformation.name}</div>
+            <div style={{display:"flex"}}>
+              <img src={chatInformation.picture} style={{marginRight:"10px", height:"30px", width:"30px", borderRadius:"50%"}}/>
+              {typingEffect?
+                <div className="typing-effect">
+                  <div>Typing...</div>
+                  <span className="mini-loading"></span>
+                </div>
+              :
+                <div>{chatInformation.name}</div>
+              }
+            </div>
             <img onClick={handleCloseChat} src={closeButton} />
           </div>
 
@@ -158,7 +189,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
           </div>
 
           <form onSubmit={handleSendMessage} className="chat-write-space">
-            <input type="text" id="write-message" placeholder="Type..."/>
+            <input type="text" id="write-message" placeholder="Type..." onChange={isTyping}/>
             <button type="submit" id="send-message-button"> <img src={sendButton} /> </button>
           </form>
       </>

@@ -4,20 +4,13 @@ import { AuthContext } from "../context/auth.context";
 import Chatbox from "./Chatbox";
 import axios from "axios";
 
-
-
-export default function Chat({setShowAlert}) {
+export default function Chat({setShowAlert, setSendersArray, sendersArray}) {
   const { userInformation} = useContext(AuthContext);
   const [allConversations, setAllConversations] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [showingChatInfo, setShowingChatInfo] = useState(null);
   const [isSearch, setIsSearch] = useState(false)
   const [artistsArray, setArtistsArray] = useState([]);
   const [arrayToShow, setArrayToShow] = useState(artistsArray)
-  const newMessage = "test from client xxxxxx"
-
- 
-
 
   useEffect ( () => {
     const newArray = userInformation.conversations.map ( element => {
@@ -32,7 +25,8 @@ export default function Chat({setShowAlert}) {
       }    
      })
    setAllConversations(newArray)
-} ,[userInformation])
+  } ,[]);
+
 
 function addConversationToList (newElement) {
   const newArray = [... allConversations];
@@ -62,9 +56,16 @@ useEffect( (() => {
 
 
   function handleSelectChat (index) {
-    //With index I extract the information of the requested chat
     setIsSearch(false)
     setShowingChatInfo(allConversations[index]);
+    const senderToDelete = allConversations[index].idOther
+    const newArray = sendersArray.filter( element => element !== senderToDelete)
+    
+    if (newArray.length === 0) {
+      setShowAlert(false)
+    }
+    setSendersArray(newArray)
+
   }
 
   function handleCloseChat() {
