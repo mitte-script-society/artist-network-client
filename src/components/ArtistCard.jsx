@@ -61,14 +61,13 @@ export default function ArtistCard({artistInfo }) {
           <div className="text-xl font-bold text-gray-900 mb-2">{artistInfo.name}</div>
           <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
           <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.city}</p></div>
-          <div className="flex items-center mb-2"><img src="https://cdn-icons-png.flaticon.com/512/1420/1420341.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistFee} € / hour played</p></div>
+          <div className="flex items-center mb-2"><img src="/cost.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistFee} € / hour played</p></div>
         </div>
 
         <div id="card-concert-buttons-container button">
           <button type="button" onClick={handleDetails} className="ml-2 rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Details</button>
           {  artistInfo._id !== userInformation._id && 
-            // <button onClick={handleBook}>Book</button>
-            <button type="button" onClick={handleBook} className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button>
+            <button type="button" onClick={handleBook} className="ml-2 rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button>
             }
         </div>
       

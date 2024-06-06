@@ -69,7 +69,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
           <div className="flex items-center mb-2"><img src="/singer.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.artist.name}</p></div>
           <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.genre[0]}</p></div>
           <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.city}</p></div>
-          <div className="flex items-center mb-2"><img src="https://cdn-icons-png.flaticon.com/512/6703/6703704.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.prices} €</p></div>
+          <div className="flex items-center mb-2"><img src="/price.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.prices} €</p></div>
           
         </div>
 

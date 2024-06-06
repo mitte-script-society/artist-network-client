@@ -52,8 +52,8 @@ function Navbar() {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-            : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+            ? "bg-pink-800 text-white rounded-md px-3 py-2 text-sm font-medium"
+            : "text-gray-300 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
         }
         aria-current="page"
       >
@@ -61,8 +61,8 @@ function Navbar() {
       </NavLink>
 
       <NavLink to="/see-artists" className={({ isActive }) =>
-          isActive ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                    : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+          isActive ? "bg-pink-800 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    : "text-gray-300 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
         }>Find Artists </NavLink>
 
       
@@ -74,13 +74,13 @@ function Navbar() {
           } >About</NavLink> */}
 
           <NavLink onClick={handleCallLogin} 
-            className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+            className="text-gray-300 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
             Log In
           </NavLink>
 
           <NavLink to="/signup" className={({ isActive }) =>
-              isActive ? "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+              isActive ? "bg-pink-800 text-white rounded-md px-3 py-2 text-sm font-medium"
+                        : "text-gray-300 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
           }> Sign Up </NavLink>
  
         </>

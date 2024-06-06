@@ -50,7 +50,10 @@ export default function ArtistDetail(){
       <div className="m-auto max-w:1/2 gap:3">
         <img src={artistInfo.picture} className="object-cover h-80 w-full m-auto"/>
         { artistId !== userInformation._id &&
-          <div className="flex items-center mb-2"><p className="text-xl font-bold mt-2 mb-2">{artistInfo.name} ({artistInfo.artistFee} € / hr)</p><button type="button" onClick={handleBook} className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button></div>}
+          <div className="flex items-center mb-2">
+            <p className="text-xl font-bold mt-2 mb-2">{artistInfo.name} ({artistInfo.artistFee} € / hr)</p>
+            <button type="button" onClick={handleBook} className="ml-2 rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button>
+            </div>}
         
         <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.city}</p></div>
         <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
