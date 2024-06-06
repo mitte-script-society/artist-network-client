@@ -126,11 +126,13 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
   return (
     <div id="chat-box">
       {isLoading?
-      <div>Getting messages</div>
+      <div className="getting-messages">
+        <div className="circle-loading"></div>
+      </div>
       :
       <>
           <div className="chat-header">
-            <div>{chatInformation.name}</div>
+            <div style={{display:"flex"}}> <img src={chatInformation.picture} style={{marginRight:"10px", height:"30px", width:"30px", borderRadius:"50%"}}/>{chatInformation.name}</div>
             <img onClick={handleCloseChat} src={closeButton} />
           </div>
 

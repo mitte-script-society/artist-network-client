@@ -23,7 +23,7 @@ import { io } from "socket.io-client";
 
 
 function App() {
-  //Aquí llamo a LogIn
+
   const { isLogInWindow, userInformation} = useContext(AuthContext);
 
   const [showAlert, setShowAlert] = useState(false)
