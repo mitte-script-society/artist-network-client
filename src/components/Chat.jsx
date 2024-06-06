@@ -117,9 +117,9 @@ useEffect( (() => {
         <>
 
           <div className="find-new-conversation flex">
-          <form id="search-bar-container">
+          <div id="search-bar-container">
               <input onChange={handleSearch} id="search-bar" type='search' placeholder='Find an artist to chat with'/>
-            </form>
+          </div>
             {arrayToShow.map((element, index) => {
               return <div key={index} className="chat-list-row chat-partners" onClick={ () => createConversation(element._id, element.name, element.picture)}>
               <img src={element.picture}/>{element.name}
