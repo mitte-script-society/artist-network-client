@@ -7,8 +7,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
   const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const property = "bookmarkedEvents";
   const date = concertInfo.date
-  const dateStr = "2024-07-20T19:30:00.000Z";
-  const dateObj = new Date(dateStr);
+  const dateObj = new Date(date);
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -65,16 +64,18 @@ export default function ConcertCard({concertInfo, setYPos }) {
 
       <div className="concert-card-info-space">
 
-        <div style={{minHeight:"70%"}}>
-          <div className="text-2xl font-bold text-gray-900 mb-2">{concertInfo.title}</div>
-          <div className="text-lg text-gray-700 mb-1">{concertInfo.artist.name}</div>
-          <div className="text-md text-gray-600 mb-1">{concertInfo.city}</div>
-          <div className="text-md text-gray-800 mt-2 font-semibold">{concertInfo.prices} €</div>
+        <div style={{minHeight:"80%"}}>
+          <div className="text-xl font-bold text-gray-900 mb-2">{concertInfo.title}</div>
+          <div className="flex items-center mb-2"><img src="/singer.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.artist.name}</p></div>
+          <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.genre[0]}</p></div>
+          <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.city}</p></div>
+          <div className="flex items-center mb-2"><img src="https://cdn-icons-png.flaticon.com/512/6703/6703704.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.prices} €</p></div>
+          
         </div>
 
-        <div id="card-concert-buttons-container" style={{height:"30%"}}>
-          <button onClick={handleDetails}>Details</button>
-          <button onClick={handleBookmark}>{isBookmarked? "Unfollow" : "Attend"}</button>
+        <div id="card-concert-buttons-container button">
+          <button type="button" onClick={handleDetails} className="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Details</button>
+          <button type="button" onClick={handleBookmark} className="ml-2 rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isBookmarked? "Unfollow" : "Attend"}</button>
         </div>
       
       </div>

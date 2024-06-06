@@ -75,7 +75,7 @@ useEffect ( () => {
         <img src={concertInfo.image} className="object-cover h-80 w-full m-auto"/>
         <div className="flex items-center mb-2">
             <p className="text-xl font-bold mt-2 mb-2">{concertInfo.title} ({concertInfo.prices} €)</p>
-            <button onClick={handleBookmark} type="button" className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isBookmarked? "Unfollow" : "Attend" }</button>
+            <button onClick={handleBookmark} type="button" className="ml-2 rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isBookmarked? "Unfollow" : "Attend" }</button>
             { userInformation._id === concertInfo.host && <Link to={editLink}><button type="button" className="ml-2 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</button></Link>}  </div>
         <div className="flex items-center mb-2"><img src="/schedule.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{new Date(concertInfo.date).toLocaleString('de-DE', {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}h</p></div>
         <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.address.street} {concertInfo.address.number}, {concertInfo.address.zipcode} {concertInfo.city}</p></div>
@@ -90,8 +90,8 @@ useEffect ( () => {
             <img src={concertInfo.artist.picture} className="object-cover h-28 w-28"/>
             <div className="flex flex-col">
             <p className="text-lg mb-2 ml-3">{concertInfo.artist.name}</p>
-            <p className="text-lg mb-2 ml-3">from {concertInfo.artist.city}</p>
-            <Link to={artistLink}><button type="button" className="ml-2 rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View Artist</button></Link>
+            <p className="text-lg mb-2 ml-3">{concertInfo.artist.city}</p>
+            <Link to={artistLink}><button type="button" className="ml-2 rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View Artist</button></Link>
             </div>
         </div>
         <p className="text-lg font-bold mb-2 mt-2">Location</p>

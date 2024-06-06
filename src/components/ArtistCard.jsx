@@ -57,17 +57,19 @@ export default function ArtistCard({artistInfo }) {
 
       <div className="artist-card-info-space">
 
-        <div style={{height:"70%"}}>
-          <div className="text-2xl font-bold text-gray-900 mb-2">{artistInfo.name}</div>
-          <div className="text-lg text-gray-700 mb-1">{artistInfo.artistGenre}</div>
-          <div className="text-md text-gray-600 mb-1">{artistInfo.city}</div>
-          <div className="text-md text-gray-800 mt-2 font-semibold">Hourly rate: {artistInfo.artistFee} €</div>
+        <div style={{height:"80%"}}>
+          <div className="text-xl font-bold text-gray-900 mb-2">{artistInfo.name}</div>
+          <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
+          <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.city}</p></div>
+          <div className="flex items-center mb-2"><img src="https://cdn-icons-png.flaticon.com/512/1420/1420341.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistFee} € / hour played</p></div>
         </div>
 
-        <div id="card-concert-buttons-container" style={{height:"30%"}}>
-          <button onClick={handleDetails}>Details</button>
+        <div id="card-concert-buttons-container button">
+          <button type="button" onClick={handleDetails} className="ml-2 rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Details</button>
           {  artistInfo._id !== userInformation._id && 
-            <button onClick={handleBook}>Book</button>}
+            // <button onClick={handleBook}>Book</button>
+            <button type="button" onClick={handleBook} className="ml-2 rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book</button>
+            }
         </div>
       
       </div>
