@@ -1,0 +1,81 @@
+#chat-box {
+  position: absolute;
+  height: 500px;
+  width: 300px;
+  left: 45%;
+  top: 10px;
+  border: 1px solid black;
+  position: relative;
+  border-radius: 20px;
+  padding-bottom: 60px;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background-color: rgb(232, 232, 232);
+  height: 40px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  align-items: center;
+  padding: 30px 10px;
+  font-weight: 500;
+}
+
+.chat-header img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+
+}
+
+.chat-messages {
+  height: 80%;
+  
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  margin: 0 10px;
+}
+
+.message {
+  background-color: rgb(95, 95, 254, 0.5);
+  width: 200px;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 20px;
+  border-bottom-left-radius: 0px;
+  margin: 4px 0;
+}
+.others {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 0px;
+  margin-left: auto;
+  background-color: rgba(0, 90, 14, 0.5);
+
+}
+
+.chat-write-space {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  width: 100%;
+  margin: 0px 10px
+}
+
+#write-message {
+  border-radius: 30px;
+  width: 80%;
+  height: 45px;
+  padding: 4px 4px 4px 4;
+  max-height: 105px;
+  font-size: 14px;
+  overflow:auto;
+}
+
+#send-message-button {
+  width: 40px;
+  margin-left: 5px;
+  rotate: 43deg;
+
+}

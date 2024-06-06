@@ -1,26 +1,61 @@
 .space {
   position: relative
 }
-#chat-box {
-  position: absolute;
-  height: 300px;
-  width: 300px;
-  padding: 5px;
-  left: 30%;
-  top: 100px;
-  border: 1px solid black;
-}
-.message {
-  background-color: rgb(95, 95, 254, 0.5);
-  width: 200px;
+
+.conversations-list {
+  width: 240px;
+  min-height: 200px;
   height: fit-content;
-  padding: 5px;
-  border-radius: 20px;
-  border-bottom-left-radius: 0px;
-  margin: 4px 0;
+  border-radius: 10px;
+  background-color: rgb(31, 41, 55);
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  overflow-x: hidden;
 }
-.others {
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 0px;
-  margin-left: auto;
+
+.conversations-list h1 {
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  margin: 10px 0;
+  
+}
+
+.chat-list-row {
+  margin: 10px 10px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(6, 6, 30);
+  padding: 10px 12px;
+  border-radius: 10px;
+  &:hover {
+    background-color: rgb(15, 15, 48);
+  }
+}
+.chat-list-row img {
+  height: 30px;
+}
+
+.chat-partners {
+  width: 47%;
+}
+
+.chat-list-row img {
+  width: 30px;
+  height: 30px;
+  border-radius: 20%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.find-new-conversation {
+  width: 700px;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  /* border: 2px solid black; */
+  flex-shrink: 0;
+  flex-flow: row wrap;
+  justify-content: flex-start;
 }
