@@ -36,13 +36,13 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
 
   }
 
-  function isTyping() {
-    const typingInfo = {
-      sender: chatInformation.idMe ,
-      destiny: chatInformation.idOther
-    }
-    socket.emit('user typing', typingInfo)
-  }
+  // function isTyping() {
+  //   const typingInfo = {
+  //     sender: chatInformation.idMe ,
+  //     destiny: chatInformation.idOther
+  //   }
+  //   socket.emit('user typing', typingInfo)
+  // }
 
   function sendMessageToSocket (newMessage) {
     //Add destiny to the message: 
@@ -188,7 +188,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
           </div>
 
           <form onSubmit={handleSendMessage} className="chat-write-space">
-            <input type="text" id="write-message" placeholder="Type..." onChange={isTyping}/>
+            <input type="text" id="write-message" placeholder="Type..."/>
             <button type="submit" id="send-message-button"> <img src={sendButton} /> </button>
           </form>
       </>
