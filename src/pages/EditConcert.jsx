@@ -11,6 +11,11 @@ function EditConcert(props) {
   const [newConcert, setNewConcert] = useState({});
   const [artistCost, setArtistCost] = useState(0)
   const [artist, setArtist] = useState({})
+  const [street, setStreet] = useState("")
+  const [houseNumber, setHouseNumber] = useState("")
+  const [zipCode, setZipCode] = useState("")
+  const [city, setCity] = useState("")
+  const [validationText, setValidationText] = useState("Please validate the address before booking the concert so we can place you on the map.")
 
   // get concert from params
   const {concertId} = useParams()
@@ -37,6 +42,9 @@ function EditConcert(props) {
         setNewConcert(concertFromDB)
         setArtist(response.data.artist)
         setIsPublicChecked(response.data.isPublic)
+        setStreet(response.data.address.street)
+        setHouseNumber(response.data.address.number)
+        setZipCode(response.data.address.zipcode)
         console.log(response.data)
     })
     .catch(error => {console.log(error) })
@@ -95,6 +103,67 @@ function EditConcert(props) {
   }, [artistCost])
  
  
+  const handleGenre = (e) => {
+    const newObject = { ...newConcert };
+    const genreString = e.target.value
+    const genreArray = genreString.split(",")
+    let trimmedArray = genreArray.map(element => element.trim())
+    newObject.genre = trimmedArray
+    setNewConcert(newObject)
+    console.log(newObject)
+  }
+
+  const handleStreet = (e) => {
+    setStreet(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleHouseNumber = (e) => {
+    setHouseNumber(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleZipcode = (e) => {
+    setZipCode(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleCity = (e) => {
+    const newObject = { ...newConcert };
+    newObject["city"] = e.target.value
+    setNewConcert(newObject)
+    setCity(e.target.value)
+    console.log(e.target.value)
+  }
+
+
+  const validateAddress = () => {
+    const searchAddress = street+" "+houseNumber+" "+zipCode+" "+city
+    console.log("validating address..."+searchAddress)
+    setValidationText("Looking up the address in all the databases in the world... (this may take a while)")
+    const formatAddress = encodeURI(searchAddress);
+    const apiUrl = `https://nominatim.openstreetmap.org/search?q=${formatAddress}&format=json&limit=1`;
+
+    axios.get(apiUrl)
+      .then(response => {
+        const data = response.data;
+        if (data && data.length > 0) {
+          console.log(data)
+          const { lat, lon } = data[0];
+          setValidationText(data[0].display_name)
+          const newObject = { ...newConcert }
+          newObject.location = [Number(lat), Number(lon)]
+          setNewConcert(newObject)
+
+        } else {
+          console.log('Address not found');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching geocoordinates', error);
+      });
+  }
+
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -104,7 +173,13 @@ function EditConcert(props) {
     // If the request resolves with an error, set the error message in the state
     console.log(newConcert)
     const storedToken = localStorage.getItem("authToken");
-    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, newConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
+    const sendConcert = {...newConcert}
+    sendConcert.address = {
+      street: street,
+      number: houseNumber,
+      zipcode: zipCode
+    }
+    axios.put(`${import.meta.env.VITE_API_URL}/concert/${concertId}`, sendConcert, { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         console.log(response)
         navigate("/");
@@ -159,10 +234,39 @@ function EditConcert(props) {
               </div>
 
               <div className="sm:col-span-2 sm:col-start-1">
-                <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Location (City)</label>
+                <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Street</label>
                 <div className="mt-2">
-                  <input type="text" name="city" id="city" value={newConcert.city} onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                  <input type="text" name="street" id="street" value={street} onChange={handleStreet} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
                 </div>
+              </div>
+
+              <div className="sm:col-span-1">
+                <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Number</label>
+                <div className="mt-2">
+                  <input type="string" name="string" id="number" value={houseNumber} onChange={handleHouseNumber} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                </div>
+              </div>
+
+              <div className="sm:col-span-1">
+                <label for="city" className="block text-sm font-medium leading-6 text-gray-900">Zip Code</label>
+                <div className="mt-2">
+                  <input type="string" name="string" id="zipcode" value={zipCode} onChange={handleZipcode} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                </div>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label for="city" className="block text-sm font-medium leading-6 text-gray-900">City</label>
+                <div className="mt-2">
+                  <input type="text" name="city" id="city" value={newConcert.city}  onChange={handleCity} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-start gap-x-6 border-0 sm:col-start-1">
+              <button type="button" onClick={validateAddress} className="rounded-md h-9 bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Validate</button>
+              </div>
+
+              <div className="sm:col-span-5">
+              <p className="mt-2 text-sm leading-6 text-gray-600">{validationText}</p>
               </div>
 
               <div className="sm:col-span-2">
@@ -171,6 +275,17 @@ function EditConcert(props) {
                   <input type="datetime-local" name="date" id="date" class="mt-1 block w-full" value={newConcert.date} onChange={handleChange} valueautocomplete="address-level2" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required />
                 </div>
               </div>
+
+              <div className="sm:col-span-2">
+                  <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">Concert Duration (in hours)</label>
+                  <div className="mt-2">
+                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
+                      <input type="number" name="duration" id="duration" min="0" value={newConcert.duration} onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
+                    </div>
+                  </div>
+                </div>
+
 
               <div className="sm:col-span-2 sm:col-start-1">
                   <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">Entrance Fee (in €)</label>
@@ -183,14 +298,18 @@ function EditConcert(props) {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">Concert Duration (in hours)</label>
+                  <label for="groupname" className="block text-sm font-medium leading-6 text-gray-900">Genres</label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                       {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
-                      <input type="number" name="duration" id="duration" min="0" value={newConcert.duration} onChange={handleChange} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required/>
+                      <input type="string" name="genre" id="genre" min="0" value={
+                        newConcert?.genre?.map( (element, index, array) => {
+                          return element})
+                        } onChange={handleGenre} autocomplete="groupname" className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Rock, Pop, Indie, ..." required />
                     </div>
                   </div>
                 </div>
+
 
               <div className="col-span-full">
                 <div className="mt-6 space-y-6">

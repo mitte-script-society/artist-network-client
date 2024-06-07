@@ -12,7 +12,7 @@ export default function ArtistDetail(){
   const [isLoading, setIsLoading] = useState(true);
   const [artistInfo, setArtistInfo] = useState({});
   
-  const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
+  const [videoURL, setVideoURL] = useState()
   const [audioURL, setAudioURL] = useState()
   const navigate = useNavigate();
 

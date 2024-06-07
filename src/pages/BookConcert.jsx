@@ -15,7 +15,6 @@ function BookConcert(props) {
   const [houseNumber, setHouseNumber] = useState("")
   const [zipCode, setZipCode] = useState("")
   const [city, setCity] = useState("")
-  const [address, setAddress] = useState("")
   const [validationText, setValidationText] = useState("Please validate the address before booking the concert so we can place you on the map.")
 
   // get user ID from auth context

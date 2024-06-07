@@ -95,7 +95,8 @@ const { isLoggedIn, userInformation, } = useContext(AuthContext);
             type="text"
             placeholder="Enter your name"
             required
-            value={userInformation.name}
+            readOnly={true}
+            value={userInformation.name } 
           />
         </div>
 
