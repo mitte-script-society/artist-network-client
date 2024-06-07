@@ -27,19 +27,19 @@ function App() {
   const [showAlert, setShowAlert] = useState(false)
   const [sendersArray, setSendersArray] = useState([])
 
-    const socket = io(import.meta.env.VITE_API_URL);
-    socket.on('new message', (newMessage) => {
-      if (newMessage.destiny === userInformation._id) 
-        {
-          const newSender = newMessage.sender;
-           if ( ! sendersArray.includes(newSender)  ) {
-            const newArray = [... sendersArray]
-            newArray.push(newSender)
-            setShowAlert(true)
-            setSendersArray(newArray);            
-          } 
-        }
-    })
+    // const socket = io(import.meta.env.VITE_API_URL);
+    // socket.on('new message', (newMessage) => {
+    //   if (newMessage.destiny === userInformation._id) 
+    //     {
+    //       const newSender = newMessage.sender;
+    //        if ( ! sendersArray.includes(newSender)  ) {
+    //         const newArray = [... sendersArray]
+    //         newArray.push(newSender)
+    //         setShowAlert(true)
+    //         setSendersArray(newArray);            
+    //       } 
+    //     }
+    // })
 
 
   return (
