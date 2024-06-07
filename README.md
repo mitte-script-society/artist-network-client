@@ -1,8 +1,16 @@
-# React + Vite
+# Artist Connection Project (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Description
+  - This is the React Frontend for our Artist Connection Project. The idea is that artists can sign up and be listed in a publicly available database. Users can then book artists in their town for a live concert.
+  - We used Leaflet JS and OpenStreetMap for the visualization on a map and the Nominatim API for GeoCoding of addresses
+  - A repository with the backend code can be found here: https://github.com/mitte-script-society/artist-network-server
 
-Currently, two official plugins are available:
+- Instructions to run this app in my computer. Probably something like this:
+  - git clone
+  - install dependencies (`npm install`)
+  - create a `.env` file with `VITE_API_URL=http://localhost:5005`
+  - run the application (`npm run dev`)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Demo
+  - Netlify: https://artist-connection.netlify.app/
+  - API: https://artistconnection-api.adaptable.app/
