@@ -57,7 +57,6 @@ function BookConcert(props) {
     newObject["artist"] = artistId
     newObject["isPublic"] = isPublicChecked
     setNewConcert(newObject)
-    console.log(newConcert)
   }
 
   const handleIsPublic = (e) => {
@@ -68,7 +67,6 @@ function BookConcert(props) {
     const newObject = { ...newConcert };
     newObject.isPublic = isPublicChecked
     setNewConcert(newObject)
-    console.log(isPublicChecked)
   }, [isPublicChecked])
 
   useEffect(() => {
@@ -91,22 +89,18 @@ function BookConcert(props) {
     let trimmedArray = genreArray.map(element => element.trim())
     newObject.genre = trimmedArray
     setNewConcert(newObject)
-    console.log(newObject)
   }
 
   const handleStreet = (e) => {
     setStreet(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleHouseNumber = (e) => {
     setHouseNumber(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleZipcode = (e) => {
     setZipCode(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleCity = (e) => {
@@ -114,7 +108,6 @@ function BookConcert(props) {
     newObject["city"] = e.target.value
     setNewConcert(newObject)
     setCity(e.target.value)
-    console.log(e.target.value)
   }
 
 
@@ -129,7 +122,6 @@ function BookConcert(props) {
       .then(response => {
         const data = response.data;
         if (data && data.length > 0) {
-          console.log(data)
           const { lat, lon } = data[0];
           setValidationText(data[0].display_name)
           const newObject = { ...newConcert }
@@ -149,11 +141,7 @@ function BookConcert(props) {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
 
-    // Make an axios request to the API
-    // If POST request is successful redirect to login page
-    // If the request resolves with an error, set the error message in the state
     const storedToken = localStorage.getItem("authToken");
-    console.log(newConcert)
     const sendConcert = {...newConcert}
     sendConcert.address = {
       street: street,
@@ -185,7 +173,6 @@ function BookConcert(props) {
                 <label for="username" className="block text-sm font-medium leading-6 text-gray-900">Concert Title</label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                     <input type="text" name="title" id="title" autocomplete="title" onChange={handleChange} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required />
                   </div>
                 </div>

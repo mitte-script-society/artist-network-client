@@ -99,7 +99,6 @@ useEffect( (() => {
   function handleSearch(e){
     e.preventDefault()
     triggerSearch(e.target.value);
-    console.log(e.target.value)
   }
 
   function triggerSearch(string) {
