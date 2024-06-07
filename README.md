@@ -5,7 +5,7 @@
   - We used Leaflet JS and OpenStreetMap for the visualization on a map and the Nominatim API for GeoCoding of addresses
   - A repository with the backend code can be found here: https://github.com/mitte-script-society/artist-network-server
 
-- Instructions to run this app in my computer. Probably something like this:
+- Instructions to run this app in my computer:
   - git clone
   - install dependencies (`npm install`)
   - create a `.env` file with `VITE_API_URL=http://localhost:5005`
