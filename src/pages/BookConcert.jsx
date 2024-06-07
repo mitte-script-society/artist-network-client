@@ -313,14 +313,17 @@ function BookConcert(props) {
             </div>
           </div>
         </div>
-
+        {errorMessage && 
+        <div className="sm:col-span-3 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+          <p>{errorMessage}</p>
+        </div>
+        }
         <div className="mt-6 flex items-center justify-start gap-x-6">
           {/* <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button> */}
           <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book Concert</button>
           {newConcert.duration && <p className="text-gray-500">I confirm the artist fee of {artistCost} € will be due to {artist.name} for playing this concert.</p>}
         </div>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </>
 
 

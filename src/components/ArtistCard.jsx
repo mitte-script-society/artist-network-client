@@ -56,8 +56,8 @@ export default function ArtistCard({artistInfo }) {
 
         <div style={{height:"80%"}}>
           <div className="text-xl font-bold text-gray-900 mb-2">{artistInfo.name}</div>
-          {artistInfo.artistGenre &&
-          <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
+          {artistInfo.artistGenre.length>0 &&
+          <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre[0]}</p></div>
           }
           <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.city}</p></div>
           <div className="flex items-center mb-2"><img src="/cost.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistFee} € / hour played</p></div>
