@@ -112,7 +112,7 @@ function Comments() {
               <input
                 type="submit"
                 className="px-4 py-2 rounded-md text-white text-sm bg-indigo-500 hover:bg-indigo-600 transition-colors duration-300"
-                value="Post Comment"
+                value="Post Review"
               />
             </div>
           </div>
