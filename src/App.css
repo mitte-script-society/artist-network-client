@@ -9,6 +9,19 @@
   height: 100vh;
 }
 
+.nav-notifications-number {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #3b7700;
+  line-height: 15px;
+  text-align: center;
+  font-size: 10px;
+  top: 3px;
+  right: -5px;
+}
+
 .loading-page-effect {
   height: 90vh;
   display: flex;

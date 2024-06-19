@@ -20,10 +20,10 @@
   text-align: center;
   color: white;
   margin: 10px 0;
-  
 }
 
 .chat-list-row {
+  position: relative;
   margin: 10px 10px;
   cursor: pointer;
   color: white;
@@ -36,6 +36,24 @@
 }
 .chat-list-row img {
   height: 30px;
+}
+
+.chat-notifications {
+  font-weight: 600;
+  box-shadow: 0 4px 4px rgba(157, 23, 77);
+}
+
+.notification-circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 10px;
+  top: -3px;
+  right: -3px;
+  border-radius: 50%;
+  background-color: rgb(157 23 77);
+  text-align: center;
 }
 
 .chat-partners {

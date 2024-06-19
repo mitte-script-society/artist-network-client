@@ -1,11 +1,9 @@
 import axios from "axios"
 import {users, pictures} from "./list-artist.js";
 
-
-
 async function signup(user) {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, user, {
+    const response = await axios.post(`http://localhost:5005/auth/signup`, user, {
       headers: {
         'Content-Type': 'application/json'
       }

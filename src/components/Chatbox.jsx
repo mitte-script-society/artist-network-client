@@ -4,10 +4,9 @@ import axios from "axios";
 import closeButton from "../assets/closebutton.png";
 import sendButton from "../assets/send.png";
 import { io } from "socket.io-client";
-
 const socket = io(import.meta.env.VITE_API_URL);
 
-export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert}) {
+export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert, sortConversationsAgain}) {
   const [isLoading, setIsLoading] = useState(true);
   const [messagesArray, setMessagesArray] = useState([]);
   const storedToken = localStorage.getItem("authToken");
@@ -69,9 +68,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
     else {
     setIsLoading(false)
     }
-
-
-  } , [fetchAgain, chatInformation])
+  }, [fetchAgain, chatInformation])
 
   function handleSendMessage(e) {
     e.preventDefault();
@@ -137,16 +134,29 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       document.getElementById('write-message').value = '';
       sendMessageToSocket(newMessage);
       setFetchAgain(!fetchAgain);
-      
+      sortConversationsAgain( chatInformation.idConversation, new Date().toISOString() )
+      //Add condition: if receiver is not in same chat room, then send a new notification: 
+      sendNotification()
     })
     .catch( error => {
       console.log(error)
     })
   }
 
+  function sendNotification() {
+    const body = {idOrigin: chatInformation.idConversation, notificationType: "message"};
+    axios.put(`${import.meta.env.VITE_API_URL}/user/add-notification/${chatInformation.idOther}`, body, 
+      { headers: { Authorization: `Bearer ${storedToken}`} }
+      )
+    .then ( response => {
+      console.log(response)
+    })
+    .catch( error => console.log(error))
+  }
+
   const lastMessageRef = useRef(null);
 
-  // This useEffect will run whenever messages change
+// This useEffect will run whenever messages change
   useEffect(() => {
     // Scroll to the last message
     if (lastMessageRef.current) {
@@ -155,9 +165,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
     }
   }, [messagesArray]);
 
-  
-
-  return (
+return (
     <div id="chat-box">
       {isLoading?
       <div className="getting-messages">

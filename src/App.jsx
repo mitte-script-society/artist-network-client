@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useContext, useState} from "react";
+import { useContext, useEffect, useState} from "react";
 import { AuthContext } from "./context/auth.context";
 import Navbar from "./components/Navbar";
 import IsPrivate from "./components/IsPrivate";
@@ -23,10 +23,22 @@ import { io } from "socket.io-client";
 function App() {
 
   const { isLogInWindow, userInformation} = useContext(AuthContext);
+  const [showAlert, setShowAlert] = useState(false);
+  const [sendersArray, setSendersArray] = useState([]);
+  const [changeInNotifications, setChangeInNotifications] = useState(0)
 
-  const [showAlert, setShowAlert] = useState(false)
-  const [sendersArray, setSendersArray] = useState([])
-
+  
+  
+ /*    useEffect(() => {
+      let total = 0;
+      for (let origin in userInformation.notifications) {
+        if (userInformation.notifications.hasOwnProperty(origin)) {
+          total += userInformation.notifications[origin].quantity;
+        }
+      }
+      setTotalNotifications(total);
+    }, [userInformation.notifications]);
+ 
     const socket = io(import.meta.env.VITE_API_URL);
     socket.on('new message', (newMessage) => {
       if (newMessage.destiny === userInformation._id) 
@@ -39,18 +51,18 @@ function App() {
             setSendersArray(newArray);            
           } 
         }
-    })
-
+    }) */
+  
 
   return (
     <div className="App">
-      <Navbar showAlert={showAlert}/>
+      <Navbar showAlert={showAlert} changeInNotifications={changeInNotifications} />
       
       {isLogInWindow && <Login/>}
 
       <Routes>      
         <Route path="/" element={<Home/>} />
-        <Route path="/chat" element={<IsPrivate><Chat setShowAlert={setShowAlert} sendersArray={sendersArray} setSendersArray={setSendersArray} /> </IsPrivate>} />
+        <Route path="/chat" element={<IsPrivate><Chat setShowAlert={setShowAlert} sendersArray={sendersArray} setSendersArray={setSendersArray} setChangeInNotifications={setChangeInNotifications}/> </IsPrivate>} />
         <Route path="/about" element={<About/>} />
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/see-artists/:artistId" element={<ArtistDetail/>}/>

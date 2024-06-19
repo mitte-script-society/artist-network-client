@@ -3,7 +3,7 @@ import { AuthContext } from "../context/auth.context";
 import { useContext, useState } from "react";
 import { bookmarkUser } from "../services/user-services";
 
-export default function ConcertCard({concertInfo, setYPos }) {
+export default function ConcertCard({concertInfo}) {
   const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
   const property = "bookmarkedEvents";
   const date = concertInfo.date
@@ -66,7 +66,7 @@ export default function ConcertCard({concertInfo, setYPos }) {
 
         <div style={{minHeight:"80%"}}>
           <div className="text-xl font-bold text-gray-900 mb-2">{concertInfo.title}</div>
-          <div className="flex items-center mb-2"><img src="/singer.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.artist.name}</p></div>
+          <div className="flex items-center mb-2"><img src="/singer.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.name}</p></div>
           <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.genre[0]}</p></div>
           <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.city}</p></div>
           <div className="flex items-center mb-2"><img src="/price.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{concertInfo.prices} €</p></div>

@@ -2,14 +2,27 @@ import { NavLink } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/auth.context";
 
-function Navbar({showAlert}) {
+function Navbar({showAlert, changeInNotifications}) {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider `value` prop
   const { isLoggedIn, userInformation, logOutUser, setIsLogInWindow } = useContext(AuthContext);
   // const [showAlert, setShowAlert] = useState("none")
   const [displayAlert, setDisplayAlert] = useState("none")
+  const [totalNotifications, setTotalNotifications] = useState(null); 
 
-
+  useEffect( () => {
+    if (isLoggedIn === true){
+    console.log("Executing in nabvar")
+    let total = 0;
+    for (let origin in userInformation.notifications) {
+      if (userInformation.notifications.hasOwnProperty(origin)) {
+        total += userInformation.notifications[origin].quantity;
+      }
+    }
+    setTotalNotifications(total)
+  }
+  }, [changeInNotifications, userInformation.notifications])
+  
   useEffect(() => {
     if (showAlert === true) setDisplayAlert("red")
     if (showAlert === false) setDisplayAlert("none")
@@ -100,9 +113,14 @@ function Navbar({showAlert}) {
         }>My Dashboard</NavLink>
 
         <NavLink to="/chat" className={({ isActive }) =>
-          isActive ? "bg-pink-800 text-white rounded-md px-3 py-2 text-sm font-medium"
-                    : "text-gray-300 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-        }>Chat</NavLink>        
+            isActive ? "bg-pink-800 text-white rounded-md px-3 py-2 text-sm font-medium"
+                      : "text-gray-300 hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+         }
+        style={{position:"relative"}}
+        >Chat
+        { totalNotifications > 0 && <div className="nav-notifications-number">{totalNotifications}</div>}
+        </NavLink>        
+        
         </>
         
 
