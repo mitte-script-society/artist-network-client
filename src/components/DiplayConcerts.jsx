@@ -23,8 +23,6 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   }
 
   useEffect(() => {
-    // console.log(genreFilter)
-    // console.log(locationFilter)
     if(genreFilter === "all" && locationFilter === "all") {
       setArrayToShow(concertsArray)
       setGenreFilters(concertsArray)
@@ -55,8 +53,6 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   }, [locationFilter])
 
   useEffect(() => {
-    // console.log(genreFilter)
-    // console.log(locationFilter)
     if(genreFilter === "all" && locationFilter === "all") {
       setArrayToShow(concertsArray)
       setGenreFilters(concertsArray)

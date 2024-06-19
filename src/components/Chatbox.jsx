@@ -14,7 +14,6 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
   const [typingEffect, setTypingEffect] = useState(false);
 
   socket.on('new message', (newMessage) => {
-    console.log("user got message")
     if (newMessage.destiny === chatInformation.idMe) 
       {
       setFetchAgain(!fetchAgain)

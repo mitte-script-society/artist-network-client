@@ -15,7 +15,6 @@ function BookConcert(props) {
   const [houseNumber, setHouseNumber] = useState("")
   const [zipCode, setZipCode] = useState("")
   const [city, setCity] = useState("")
-  const [address, setAddress] = useState("")
   const [validationText, setValidationText] = useState("Please validate the address before booking the concert so we can place you on the map.")
 
   // get user ID from auth context
@@ -58,7 +57,6 @@ function BookConcert(props) {
     newObject["artist"] = artistId
     newObject["isPublic"] = isPublicChecked
     setNewConcert(newObject)
-    console.log(newConcert)
   }
 
   const handleIsPublic = (e) => {
@@ -69,7 +67,6 @@ function BookConcert(props) {
     const newObject = { ...newConcert };
     newObject.isPublic = isPublicChecked
     setNewConcert(newObject)
-    console.log(isPublicChecked)
   }, [isPublicChecked])
 
   useEffect(() => {
@@ -92,22 +89,18 @@ function BookConcert(props) {
     let trimmedArray = genreArray.map(element => element.trim())
     newObject.genre = trimmedArray
     setNewConcert(newObject)
-    console.log(newObject)
   }
 
   const handleStreet = (e) => {
     setStreet(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleHouseNumber = (e) => {
     setHouseNumber(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleZipcode = (e) => {
     setZipCode(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleCity = (e) => {
@@ -115,7 +108,6 @@ function BookConcert(props) {
     newObject["city"] = e.target.value
     setNewConcert(newObject)
     setCity(e.target.value)
-    console.log(e.target.value)
   }
 
 
@@ -130,7 +122,6 @@ function BookConcert(props) {
       .then(response => {
         const data = response.data;
         if (data && data.length > 0) {
-          console.log(data)
           const { lat, lon } = data[0];
           setValidationText(data[0].display_name)
           const newObject = { ...newConcert }
@@ -150,11 +141,7 @@ function BookConcert(props) {
   const handleSignupSubmit = (e) => {
     e.preventDefault();
 
-    // Make an axios request to the API
-    // If POST request is successful redirect to login page
-    // If the request resolves with an error, set the error message in the state
     const storedToken = localStorage.getItem("authToken");
-    console.log(newConcert)
     const sendConcert = {...newConcert}
     sendConcert.address = {
       street: street,
@@ -186,7 +173,6 @@ function BookConcert(props) {
                 <label for="username" className="block text-sm font-medium leading-6 text-gray-900">Concert Title</label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span> */}
                     <input type="text" name="title" id="title" autocomplete="title" onChange={handleChange} className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" required />
                   </div>
                 </div>
@@ -289,7 +275,7 @@ function BookConcert(props) {
               </div>
 
               <div className="col-span-full">
-                <label for="photo" className="block text-sm font-medium leading-6 text-gray-900">Event Photo</label>
+                <label for="photo" className="block text-sm font-medium leading-6 text-gray-900">Event Photo (only .jpg/.jpeg files)</label>
                 <div className="mt-2 flex items-center gap-x-3">
                   <svg className="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
@@ -314,14 +300,17 @@ function BookConcert(props) {
             </div>
           </div>
         </div>
-
+        {errorMessage && 
+        <div className="sm:col-span-3 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+          <p>{errorMessage}</p>
+        </div>
+        }
         <div className="mt-6 flex items-center justify-start gap-x-6">
           {/* <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button> */}
           <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Book Concert</button>
           {newConcert.duration && <p className="text-gray-500">I confirm the artist fee of {artistCost} € will be due to {artist.name} for playing this concert.</p>}
         </div>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </>
 
 

@@ -2,6 +2,7 @@ import "../styles/ConcertCard.css";
 import { AuthContext } from "../context/auth.context";
 import { useContext, useState } from "react";
 import { bookmarkUser } from "../services/user-services";
+import { NavLink } from "react-router-dom";
 
 export default function ConcertCard({concertInfo}) {
   const { isLoggedIn, setIsLogInWindow, userInformation, resetUserInformation } = useContext(AuthContext);
@@ -44,10 +45,6 @@ export default function ConcertCard({concertInfo}) {
     }
   }
   
-  function handleDetails() {
-    window.open(`/concerts/${concertInfo._id}`, '_blank');
-  }
-
   return (
     <div className="concert-card">
 
@@ -74,7 +71,9 @@ export default function ConcertCard({concertInfo}) {
         </div>
 
         <div id="card-concert-buttons-container button">
-          <button type="button" onClick={handleDetails} className="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Details</button>
+          <NavLink to={`/concerts/${concertInfo._id}`}>
+          <button type="button" className="rounded-md bg-blue-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Details</button>
+          </NavLink>
           <button type="button" onClick={handleBookmark} className="ml-2 rounded-md bg-pink-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isBookmarked? "Unfollow" : "Attend"}</button>
         </div>
       

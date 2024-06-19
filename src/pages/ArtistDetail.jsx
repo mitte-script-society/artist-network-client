@@ -12,7 +12,7 @@ export default function ArtistDetail(){
   const [isLoading, setIsLoading] = useState(true);
   const [artistInfo, setArtistInfo] = useState({});
   
-  const [videoURL, setVideoURL] = useState("https://www.youtube.com/embed/r9jwGansp1E")
+  const [videoURL, setVideoURL] = useState()
   const [audioURL, setAudioURL] = useState()
   const navigate = useNavigate();
 
@@ -56,7 +56,12 @@ export default function ArtistDetail(){
             </div>}
         
         <div className="flex items-center mb-2"><img src="/location.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.city}</p></div>
-        <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{artistInfo.artistGenre}</p></div>
+        {artistInfo.artistGenre.length>0 &&
+        <div className="flex items-center mb-2"><img src="/genre.png" className="h-5 w-5 mr-1"/><p className="text-lg mt-0">{
+            artistInfo.artistGenre.map( (element, index, array) => {
+            return index!==array.length-1 ? element+", ": element})
+          }</p></div>
+        }
         {artistInfo.artistWebsite && 
         <div className="flex items-center mb-2"><img src="/website.png" className="h-5 w-5 mr-1"/><a href={artistInfo.artistWebsite} className="text-lg mt-0" target="_blank">{artistInfo.artistWebsite}</a></div>
         }

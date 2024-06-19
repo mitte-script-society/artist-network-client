@@ -56,13 +56,10 @@ function MapView(props) {
         element.distance = calculateDistance(userLat, userLong, element.location[0], element.location[1])
       })
 
-      console.log(markers)
       const markerWithMinDistance = markers.reduce((min, current) => (min.distance < current.distance) ? min : current);
 
       setClosestMarker(markerWithMinDistance.location)
       setShowZoom(true)
-
-      // status.textContent = "Zooming in to the event closest to you...";
       
     }
 
@@ -73,7 +70,6 @@ function MapView(props) {
     if (!navigator.geolocation) {
       status.textContent = "Geolocation is not supported by your browser";
     } else {
-      // status.textContent = "Locating…";
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }
