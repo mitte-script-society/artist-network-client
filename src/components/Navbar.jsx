@@ -21,7 +21,8 @@ function Navbar({showAlert, changeInNotifications}) {
     setTotalNotifications(total)
   }
   }, [changeInNotifications, userInformation.notifications])
-    const [hideMobileMenu, setHideMobileMenu] = useState(true)
+
+  const [hideMobileMenu, setHideMobileMenu] = useState(true)
 
   const handleToggle = (e) => {
     setHideMobileMenu(!hideMobileMenu)

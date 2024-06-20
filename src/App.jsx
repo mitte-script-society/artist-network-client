@@ -27,19 +27,9 @@ function App() {
   const [sendersArray, setSendersArray] = useState([]);
   const [changeInNotifications, setChangeInNotifications] = useState(0)
 
-  
-  
- /*    useEffect(() => {
-      let total = 0;
-      for (let origin in userInformation.notifications) {
-        if (userInformation.notifications.hasOwnProperty(origin)) {
-          total += userInformation.notifications[origin].quantity;
-        }
-      }
-      setTotalNotifications(total);
-    }, [userInformation.notifications]);
- 
+ /*
     const socket = io(import.meta.env.VITE_API_URL);
+    
     socket.on('new message', (newMessage) => {
       if (newMessage.destiny === userInformation._id) 
         {
@@ -51,7 +41,8 @@ function App() {
             setSendersArray(newArray);            
           } 
         }
-    }) */
+    })
+  */
   
 
   return (

@@ -35,7 +35,9 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
     setAllConversations(sortByLastMessage);
   } ,[]);
 
+  
   function sortConversationsAgain(idChangedConversation, date) {
+    //Frontend solution: changes the updated property of the conversations and resorts the AllConversations array.
     const newArray = [...allConversations];
     const updatedConversationIndex = newArray.findIndex(element => element.idConversation === idChangedConversation);
     newArray[updatedConversationIndex].updated = date;      
@@ -96,7 +98,6 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
           setAllConversations(newConversations);
 
         //Changing directly in client the value of userInformation, to reflect the change without calling the server
-        //
           const newUserInformation = {... userInformation};
           delete newUserInformation.notifications[selectedConversation.idConversation]
           setUserInformation(newUserInformation)
