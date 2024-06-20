@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 
 
 
@@ -12,6 +13,15 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [isLogInWindow, setIsLogInWindow] = useState(false);
   const [userInformation, setUserInformation] = useState([])
+
+  const socket = io(import.meta.env.VITE_API_URL);
+
+  useEffect(() => {
+    socket.on('connect', function() {
+      socket.emit('join-main', userInformation?._id);
+      console.log("joining room:", userInformation?._id)
+    });
+  }, [userInformation])
   
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -91,7 +101,7 @@ function AuthProviderWrapper(props) {
       value={{ isLoggedIn, isLoading, user,
               storeToken, authenticateUser, logOutUser, 
               isLogInWindow, setIsLogInWindow,
-              userInformation, resetUserInformation
+              userInformation, resetUserInformation, socket
             }}
     >
       {props.children}

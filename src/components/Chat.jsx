@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import Chatbox from "./Chatbox";
 import axios from "axios";
 
-export default function Chat({setShowAlert, setSendersArray, sendersArray}) {
+export default function Chat({setShowAlert, setSendersArray, sendersArray, socket}) {
   const { userInformation} = useContext(AuthContext);
   const [allConversations, setAllConversations] = useState([]);
   const [showingChatInfo, setShowingChatInfo] = useState(null);
@@ -142,7 +142,7 @@ useEffect( (() => {
         </div>
         
         { showingChatInfo !== null &&
-          <Chatbox setShowAlert={setShowAlert} chatInformation={showingChatInfo} handleCloseChat={handleCloseChat} addConversationToList={addConversationToList}/>
+          <Chatbox socket={socket} setShowAlert={setShowAlert} chatInformation={showingChatInfo} handleCloseChat={handleCloseChat} addConversationToList={addConversationToList}/>
         }
 
       </div>

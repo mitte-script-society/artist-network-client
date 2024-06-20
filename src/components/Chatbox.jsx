@@ -5,20 +5,23 @@ import closeButton from "../assets/closebutton.png";
 import sendButton from "../assets/send.png";
 import { io } from "socket.io-client";
 
-const socket = io(import.meta.env.VITE_API_URL);
+// const socket = io(import.meta.env.VITE_API_URL);
 
-export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert}) {
+export default function Chatbox({ socket, chatInformation, handleCloseChat, addConversationToList, setShowAlert}) {
   const [isLoading, setIsLoading] = useState(true);
   const [messagesArray, setMessagesArray] = useState([]);
   const storedToken = localStorage.getItem("authToken");
   const [fetchAgain, setFetchAgain] = useState(false);
   const [typingEffect, setTypingEffect] = useState(false);
 
+  console.log(socket)
+
   socket.on('new message', (newMessage) => {
     if (newMessage.destiny === chatInformation.idMe) 
       {
       setFetchAgain(!fetchAgain)
       }
+    console.log("new message received")
   })
 
   socket.on('user typing', (typingInfo) => {
