@@ -4,11 +4,11 @@ import { AuthContext } from "../context/auth.context";
 import Chatbox from "./Chatbox";
 import axios from "axios";
 
-export default function Chat({setShowAlert, setSendersArray, sendersArray, setChangeInNotifications}) {
+export default function Chat({setShowAlert, setSendersArray, sendersArray, setChangeInNotifications, socket}) {
   const { userInformation, setUserInformation} = useContext(AuthContext);
   const [allConversations, setAllConversations] = useState([]);
   const [showingChatInfo, setShowingChatInfo] = useState(null);
-  const [isSearch, setIsSearch] = useState(false)
+  const [isSearch, setIsSearch] = useState(false);
   const [artistsArray, setArtistsArray] = useState([]);
   const [arrayToShow, setArrayToShow] = useState(artistsArray);
   const notificationsObject = userInformation.notifications; //Getting notifications property from the general userInformation
@@ -33,7 +33,7 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
 
     const sortByLastMessage = newArray.sort( (a,b) => new Date(b.updated) - new Date (a.updated) )
     setAllConversations(sortByLastMessage);
-  } ,[]);
+  } ,[userInformation]);
 
   
   function sortConversationsAgain(idChangedConversation, date) {
@@ -186,7 +186,7 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
         { showingChatInfo !== null &&
           <Chatbox  setShowAlert={setShowAlert} chatInformation={showingChatInfo}
                     handleCloseChat={handleCloseChat} addConversationToList={addConversationToList}
-                    sortConversationsAgain={sortConversationsAgain}
+                    sortConversationsAgain={sortConversationsAgain} socket={socket}
                   />
         }
 

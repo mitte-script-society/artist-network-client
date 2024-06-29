@@ -3,29 +3,56 @@ import "../styles/Chatbox.css";
 import axios from "axios";
 import closeButton from "../assets/closebutton.png";
 import sendButton from "../assets/send.png";
-import { io } from "socket.io-client";
-const socket = io(import.meta.env.VITE_API_URL);
+import { findNewDays, renameDay } from "./fixDays";
 
-export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert, sortConversationsAgain}) {
+export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert, sortConversationsAgain, socket}) {
   const [isLoading, setIsLoading] = useState(true);
   const [messagesArray, setMessagesArray] = useState([]);
   const storedToken = localStorage.getItem("authToken");
   const [fetchAgain, setFetchAgain] = useState(false);
   const [typingEffect, setTypingEffect] = useState(false);
+  const lastMessages = 5;
+  const [isOtherOnline, setIsOtherOnline] = useState(false);
 
-  socket.on('new message', (newMessage) => {
-    if (newMessage.destiny === chatInformation.idMe) 
-      {
-      setFetchAgain(!fetchAgain)
-      }
-  })
+  useEffect(() => {
+    console.log("From useEffect")
+    socket.emit('join-chat', chatInformation.idConversation);
+    
+    const handleOtherJoined = () => {
+      console.log("Partner joined. Chaning user to true");
+      setIsOtherOnline(true);
+    };
 
-  socket.on('user typing', (typingInfo) => {
-    if (  typingInfo.destiny === chatInformation.idMe &&
-          typingInfo.sender === chatInformation.idOther ) {
-      timerTyping()
-    }
-  })
+    const handleOtherLeft = () => {
+      console.log("Partner left. Changing to false");
+      setIsOtherOnline(false);
+    };
+
+    const handleNewMessage = () => {
+      console.log("Got message");
+      setFetchAgain(prev => !prev);
+    };
+
+    const handleUserTyping = () => {
+      timerTyping();
+    };
+
+    // Event Listeners
+    socket.on("other-joined", handleOtherJoined);
+    socket.on("other-left", handleOtherLeft);
+    socket.on('new message', handleNewMessage);
+    socket.on('user typing', handleUserTyping);
+
+    // Cleaning events and leaving-chat
+    return () => {
+      console.log("executing leave-chat and clean events");
+      socket.emit('leave-chat', chatInformation.idConversation);
+      socket.off("other-joined", handleOtherJoined);
+      socket.off("other-left", handleOtherLeft);
+      socket.off('new message', handleNewMessage);
+      socket.off('user typing', handleUserTyping);
+    };
+  }, []);
 
   function timerTyping() {
     setTypingEffect(true)
@@ -36,27 +63,29 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
   }
 
   function isTyping() {
-    const typingInfo = {
-      sender: chatInformation.idMe ,
-      destiny: chatInformation.idOther
-    }
-    socket.emit('user typing', typingInfo)
+    socket.emit('user typing', chatInformation.idConversation)
   }
 
   function sendMessageToSocket (newMessage) {
-    //Add destiny to the message: 
-    newMessage.destiny = chatInformation.idOther;    
-    socket.emit('new message', newMessage)
-  }
+    const destiny = chatInformation.idConversation        
+    socket.emit('new message', {destiny, newMessage})
+  } 
 
   useEffect( () => {
+    console.log("fetching again")
     if (chatInformation.idConversation !== undefined)
     { 
-      axios.get(`${import.meta.env.VITE_API_URL}/conversation/messages/${chatInformation.idConversation}`,
-      { headers: { Authorization: `Bearer ${storedToken}`} }
-      )
-      .then( (response) => {
-        setMessagesArray(response.data.messages)
+      const numberRequestedMessages = lastMessages + chatInformation.notifications;
+      axios.get(`${import.meta.env.VITE_API_URL}/conversation/messages/${chatInformation.idConversation}`, {
+        headers: {
+          Authorization: `Bearer ${storedToken}`
+        },
+        params: {
+          numberRequestedMessages: numberRequestedMessages
+        }
+      })
+      .then( (response) => {      
+        setMessagesArray(findNewDays(response.data))
         setIsLoading(false)
       })
       .catch( error => {
@@ -84,7 +113,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       sendMessage(newMessage)
     }
   }
-  
+
   //Creates a new chat and, if succesfull, invokes updateUsers
   function createChat(newMessage) {
     const body = {
@@ -131,24 +160,37 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       )
     .then( (response) => {
       document.getElementById('write-message').value = '';
-      sendMessageToSocket(newMessage);
       setFetchAgain(!fetchAgain);
       sortConversationsAgain( chatInformation.idConversation, new Date().toISOString() )
-      //Add condition: if receiver is not in same chat room, then send a new notification: 
-      sendNotification()
+      console.log("Other online?", isOtherOnline)
+      if (isOtherOnline) {
+        console.log("sending to socket")
+        sendMessageToSocket(newMessage);
+      } else {
+        console.log("sending notification")
+        sendNotification(newMessage)}
     })
     .catch( error => {
       console.log(error)
     })
   }
 
-  function sendNotification() {
+  function sendNotification(newMessage) {
+    console.log("This should show only if the other user is not in the same chatroom")
     const body = {idOrigin: chatInformation.idConversation, notificationType: "message"};
     axios.put(`${import.meta.env.VITE_API_URL}/user/add-notification/${chatInformation.idOther}`, body, 
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
     .then ( response => {
-      console.log(response)
+      console.log("Sending notification to socket")
+      socket.emit('sendNotification', 
+        {
+          idConversation: chatInformation.idConversation,
+          senderId: chatInformation.idMe,
+          recipientId: chatInformation.idOther,
+          message: newMessage
+        }
+      );
     })
     .catch( error => console.log(error))
   }
@@ -190,10 +232,20 @@ return (
           <div id="chat-messages" className="chat-messages">
             {messagesArray.map( (message, index) => {
               return  (
-              <div key={index} ref={index === messagesArray.length - 1 ? lastMessageRef : null} className={ message.sender === chatInformation.idOther? "message" :"message others" } > {message.content}</div>
+              <div key={index} >
+                {message.newDay && 
+                <div className="day-message">{renameDay(message.updatedAt)}</div>
+                }
+                <div ref={index === messagesArray.length - 1 ? lastMessageRef : null}
+                     className={ message.sender === chatInformation.idOther? "message" :"message others" } >
+                    <p>{message.content}</p>
+                    <div className="time-message">{message.updatedAt.slice(11, 16)}</div>
+                </div>
+              </div>
               )
             })}
           </div>
+          
 
           <form onSubmit={handleSendMessage} className="chat-write-space">
             <input type="text" id="write-message" placeholder="Type..." onChange={isTyping}/>

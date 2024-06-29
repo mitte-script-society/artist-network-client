@@ -11,14 +11,14 @@ function Navbar({showAlert, changeInNotifications}) {
 
   useEffect( () => {
     if (isLoggedIn === true){
-    console.log("Executing in nabvar")
     let total = 0;
     for (let origin in userInformation.notifications) {
       if (userInformation.notifications.hasOwnProperty(origin)) {
         total += userInformation.notifications[origin].quantity;
       }
     }
-    setTotalNotifications(total)
+    setTotalNotifications(total);
+    document.title = total === 0 ? `Artist Connection` : `(${total}) Artist Connection`;
   }
   }, [changeInNotifications, userInformation.notifications])
 

@@ -20,7 +20,6 @@ export default function ConcertCard({concertInfo}) {
   const month = monthNames[dateObj.getUTCMonth()];
   const day = dateObj.getUTCDate();
 
-
   const [isBookmarked, setIsBookmarked] = useState( () => {
     if (!isLoggedIn) { //if nog logged in, return false
     return false

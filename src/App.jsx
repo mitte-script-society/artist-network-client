@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useContext, useEffect, useState} from "react";
+import { useContext, useState} from "react";
 import { AuthContext } from "./context/auth.context";
 import Navbar from "./components/Navbar";
 import IsPrivate from "./components/IsPrivate";
@@ -18,32 +18,12 @@ import ConcertDetail from "./pages/ConcertDetail";
 import About from "./pages/About";
 import IsAnon from "./components/IsAnon";
 import Chat from "./components/Chat";
-import { io } from "socket.io-client";
 
 function App() {
-
-  const { isLogInWindow, userInformation} = useContext(AuthContext);
+  const { isLogInWindow, socket} = useContext(AuthContext);
   const [showAlert, setShowAlert] = useState(false);
   const [sendersArray, setSendersArray] = useState([]);
-  const [changeInNotifications, setChangeInNotifications] = useState(0)
-
- /*
-    const socket = io(import.meta.env.VITE_API_URL);
-    
-    socket.on('new message', (newMessage) => {
-      if (newMessage.destiny === userInformation._id) 
-        {
-          const newSender = newMessage.sender;
-           if ( ! sendersArray.includes(newSender)  ) {
-            const newArray = [... sendersArray]
-            newArray.push(newSender)
-            setShowAlert(true)
-            setSendersArray(newArray);            
-          } 
-        }
-    })
-  */
-  
+  const [changeInNotifications, setChangeInNotifications] = useState(0);
 
   return (
     <div className="App">
@@ -53,7 +33,7 @@ function App() {
 
       <Routes>      
         <Route path="/" element={<Home/>} />
-        <Route path="/chat" element={<IsPrivate><Chat setShowAlert={setShowAlert} sendersArray={sendersArray} setSendersArray={setSendersArray} setChangeInNotifications={setChangeInNotifications}/> </IsPrivate>} />
+        <Route path="/chat" element={<IsPrivate><Chat setShowAlert={setShowAlert} sendersArray={sendersArray} setSendersArray={setSendersArray} setChangeInNotifications={setChangeInNotifications} socket={socket}/> </IsPrivate>} />
         <Route path="/about" element={<About/>} />
         <Route path="/see-artists" element={<SeeArtists/>} />
         <Route path="/see-artists/:artistId" element={<ArtistDetail/>}/>

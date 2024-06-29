@@ -100,16 +100,16 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
           setLocationFilter(e.target.value)
         }}>
           <option value="all">All Cities</option>
-          {uniqueCities.map(element => {
-              return (<option value={element}>{element}</option>)
+          {uniqueCities.map((element, index) => {
+              return (<option key={index} value={element}>{element}</option>)
           })}
           </select>
         <select className="ml-2" name="genre" id="genre" defaultValue="all" onChange={(e) => {
           setGenreFilter(e.target.value)
         }}>
           <option value="all">All Genres</option>
-          {uniqueGenres.map(element => {
-              return (<option value={element}>{element}</option>)
+          {uniqueGenres.map((element, index) => {
+              return (<option  key={index} value={element}>{element}</option>)
           })}
         </select>
       </div>
