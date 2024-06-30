@@ -5,7 +5,7 @@ import closeButton from "../assets/closebutton.png";
 import sendButton from "../assets/send.png";
 import { findNewDays, renameDay } from "./fixDays";
 
-export default function Chatbox({ chatInformation, handleCloseChat, addConversationToList, setShowAlert, sortConversationsAgain, socket}) {
+export default function Chatbox({ chatInformation, handleCloseChat, sortConversationsAgain, socket}) {
   const [isLoading, setIsLoading] = useState(true);
   const [messagesArray, setMessagesArray] = useState([]);
   const storedToken = localStorage.getItem("authToken");
@@ -15,7 +15,14 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
   const [isOtherOnline, setIsOtherOnline] = useState(false);
 
   useEffect(() => {
-    console.log("From useEffect")
+    console.log(chatInformation.idConversation);
+
+    if (chatInformation.idConversation === undefined) {
+      console.log("idConversation empty, so we don´t run de useEffect")
+      return
+    }
+
+    console.log("Socket logic from useEffect")
     socket.emit('join-chat', chatInformation.idConversation);
     
     const handleOtherJoined = () => {
@@ -52,7 +59,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       socket.off('new message', handleNewMessage);
       socket.off('user typing', handleUserTyping);
     };
-  }, []);
+  }, [chatInformation.idConversation, socket]);
 
   function timerTyping() {
     setTypingEffect(true)
@@ -108,7 +115,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       }
     
     if (chatInformation.idConversation === undefined) {
-        createChat(newMessage)
+      createChat(newMessage)
     } else {
       sendMessage(newMessage)
     }
@@ -124,17 +131,17 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
     { headers: { Authorization: `Bearer ${storedToken}`} }
     )
     .then ( response => {
-      response.data
-      const conversationId = response.data._id
-      updateUsers(conversationId)
+      const newCreatedMessage = (response.data.messages[0]);
+      const conversationId = response.data._id;
+      updateUsers(conversationId, newCreatedMessage);
     })
     .catch (error => {
       console.log(error)
     })
   }
 
-  //Adds the newly created conversation to the corresponding users
-  function updateUsers (conversationId) {
+  //If create-conversation is sucesfull: adds the newly created conversation to the corresponding users
+  function updateUsers (conversationId, newMessage) {
     const body = {
       userId: chatInformation.idMe,
       userId2: chatInformation.idOther,
@@ -144,31 +151,33 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
     { headers: { Authorization: `Bearer ${storedToken}`} }
     )
     .then( response => {
-      document.getElementById('write-message').value = '';
       chatInformation.idConversation = conversationId;
-      setFetchAgain(!fetchAgain);     
-      addConversationToList(chatInformation);
+      realTimeMessageLogic(newMessage, true); 
     } )
     .catch( error => {
       console.log(error)
     })
   }
 
+  function realTimeMessageLogic(newMessage, IsNewChat) {
+    document.getElementById('write-message').value = '';
+    setFetchAgain(!fetchAgain);
+    sortConversationsAgain( chatInformation.idConversation, new Date().toISOString(), IsNewChat, chatInformation)   
+    console.log("Other online?", isOtherOnline)
+    if (isOtherOnline) {
+      console.log("sending to socket")
+      sendMessageToSocket(newMessage);
+    } else {
+      console.log("sending notification")
+      sendNotification(newMessage)}
+  }
+
   function sendMessage(newMessage) {
     axios.put(`${import.meta.env.VITE_API_URL}/conversation/createMessage/${chatInformation.idConversation}`, newMessage,
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
-    .then( (response) => {
-      document.getElementById('write-message').value = '';
-      setFetchAgain(!fetchAgain);
-      sortConversationsAgain( chatInformation.idConversation, new Date().toISOString() )
-      console.log("Other online?", isOtherOnline)
-      if (isOtherOnline) {
-        console.log("sending to socket")
-        sendMessageToSocket(newMessage);
-      } else {
-        console.log("sending notification")
-        sendNotification(newMessage)}
+    .then( () => {
+      realTimeMessageLogic(newMessage, false)
     })
     .catch( error => {
       console.log(error)
@@ -182,6 +191,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, addConversat
       { headers: { Authorization: `Bearer ${storedToken}`} }
       )
     .then ( response => {
+
       console.log("Sending notification to socket")
       socket.emit('sendNotification', 
         {

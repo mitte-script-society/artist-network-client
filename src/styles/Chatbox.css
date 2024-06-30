@@ -1,13 +1,11 @@
 #chat-box {
-  position: absolute;
+  margin: auto auto;
+  margin-top: 20px;
   height: 500px;
   width: 300px;
-  left: 45%;
-  top: 10px;
-  border: 1px solid black;
   position: relative;
+  border: 1px solid black;
   border-radius: 20px;
-  padding-bottom: 60px;
 }
 
 .getting-messages {

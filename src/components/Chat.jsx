@@ -36,9 +36,10 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
   } ,[userInformation]);
 
   
-  function sortConversationsAgain(idChangedConversation, date) {
+  function sortConversationsAgain(idChangedConversation, date, isNewChat, newConversation) {
     //Frontend solution: changes the updated property of the conversations and resorts the AllConversations array.
     const newArray = [...allConversations];
+    if (isNewChat) {  newArray.push(newConversation)};
     const updatedConversationIndex = newArray.findIndex(element => element.idConversation === idChangedConversation);
     newArray[updatedConversationIndex].updated = date;      
     newArray.sort((a, b) => new Date(b.updated) - new Date(a.updated));
@@ -47,7 +48,6 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
   
   function addConversationToList (newElement) {
   const newArray = [... allConversations];
-  newArray.push(newElement);
   setAllConversations(newArray)
   } 
 
