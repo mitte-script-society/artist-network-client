@@ -1,5 +1,6 @@
 #search-bar-container{
   margin: 10px auto;
+  flex-basis: 100%;
 }
 
 #search-bar {

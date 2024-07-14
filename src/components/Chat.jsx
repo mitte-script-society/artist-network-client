@@ -154,24 +154,9 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
 
       <div className="chat-page">
 
-        {isSearch &&
-        <>
-
-          <div className="find-new-conversation flex">
-          <div id="search-bar-container">
-              <input onChange={handleSearch} id="search-bar" type='search' placeholder='Find an artist to chat with'/>
-          </div>
-            {arrayToShow.map((element, index) => {
-              return <div key={index} className="chat-list-row chat-partners" onClick={ () => createConversation(element._id, element.name, element.picture)}>
-              <img src={element.picture}/>{element.name}
-            </div>
-            })}
-          </div>
-          </>
-        }
-        <div className="conversations-list">
-          <h1 >My conversations</h1>
-          <div onClick={handleNewSearch} className="chat-list-row max-w: 20%">New conversation</div>
+        <div className="hidden conversations-list sm:block">
+          <h1 >Chats</h1>
+          <div onClick={handleNewSearch} className="chat-list-row max-w: 20% text-center">New Conversation</div>
           {allConversations.map( (element, index) => {
               return (
                 <div key={index} className={`chat-list-row ${element.notifications > 0 ? 'chat-notifications': ''}`} onClick={ () => handleSelectChat(index)}>
@@ -182,6 +167,36 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
             })
             }
         </div>
+        <div className="conversations-list-mobile sm:hidden">
+          <div onClick={handleNewSearch} className="chat-list-row max-w: 20% text-center">+</div>
+          {allConversations.map( (element, index) => {
+              return (
+                <div key={index} className={`chat-list-row ${element.notifications > 0 ? 'chat-notifications': ''}`} onClick={ () => handleSelectChat(index)}>
+                  <img src={element.picture}/>
+                  {element.notifications > 0 && <div className="notification-circle">{element.notifications}</div>}
+                </div>
+              )
+            })
+            }
+        </div>
+
+        {isSearch &&
+        <>
+
+          <div className="find-new-conversation flex">
+          <div id="partner-search-container">
+              <input onChange={handleSearch} id="partner-search-bar" type='search' placeholder='Find a user to chat'/>
+          </div>
+            <div className="find-partners">
+            {arrayToShow.map((element, index) => {
+              return <div key={index} className="chat-list-row chat-partners" onClick={ () => createConversation(element._id, element.name, element.picture)}>
+              <img src={element.picture}/>{element.name}
+            </div>
+            })}
+            </div>
+          </div>
+          </>
+        }
         
         { showingChatInfo !== null &&
           <Chatbox  setShowAlert={setShowAlert} chatInformation={showingChatInfo}

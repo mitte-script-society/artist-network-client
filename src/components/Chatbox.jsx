@@ -11,7 +11,7 @@ export default function Chatbox({ chatInformation, handleCloseChat, sortConversa
   const storedToken = localStorage.getItem("authToken");
   const [fetchAgain, setFetchAgain] = useState(false);
   const [typingEffect, setTypingEffect] = useState(false);
-  const lastMessages = 5;
+  const lastMessages = 30;
   const [isOtherOnline, setIsOtherOnline] = useState(false);
 
   useEffect(() => {
@@ -259,7 +259,7 @@ return (
 
           <form onSubmit={handleSendMessage} className="chat-write-space">
             <input type="text" id="write-message" placeholder="Type..." onChange={isTyping}/>
-            <button type="submit" id="send-message-button"> <img src={sendButton} /> </button>
+            {/* <button type="submit" id="send-message-button"> <img src={sendButton} /> </button> */}
           </form>
       </>
       }
