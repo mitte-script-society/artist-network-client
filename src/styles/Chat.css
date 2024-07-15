@@ -15,7 +15,7 @@
   height: fit-content;
   border-radius: 10px;
   background-color: rgb(31, 41, 55);
-  flex-grow: 1;
+  /* flex-grow: 1; */
   top: 90px;
   left: 20px;
   overflow-x: hidden;
