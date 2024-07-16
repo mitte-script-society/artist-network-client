@@ -187,7 +187,7 @@ export default function Chat({setShowAlert, setSendersArray, sendersArray, setCh
           <div id="partner-search-container">
               <input onChange={handleSearch} id="partner-search-bar" type='search' placeholder='Find a user to chat'/>
           </div>
-            <div className="find-partners">
+            <div className="find-partners grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {arrayToShow.map((element, index) => {
               return <div key={index} className="chat-list-row chat-partners" onClick={ () => createConversation(element._id, element.name, element.picture)}>
               <img src={element.picture}/>{element.name}

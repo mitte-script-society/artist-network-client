@@ -38,7 +38,7 @@ function MapView(props) {
 
   function ZoomPoint() {
     const map = useMap()
-    map.flyTo(closestMarker, 14)
+    map.flyTo(closestMarker, 13)
     return null
   }
 
