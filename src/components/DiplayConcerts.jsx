@@ -11,6 +11,7 @@ export default function DisplayConcerts({concertsArray, userInformation}) {
   const [genreFilters, setGenreFilters] = useState(concertsArray)
   const [genreFilter, setGenreFilter] = useState("all")
   const [locationFilter, setLocationFilter] = useState("all")
+  console.log(concertsArray)
 
 
   function triggerSearch(string) {
