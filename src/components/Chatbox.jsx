@@ -14,52 +14,71 @@ export default function Chatbox({ chatInformation, handleCloseChat, sortConversa
   const lastMessages = 30;
   const [isOtherOnline, setIsOtherOnline] = useState(false);
 
+
   useEffect(() => {
-    console.log(chatInformation.idConversation);
 
     if (chatInformation.idConversation === undefined) {
       console.log("idConversation empty, so we don´t run de useEffect")
       return
     }
 
-    console.log("Socket logic from useEffect")
-    socket.emit('join-chat', chatInformation.idConversation);
-    
-    const handleOtherJoined = () => {
-      console.log("Partner joined. Chaning user to true");
-      setIsOtherOnline(true);
-    };
-
-    const handleOtherLeft = () => {
-      console.log("Partner left. Changing to false");
-      setIsOtherOnline(false);
-    };
-
-    const handleNewMessage = () => {
+    const handleCheckOtherOnline = (originId) => {
+      console.log("Evento check-online recibido")
+      if (originId === chatInformation.idOther) {
+        console.log("Cambiando a true")
+        setIsOtherOnline(true);
+        console.log("Avisar de vuelta que sí estoy conectado");
+        socket.emit('other is online', chatInformation.idOther, chatInformation.idMe)
+      }
+    }
+  
+    const handleConfirmOtherOnline = (originId) => {
+      console.log("Recibo que el otro está en línea")
+      if (originId === chatInformation.idOther) {
+        console.log("Cambiando a true")
+        setIsOtherOnline(true);
+      }
+    }
+    const handleOtherLeftChat = (originId) => {
+      if (originId === chatInformation.idOther) {
+        console.log("El otro usuario se marchó. Cambiando a false")
+        setIsOtherOnline(false);
+      }
+    }
+  
+    const handleNewMessage = (originId) => {
+      if (originId === chatInformation.idOther) {
       console.log("Got message");
       setFetchAgain(prev => !prev);
+      }
     };
-
-    const handleUserTyping = () => {
-      timerTyping();
-    };
-
+  
+    const handleUserTyping = (originId) => {
+      if (originId === chatInformation.idOther) {
+        timerTyping();
+      }
+    }
+    
+    socket.emit('join-chat', chatInformation.idOther, chatInformation.idMe);
+    
     // Event Listeners
-    socket.on("other-joined", handleOtherJoined);
-    socket.on("other-left", handleOtherLeft);
+    socket.on("check-other-online", handleCheckOtherOnline);
+    socket.on("confirm other online", handleConfirmOtherOnline)
+    socket.on("other left chat", handleOtherLeftChat)
     socket.on('new message', handleNewMessage);
     socket.on('user typing', handleUserTyping);
 
     // Cleaning events and leaving-chat
     return () => {
       console.log("executing leave-chat and clean events");
-      socket.emit('leave-chat', chatInformation.idConversation);
-      socket.off("other-joined", handleOtherJoined);
-      socket.off("other-left", handleOtherLeft);
+      socket.emit('leave-chat', chatInformation.idOther, chatInformation.idMe);
+      socket.off("check-other-online", handleCheckOtherOnline);
+      socket.off("confirm other online", handleConfirmOtherOnline)
+      socket.off("other left chat", handleOtherLeftChat)
       socket.off('new message', handleNewMessage);
       socket.off('user typing', handleUserTyping);
     };
-  }, [chatInformation.idConversation, socket]);
+  }, [ chatInformation.idConversation, socket, chatInformation.idMe, chatInformation.idOther]);
 
   function timerTyping() {
     setTypingEffect(true)
@@ -70,12 +89,11 @@ export default function Chatbox({ chatInformation, handleCloseChat, sortConversa
   }
 
   function isTyping() {
-    socket.emit('user typing', chatInformation.idConversation)
+    socket.emit('user typing', chatInformation.idOther, chatInformation.idMe)
   }
 
   function sendMessageToSocket (newMessage) {
-    const destiny = chatInformation.idConversation        
-    socket.emit('new message', {destiny, newMessage})
+    socket.emit('new message', chatInformation.idOther, chatInformation.idMe)
   } 
 
   useEffect( () => {
