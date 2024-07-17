@@ -179,39 +179,54 @@ function Navbar({showAlert, changeInNotifications}) {
         <div className="space-y-1 px-2 pb-3 pt-2">
           {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
           <NavLink
-                  to="/"
-                  className={({ isActive }) =>
+              onClick={() => setHideMobileMenu(true)}
+              to="/"
+              className={({ isActive }) =>
                     isActive
                       ? "bg-pink-800 text-white block rounded-md px-3 py-2 text-base font-medium"
                       : "text-gray-300 hover:bg-pink-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                   }
                   aria-current="page">Find Concerts
           </NavLink>
-          <NavLink to="/see-artists" className={({ isActive }) =>
+          <NavLink
+                onClick={() => setHideMobileMenu(true)}
+                to="/see-artists" className={({ isActive }) =>
                   isActive ? "bg-pink-800 text-white block rounded-md px-3 py-2 text-base font-medium"
                     : "text-gray-300 hover:bg-pink-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                 }>Find Artists
           </NavLink>
           {!isLoggedIn && //Display either About-Log in-Sign Up or My Dashboard  
                   <>
-          <NavLink onClick={handleCallLogin}
+          <NavLink 
+            onClick={() => {
+              handleCallLogin()
+              setHideMobileMenu(true)
+              }
+              }
+ 
             className="text-gray-300 hover:bg-pink-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
             Log In
           </NavLink>
 
-          <NavLink to="/signup" className={({ isActive }) =>
+          <NavLink
+            onClick={() => setHideMobileMenu(true)}
+            to="/signup" className={({ isActive }) =>
             isActive ? "bg-pink-800 text-white block rounded-md px-3 py-2 text-base font-medium"
               : "text-gray-300 hover:bg-pink-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           }> Sign Up </NavLink>
         </>}
         {isLoggedIn &&
         <>
-          <NavLink to="/user" className={({ isActive }) =>
+          <NavLink
+            onClick={() => setHideMobileMenu(true)}
+            to="/user" className={({ isActive }) =>
             isActive ? "bg-pink-800 text-white block rounded-md px-3 py-2 text-base font-medium"
               : "text-gray-300 hover:bg-pink-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           }>My Dashboard</NavLink>
 
-          <NavLink to="/chat" className={({ isActive }) =>
+          <NavLink
+            onClick={() => setHideMobileMenu(true)}
+            to="/chat" className={({ isActive }) =>
             isActive ? "bg-pink-800 text-white block rounded-md px-3 py-2 text-base font-medium"
               : "text-gray-300 hover:bg-pink-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
           }>Chat</NavLink>
